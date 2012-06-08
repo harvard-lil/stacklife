@@ -1,0 +1,18 @@
+<project name="ShelfLife" default="build">
+<!--Needed for antcontrib-->
+<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+<!-- Flesh this out -- >
+<target name="build">
+    <property name="BUILD-LC-KEY" value=""/>
+    <echo message="Injecting LC Key : ${LC-KEY}"/>
+    <propertyregex property="destinationProperty" input="${sourceProperty}" regexp="BUILD-LC-KEY" select="\1" casesensitive="false" />
+</target>
+
+<target name="build">
+    <property name="BUILD-GA-KEY" value=""/>
+    <echo message="Injecting BUILD-GA-KEY Key : ${BUILD-GA-KEY}"/>
+    <propertyregex property="destinationProperty" input="${sourceProperty}" regexp="BUILD-GA-KEY" select="\1" casesensitive="false" />
+</target>
+
+</project>
