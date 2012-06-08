@@ -1,0 +1,158 @@
+Installing: 
+
+If installing ShelfLife for the first time, the ShelfLife repository on hlsl7 should be cloned:
+---------
+The LIL origin repos can be found at hlsl7.law.harvard.edu:/opt/repos/shelflife and hlsl7.law.harvard.edu:/opt/repos/librarycloud
+
+Each developer/installation engineer should clone these repositories into their local environments:
+
+git clone matt@hlsl7.law.harvard.edu:/opt/repos/librarycloud librarycloud
+
+cd librarycloud
+git checkout tag_name
+---------
+
+If an existing installtion of ShelfLife exists and needs to be updated to the 
+latest release, a git pull approach should be used:
+---------
+cd shelflife
+git fetch --tags
+git checkout tag_name
+---------
+
+
+Developing:
+
+---------
+Overview:
+The following guidelines attempt to formalize git usage in the Harvard Libary Innovation Lab (LIL) and are based on Vincent Driessen's, A Successful Git Branching Model blog post, http://nvie.com/posts/a-successful-git-branching-model/
+
+Git is a decentralized version control system and can be used in a purely decentralized manner, but in many development groups it makes sense to have a centralized repository. We'll take that approach and call our centralized repo "origin."
+
+The existence of origin should not dissuade collaborators from merging repos outside of the origin (a decentralized approach).
+
+Below, we'll walk through the basics of setting up and using git. We won't walk through every detail, but rather hit on the main points of working in a git environment. See the appendix and resources section for details.
+Git repos:
+The LIL origin repos can be found at hlsl7.law.harvard.edu:/opt/repos/shelflife and hlsl7.law.harvard.edu:/opt/repos/librarycloud
+
+Each developer should clone these repositories into their local development environments:
+
+git clone matt@hlsl7.law.harvard.edu:/opt/repos/librarycloud librarycloud
+
+Since all development work should be done in the develop branch (more about this in a bit), let's check it out too:
+
+cd librarycloud
+git branch --track develop origin/develop
+git checkout develop
+Infinite time span branches:
+Repos should always have two branches: develop and master. develop is the current working branch and master is the latest production branch. That is, develop houses the current feature and bug fixing work while master is always the last release (this should be true on origin and in each developer's repo).
+Finite time span branches:
+Most non-trivial chunks of work should probably be done in a feature branch. This will help isolate merging activities and modularize development tasks. Feature branches will usually branch from the develop branch:
+
+git checkout -b develop.add_drop_down_box
+do work to add drop down box
+git add -i
+git commit
+
+Your feature branch will now be a commit ahead of develop and will need to be merged back in and then pushed back to origin:
+
+git checkout develop
+git merge develop.add_drop_down_box
+git push
+
+If it's been a while since you last synced with origin, you might want to pull before you merge (to isolate any merging nastiness):
+
+git checkout develop
+git pull origin
+
+If changes were pulled, merge those into your feature branch, then roll that into develop and push back to origin:
+
+git checkout dev.add_drop_down_box
+git merge develop
+resolve any conflicts, add, and commit
+git checkout develop
+git merge dev.add_drop_down_box
+git push
+
+The above should encapsulate almost all interactions a developer has with git. Below we examine some interactions a person administering the development group's origin instance might use.
+Preparing a release:
+After all members of the team have pushed their changes back to origin for a given release, it's time roll the develop branch into a release branch (a place where we can bump version numbers and do any minor tweaks needed for release):
+
+git checkout develop
+git pull
+git checkout -b release.v.2
+update version numbers, minor tweaks
+git add -i
+git commit
+
+Great. Now we have our release ready. Let's make it our master and tag it so that we can find it easily in the future:
+git checkout master
+git merge release.v.2
+git tag -a .2
+git push --tags
+
+
+Celebrate! Our release is out. Let's merge any changes we made in our release branch back into develop.
+
+git checkout develop
+git merge master
+git branch -d release.v.2
+Installing the latest release on the production machine:
+If this is the first time we're setting up the production machine, we should go through the git clone steps outlined in "Git repos" section above. After our repo has been setup, we'll simply check out our tag:
+
+git pull
+git checkout .2
+Appendix:
+Create a new origin (bare repository):
+
+Create the directory structure and initialize a bare repo:
+
+cd /opt
+sudo mkdir repos/librarycloud
+cd repos/librarycloud
+git --bare init
+
+Push existing code to the newly created, bare repo:
+git push /opt/repos/librarycloud/ master
+git push origin HEAD:develop
+Create SSH keys (so that you don't have to enter your password for pull/push):
+Have you already generated a key pair?
+ls ~/.ssh
+
+If  you don't see something that looks like a set of keys (the names could be id_rsa and id_rsa.pub), create a set (hit enter when prompted for a password):
+
+ssh-keygen -t rsa
+ls ~/.ssh/
+config		id_rsa		id_rsa.pub	known_hosts
+
+Now you have a set of keys. Let's configure your ssh target. Note, below we use the ssh-keygen program to create the .ssh folder, we don't need the keys:
+
+ssh matt@hlsl8.law.harvard.edu
+ssh-keygen -t rsa
+cd .ssh
+rm * 
+
+The structure is in place, log out of your target machine and scp your public key over:
+
+exit
+scp ~/.ssh/id_rsa.pub matt@hlsl8.law.harvard.edu:.ssh/authorized_keys2
+ssh matt@hlsl8   (you shouldn't need to enter  a password)
+Set your profile to include the git branch name when you're in a git directory:
+vi ~/.profile
+paste the following:
+
+function parse_git_dirty {
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+}
+
+export PS1='\u@\h \w$(parse_git_branch)$ '
+
+
+Resources:
+Git working flow: http://nvie.com/posts/a-successful-git-branching-model/
+A guide to basic usage: http://cworth.org/hgbook-git/tour/
+Everyday Git with 20 commands or so: http://www.kernel.org/pub/software/scm/git/docs/everyday.html
+---------

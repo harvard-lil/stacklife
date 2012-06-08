@@ -1,0 +1,227 @@
+/*
+ShelfLife DropDown Theme, thanks to jQuery
+*/
+
+
+/* Component containers
+----------------------------------*/
+.ui-widget { 
+	font-family:"Helvetica Neue", sans-serif; 
+	color:#333;
+	font-size: .75em;
+	-moz-box-shadow: 0px 0px 1px #ddd;
+   -webkit-box-shadow: 0px 0px 1px #ddd;
+   -ms-box-shadow: 0px 0px 1px #ddd;
+   -o-box-shadow: 0px 0px 1px #ddd;
+    box-shadow: 0px 0px 1px #ddd;
+	padding:0;
+}
+
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { 
+	font-family:"Helvetica Neue", sans-serif;
+}
+
+.ui-widget-content { 
+	border-color: #99d6ff #77c9ff #33adff;
+	border-style: solid;
+	border-width: 1px;/*{borderColorContent}*/; 
+	background: #ffffff; 
+	color:#333;
+	-moz-box-shadow: 0px 0px 1px #ddd;
+   -webkit-box-shadow: 0px 0px 1px #ddd;
+   -ms-box-shadow: 0px 0px 1px #ddd;
+   -o-box-shadow: 0px 0px 1px #ddd;
+    box-shadow: 0px 0px 1px #ddd;
+}
+
+.ui-widget-content a { 
+	color:#333;
+	
+}
+
+.ui-dialog-content p, .ui-dialog-content label {
+	font-size:1em;
+}
+
+/* Interaction states
+----------------------------------*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	border-color: #99d6ff #77c9ff #33adff;
+	border-style: solid;
+	border-width: 1px;
+	background: #ffffff;  
+	color:#333;
+}
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { 
+	color: #555555; 
+	text-decoration: none; 
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { 
+	border-color: #5bf #09f #007acc;
+	background: #fefefe;
+	color: #000; 
+}
+
+.ui-state-hover a, .ui-state-hover a:hover { 
+	color: #000; 
+	text-decoration: none; 
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	border: 1px solid #09f; 
+	background: #ffffff; 
+	color: #000; 
+}
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon { width: 16px; height: 16px; background-image: url(../images/ui-icons_222222_256x240.png)/*{iconsContent}*/; }
+.ui-widget-content .ui-icon {background-image: url(../images/ui-icons_222222_256x240.png)/*{iconsContent}*/; }
+.ui-widget-header .ui-icon {background-image: url(../images/ui-icons_222222_256x240.png)/*{iconsHeader}*/; }
+.ui-state-default .ui-icon { background-image: url(../images/ui-icons_888888_256x240.png)/*{iconsDefault}*/; }
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(../images/ui-icons_454545_256x240.png)/*{iconsHover}*/; }
+.ui-state-active .ui-icon {background-image: url(../images/ui-icons_454545_256x240.png)/*{iconsActive}*/; }
+.ui-state-highlight .ui-icon {background-image: url(../images/ui-icons_2e83ff_256x240.png)/*{iconsHighlight}*/; }
+.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(../images/ui-icons_cd0a0a_256x240.png)/*{iconsError}*/; }
+
+/* positioning */
+
+.ui-icon-triangle-1-ne { background-position: -16px -16px; }
+.ui-icon-triangle-1-e { background-position: -32px -16px; }
+.ui-icon-triangle-1-se { background-position: -48px -16px; }
+.ui-icon-triangle-1-s { background-position: -64px -16px; }
+.ui-icon-triangle-1-sw { background-position: -80px -16px; }
+.ui-icon-triangle-1-w { background-position: -96px -16px; }
+.ui-icon-triangle-1-nw { background-position: -112px -16px; }
+.ui-icon-triangle-2-n-s { background-position: -128px -16px; }
+.ui-icon-triangle-2-e-w { background-position: -144px -16px; }
+
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Corner radius */
+.ui-corner-tl { -moz-border-radius-topleft: 2px/*{cornerRadius}*/; -webkit-border-top-left-radius: 2px/*{cornerRadius}*/; border-top-left-radius: 2px/*{cornerRadius}*/; }
+.ui-corner-tr { -moz-border-radius-topright: 2px/*{cornerRadius}*/; -webkit-border-top-right-radius: 2px/*{cornerRadius}*/; border-top-right-radius: 2px/*{cornerRadius}*/; }
+.ui-corner-bl { -moz-border-radius-bottomleft: 2px/*{cornerRadius}*/; -webkit-border-bottom-left-radius: 2px/*{cornerRadius}*/; border-bottom-left-radius: 2px/*{cornerRadius}*/; }
+.ui-corner-br { -moz-border-radius-bottomright: 2px/*{cornerRadius}*/; -webkit-border-bottom-right-radius: 2px/*{cornerRadius}*/; border-bottom-right-radius: 2px/*{cornerRadius}*/; }
+.ui-corner-top { -moz-border-radius-topleft: 2px/*{cornerRadius}*/; -webkit-border-top-left-radius: 2px/*{cornerRadius}*/; border-top-left-radius: 2px/*{cornerRadius}*/; -moz-border-radius-topright: 2px/*{cornerRadius}*/; -webkit-border-top-right-radius: 2px/*{cornerRadius}*/; border-top-right-radius: 2px/*{cornerRadius}*/; }
+.ui-corner-bottom { -moz-border-radius-bottomleft: 2px/*{cornerRadius}*/; -webkit-border-bottom-left-radius: 2px/*{cornerRadius}*/; border-bottom-left-radius: 2px/*{cornerRadius}*/; -moz-border-radius-bottomright: 2px/*{cornerRadius}*/; -webkit-border-bottom-right-radius: 2px/*{cornerRadius}*/; border-bottom-right-radius: 2px/*{cornerRadius}*/; }
+.ui-corner-right {  -moz-border-radius-topright: 2px/*{cornerRadius}*/; -webkit-border-top-right-radius: 2px/*{cornerRadius}*/; border-top-right-radius: 2px/*{cornerRadius}*/; -moz-border-radius-bottomright: 2px/*{cornerRadius}*/; -webkit-border-bottom-right-radius: 2px/*{cornerRadius}*/; border-bottom-right-radius: 2px/*{cornerRadius}*/; }
+.ui-corner-left { -moz-border-radius-topleft: 2px/*{cornerRadius}*/; -webkit-border-top-left-radius: 2px/*{cornerRadius}*/; border-top-left-radius: 2px/*{cornerRadius}*/; -moz-border-radius-bottomleft: 2px/*{cornerRadius}*/; -webkit-border-bottom-left-radius: 2px/*{cornerRadius}*/; border-bottom-left-radius: 2px/*{cornerRadius}*/; }
+.ui-corner-all { -moz-border-radius: 2px/*{cornerRadius}*/; -webkit-border-radius: 2px/*{cornerRadius}*/; border-radius: 2px/*{cornerRadius}*/; }
+
+
+/* Selectmenu
+----------------------------------*/
+.ui-selectmenu {
+    display: block;
+    display: inline-block;
+    position: relative;
+    height: 1.3em;
+    vertical-align: middle;
+    text-decoration: none;
+    overflow: hidden;
+    zoom: 1;
+}
+
+.ui-selectmenu:hover{
+	border-color: #5bf #09f #007acc;
+
+}
+
+.ui-selectmenu-icon {
+    position: absolute;
+    right: 6px;
+    margin-top: -8px;
+    top: 50%;
+}
+.ui-selectmenu-menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: absolute;
+    top: 0;
+    display: none;
+    overflow: auto;
+    z-index: 1005;
+} /* z-index: 1005 to make selectmenu work with dialog */
+.ui-selectmenu-open { display: block }
+.ui-selectmenu-menu-popup { margin-top: -1px }
+.ui-selectmenu-menu-dropdown { }
+.ui-selectmenu-menu li {
+    padding: 0;
+    margin: 0;
+    display: block;
+    border-top: 1px dotted transparent;
+    border-bottom: 1px dotted transparent;
+    border-right-width: 0 !important;
+    border-left-width: 0 !important;
+    font-weight: normal !important;
+}
+.ui-selectmenu-menu li a,
+.ui-selectmenu-status {
+    line-height: 1em;
+    display: block;
+    padding: .405em 1em;
+    outline: none;
+    text-decoration: none;
+}
+.ui-selectmenu-menu li.ui-state-disabled a,
+.ui-state-disabled { cursor: default }
+.ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
+.ui-selectmenu-hasIcon .ui-selectmenu-status {
+    padding-left: 20px;
+    position: relative;
+    margin-left: 5px;
+}
+.ui-selectmenu-menu li .ui-icon,
+.ui-selectmenu-status .ui-icon {
+    position: absolute;
+    top: 1em;
+    margin-top: -8px;
+    left: 0;
+}
+.ui-selectmenu-status { 
+	line-height: 1em;
+	margin-top:-.3em;
+}
+.ui-selectmenu-open li.ui-selectmenu-item-focus a { }
+.ui-selectmenu-open li.ui-selectmenu-item-selected { }
+.ui-selectmenu-menu li span,
+.ui-selectmenu-status span {
+    display: block;
+    margin-bottom: .3em;
+    margin-left:-.6em;
+}
+.ui-selectmenu-menu li .ui-selectmenu-item-header { font-weight: bold }
+.ui-selectmenu-menu li .ui-selectmenu-item-content { }
+.ui-selectmenu-menu li .ui-selectmenu-item-footer { opacity: .8 }
+/* for optgroups */
+.ui-selectmenu-menu .ui-selectmenu-group { font-size: 1em }
+.ui-selectmenu-menu .ui-selectmenu-group .ui-selectmenu-group-label {
+    line-height: 1em;
+    display: block;
+    padding: .6em .5em 0;
+    font-weight: bold;
+}
+.ui-selectmenu-menu .ui-selectmenu-group ul {
+    margin: 0;
+    padding: 0;
+}
+/* IE6 workaround (dotted transparent borders) */
+* html .ui-selectmenu-menu li {
+    border-color: pink;
+    filter: chroma(color=pink);
+    width: 100%;
+}
+* html .ui-selectmenu-menu li a { position: relative }
+/* IE7 workaround (opacity disabled) */
+*+html .ui-state-disabled,
+*+html .ui-state-disabled a { color: silver }
+

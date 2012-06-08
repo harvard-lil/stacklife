@@ -1,0 +1,109 @@
+/*
+* jQuery UI CSS Framework
+* Copyright (c) 2009 AUTHORS.txt (http://jqueryui.com/about)
+* Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
+*/
+
+/* Layout helpers
+----------------------------------*/
+.ui-helper-hidden { display: none; }
+.ui-helper-hidden-accessible { position: absolute; left: -99999999px; }
+.ui-helper-reset { margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none; }
+.ui-helper-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.ui-helper-clearfix { display: inline-block; }
+/* required comment for clearfix to work in Opera \*/
+* html .ui-helper-clearfix { height:1%; }
+.ui-helper-clearfix { display:block; }
+/* end clearfix */
+.ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-disabled { cursor: default !important; }
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.ui-widget-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+
+/* Component containers
+----------------------------------*/
+
+.ui-widget textarea{
+	background:#fff;
+}
+.ui-widget-content { 
+	color: #222222; 
+}
+.ui-widget-content a { 
+	color: #222222; 
+}
+.ui-widget-header { 
+	border: 1px solid #4297d7; 
+	font-weight: bold; 
+}
+.ui-widget-header a { 
+	color: #ffffff; 
+}
+
+.ui-slider-tooltip {
+	background:#fff;
+}
+/* Interaction states
+----------------------------------*/
+ .ui-widget-content .ui-state-default { 
+	border: 1px solid #a40; 
+	background: #f60; 
+	outline: none; 
+}
+ .ui-state-default a:link, .ui-state-default a:visited { 
+		border: 1px solid #050; 
+	background: #0c0; 
+	outline: none;  
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover:hover, .ui-state-focus:hover, .ui-widget-content .ui-state-focus .ui-widget-content .ui-state-focus:hover{ 
+border: 1px solid #050; 
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active { 
+	border-color: #5bf #09f #007acc;
+	color: #000; 
+}
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { 
+	border-color: #5bf #09f #007acc;
+	background: #fefefe;
+	color: #000; 
+}
+
+/* Interaction Cues
+----------------------------------*/
+
+
+
+.ui-slider { position: relative; text-align: left; z-index: 10; }
+.ui-slider .ui-slider-handle { position: absolute; margin-top:2px; z-index: 10; width: 16px; height: 18px; cursor: default; }
+.ul-slider 
+.ui-slider .ui-slider-range { position: absolute; z-index: 10; font-size: .7em; display: block; border: 0; }
+
+.ui-slider-horizontal { height:0em; width: 95%; border:0px}
+.ui-slider-horizontal .ui-slider-handle { top: -3px; margin-left: -.6em;}
+.ui-slider-horizontal .ui-slider-range { top: 0; height: 100%;  border:0px}
+.ui-slider-horizontal .ui-slider-range-min { left: 0;}
+.ui-slider-horizontal .ui-slider-range-max { right: 0;}
+
+.ui-slider-vertical { width: .8em; height: 100px; }
+.ui-slider-vertical .ui-slider-handle { left: -.3em; margin-left: 0; margin-bottom: -.6em; }
+.ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
+.ui-slider-vertical .ui-slider-range-min { bottom: 0; }
+.ui-slider-vertical .ui-slider-range-max { top: 0; }/* Tabs

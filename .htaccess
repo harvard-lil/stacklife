@@ -1,0 +1,33 @@
+RewriteEngine On
+
+# We do fancy stuff with the requested book title and author name here
+# RewriteRule ^book+/[^/]+/([0-9]+)$ src/web/book.php?hollis_id=$1 [L,NC,QSA]
+RewriteRule ^book+/[^/]+/([^/]+)$ src/web/book.php?id=$1 [L,NC,QSA] 
+RewriteRule ^author+/([^/]+)$ src\/web\/author.php?author=$1 [L,NC,QSA]
+
+# If the user didn't request a page, just asked for the root, serve up index
+RewriteRule ^$ src\/web\/index.php [L,NC,QSA]
+
+# If the user didn't request a page, but something in a web subdir, serve here
+RewriteRule ^css/(.*)$ src\/web\/css\/$1 [L,NC,QSA]
+RewriteRule ^images/(.*)$ src\/web\/images\/$1 [L,NC,QSA]
+RewriteRule ^js/(.*)$ src\/web\/js\/$1 [L,NC,QSA]
+
+# If the user requested a specific page, serve it up here
+RewriteRule ^([^/]+)\/?$ src\/web\/$1 [L,NC,QSA]
+
+RewriteCond %{HTTP:Accept-Encoding} gzip
+RewriteCond %{REQUEST_FILENAME}.jgz -f
+RewriteRule (.*)\.js$ $1\.js.jgz [L]
+AddType "text/javascript" .js.jgz
+AddEncoding gzip .jgz
+
+AddType video/ogg .ogv
+AddType video/mp4 .mp4
+AddType video/webm .webm
+#<FilesMatch "^(search_results|book|author)\.php$">
+#AuthName "ShelfLife is currently beta mode."
+#AuthType Basic
+#AuthUserFile betapasswords
+#Require valid-user
+#</FilesMatch>

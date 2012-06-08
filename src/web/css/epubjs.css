@@ -1,0 +1,439 @@
+.clear { display: inline-block;
+}   
+.clear:after, .book:after {
+  content: "."; 
+  display: block; 
+  height: 0; 
+  clear: both; 
+  visibility: hidden;
+}
+* html .clear { height: 1%; }
+.clear { display: block; }
+
+#bookWrap{	
+	width: 90%;
+	height: 875px;
+	overflow: hidden;	
+	padding: 40px 20px 20px 20px;
+	margin: 10px 0;
+	position: relative;
+	border: 1px dotted rgb(210,210,210);	
+}	
+#book {
+	width:100%;
+	height:100%;
+	background-color: white;
+	position: relative;
+	z-index:10;
+}
+
+
+
+
+
+
+
+
+
+
+
+#bookWrap .navi {
+	margin: 0px 3px 0 0px;
+	width: auto;
+	display: inline;
+	height: 14px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 20;
+}
+
+#bookWrap .navi ul {
+width:100%;
+}
+#bookWrap .navi ul li {
+	display: inline-block;
+	height: 14px;
+	width: 14px;
+}
+#bookWrap .navi ul li a {
+	display: block;
+	height: 14px;
+	width: 14px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	text-decoration:none;
+	border: none;
+}
+#bookWrap .navi ul li a:hover {
+
+}
+#bookWrap .navi ul li a:focus {
+
+}
+#bookWrap .navi ul li a span {
+	visibility: hidden;
+}
+
+#bookWrap #prevc {
+	background: transparent url('start/images/ui-icons_888888_256x240.png') -242px -50px no-repeat;
+}
+#bookWrap #prevp {
+	background: transparent url('start/images/ui-icons_888888_256x240.png') -98px -51px no-repeat;
+}
+#bookWrap #nextp {
+	background: transparent url('start/images/ui-icons_888888_256x240.png') -33px -51px no-repeat;
+}
+#bookWrap #nextc {
+	background: transparent url('start/images/ui-icons_888888_256x240.png') -209px -50px no-repeat;
+}
+#bookWrap #fulls {
+	background: transparent url('start/images/ui-icons_888888_256x240.png') -49px -82px no-repeat;
+}
+
+#bookWrap #shortcut_info{
+	background: transparent url('start/images/ui-icons_888888_256x240.png') -130px -131px no-repeat;
+}
+
+#toc-container {
+	position: absolute;
+	top: 0;
+	width: 150px;
+	font-size: x-small;
+	background-color: rgba(239, 239, 239, 0.8);
+	border: 1px solid #DDD;
+	-ms-transition: left 1s ease;
+	-o-transition: left 1s ease;
+	-moz-transition: left 1s ease;
+	-webkit-transition: left 1s ease;
+	transition: left 1s ease;
+	z-index: 33;
+}
+
+#toc-container.close {
+	left: -150px;
+}
+
+#toc-container.open {
+	left: 0px;
+}
+
+
+
+#bookWrap #toc-toggle {
+	background: rgba(239, 239, 239, 0.8) url('start/images/ui-icons_888888_256x240.png') -226px -98px no-repeat;
+	height: 14px;
+	width: 14px;
+	position: absolute;
+	top: 10px;
+	right: -14px;
+	border: 1px solid #DDD;
+	border-left: none;
+	border-radius: 0px 5px 5px 0px;
+}
+
+h1 {
+	line-height: 1em;
+}
+
+#toc {
+	list-style-type: none;
+	margin: 0;
+	padding: 1em 1em 10em 1em;
+}
+.toc-listings {
+	margin: 1px;
+	padding-bottom: 3px;
+	font-size: 9px;
+}
+
+#bookcontent{
+	width: 100%;
+	padding-right: 0;
+	padding-left:  0;
+	-ms-transition: width 1s ease;
+	-o-transition: width 1s ease;
+	-moz-transition: width 1s ease;
+	-webkit-transition: width 1s ease;
+	transition: width 1s ease;	
+}
+#book #book_title {
+	margin: 0;
+	-ms-transition: width 1s ease;
+	-o-transition: width 1s ease;
+	-moz-transition: width 1s ease;
+	-webkit-transition: width 1s ease;
+	transition: width 1s ease;	
+}
+#total-size {
+	width: 500px;
+	height: 20px;
+	margin-left: 50px;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	border: 1px solid black;
+	background-image: -moz-linear-gradient(top,rgb(191,191,191),rgb(217,217,217) 10%,rgb(242,242,242) 88%,rgb(247,247,247) 97%,rgb(252,252,252));
+	background-image: -webkit-gradient(linear,center top,center bottom,from(rgb(191,191,191)),to(rgb(252,252,252)),color-stop(10%,rgb(217,217,217)),color-stop(88%,rgb(242,242,242)),color-stop(97%,rgb(247,247,247)));
+	box-shadow: 0 1px 0 white,inset 0 1px 7px rgba(0,0,0,0.4);
+	border: 1px solid rgb(0, 105, 0);
+	border-radius: 2px;
+	clear: right;
+	over-flow: hidden;
+	-ms-transition: width 1s ease;
+	-o-transition: width 1s ease;
+	-moz-transition: width 1s ease;
+	-webkit-transition: width 1s ease;
+	transition: width 1s ease;	
+}
+#remaining {
+	background-image: -moz-linear-gradient(top, #00e823, #147a1e);
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#00e823), to(#147a1e));
+	box-shadow: 0 3px 4px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.5);
+
+	height: 20px;
+	width: 0;
+	border-radius: 2px;
+}
+#bookWrap .info{
+	top:5px; 
+	position:absolute;
+	right:20px;
+	display: none;
+	padding:5px 10px;
+	background:rgba(0,0,0,0.2);
+	border:1px solid rgba(0,0,0,0.1);
+	z-index: 100;
+}
+#bookWrap .info p {
+	margin: 0;
+	text-align: center;
+	color:#777;
+	font-size: 10px;
+	margin: 0;
+	padding: 0;
+}
+
+#bookWrap .info p a{
+	border:1px solid #777;
+	padding:2px 4px;
+	text-decoration: none;
+	color:#777;
+	margin:3px;
+}
+
+.indent {
+	padding-left: 1em;
+}
+
+
+
+
+
+.fullscreen {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  margin: 0;
+  padding: 0;
+  background: inherit;
+}
+
+#jumpIn.fullscreen{}
+	
+#jumpIn.fullscreen #bookWrap{
+	width: 100%;
+	height:100%;
+	overflow: hidden;
+	background-color: white;
+	position: relative;
+	margin: auto;
+	padding: 0;	
+	-ms-transition: width 1s ease;
+	-o-transition: width 1s ease;
+	-moz-transition: width 1s ease;
+	-webkit-transition: width 1s ease;
+	transition: width 1s ease;	
+}
+
+
+
+
+
+
+
+
+#jumpIn.fullscreen #toc-container {
+	top: 0;
+	width: 150px;
+	font-size: x-small;
+	background-color: rgba(239, 239, 239, 0.8);
+	border: 1px solid #DDD;
+	-ms-transition: left 1s ease;
+	-o-transition: left 1s ease;
+	-moz-transition: left 1s ease;
+	-webkit-transition: left 1s ease;
+	transition: left 1s ease;
+	
+}
+
+
+#jumpIn.fullscreen #toc-container.open {
+	left: 0px;
+	position: relative;
+	float: left;
+}
+
+#jumpIn.fullscreen #toc-container.close {
+	left: -150px;
+}
+
+#jumpIn.fullscreen #total-size{
+	width: 90%;
+	height: 20px;
+	margin: 40px auto;
+}	
+
+#jumpIn.fullscreen #bookcontent{
+	width: 100%;
+	padding-right: 0;
+	padding-left: 0;
+	margin: 13px auto;
+	-ms-transition: width 1s ease;
+	-o-transition: width 1s ease;
+	-moz-transition: width 1s ease;
+	-webkit-transition: width 1s ease;
+	transition: width 1s ease;	
+}
+
+#jumpIn.fullscreen #bookcontent.toc-on{
+	width: 85%;
+	padding-right: 1em;
+	padding-left: 1em;
+	margin: 13px auto;
+	float: left;
+	display: inline;
+
+}
+
+#jumpIn.fullscreen #total-size.toc-on {
+	width: 55%;
+}
+
+#jumpIn.fullscreen #book_title{
+	margin: 0px 38px;
+	width:90%;
+	-ms-transition: width 1s ease;
+	-o-transition: width 1s ease;
+	-moz-transition: width 1s ease;
+	-webkit-transition: width 1s ease;
+	transition: width 1s ease;	
+}
+
+#jumpIn.fullscreen #book_title.toc-on {
+	margin:20px 41px 20px 181px;
+	width:55%;
+	display: block;
+	clear: right;	
+	
+}
+
+#jumpIn.fullscreen .chapter h2{
+	padding: 20px;
+	display: block;
+	-ms-transition: width 1s ease;
+	-o-transition: width 1s ease;
+	-moz-transition: width 1s ease;
+	-webkit-transition: width 1s ease;
+	transition: width 1s ease;	
+}
+
+
+.video-js-box {
+	margin-top: 100px;
+}
+
+
+
+.audiojs{
+	margin: 100px 50% 0 11%;
+}
+
+.viewread{
+	width:75px;
+}
+
+.viewaudio{
+	width:75px;
+}
+
+.viewvideo{
+	width:75px;
+}
+
+
+.chapter p:first-child{
+	display:block;
+	margin-top:20px;
+}
+
+
+
+
+/* Print styles
+---------------------------------------- */
+
+/* Print styles inlined to avoid extra HTTP connection */
+
+@media print {
+	* {
+		background: transparent !important;
+		color: black !important; /* Black prints faster: sanbeiji.com/archives/953 */
+		text-shadow: none !important;
+		filter: none !important;
+		-ms-filter: none !important;
+	}
+
+	a, a:visited {
+		text-decoration: underline;
+	}
+
+	a[href]:after {
+		content: " (" attr(href) ")";
+	}
+
+	abbr[title]:after {
+		content: " (" attr(title) ")";
+	}
+
+	/* Do not show javascript and internal links */
+	a[href^="javascript:"]:after, a[href^="#"]:after {
+		content: ""; 
+	}
+
+	/* Printing Tables: css-discuss.incutio.com/wiki/Printing_Tables */
+	thead {
+		display: table-header-group;
+	}
+
+	tr, img {
+		page-break-inside: avoid;
+	}
+
+	@page {
+		margin: 0.5cm;
+	}
+
+	p, h2, h3 {
+		orphans: 3;
+		widows: 3;
+	}
+
+	h2, h3 {
+		page-break-after: avoid;
+	}
+}
