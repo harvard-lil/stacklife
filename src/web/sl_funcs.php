@@ -1,6 +1,6 @@
 <?php	
 
-require_once('../../sl_ini.php');
+require_once('../../etc/sl_ini.php');
 
 if(isset($_REQUEST['function']) && $_REQUEST['function'] != '')
 	call_user_func($_REQUEST['function']);
@@ -495,57 +495,6 @@ function amazon_recommendations()
    	}
 }
 
-function fetch_reviews()
-{
-	connect_db();
-	
-	$uid = $_REQUEST['uid'];
-	$callback = $_REQUEST['callback'];
-	$json = array();
-	
-	$review_fields = array('review_id','rating','headline','date','user','review', 'recommended_count','tags');
-	
-	$avg_query  = "SELECT AVG(rating), COUNT(rating) FROM sl_reviews WHERE item_id = '$uid'";
-    //echo $avg_query;
-    $avg_result = mysql_query($avg_query);
-	
-	$avg_row = mysql_fetch_array($avg_result);
-	$average = $avg_row[0];
-	$count = $avg_row[1];
-	if($count == 0) $average = 0;
-	
-	$query  = "SELECT * FROM sl_reviews WHERE item_id = '$uid' ORDER BY date DESC";
-    //echo $query;
-    $result = mysql_query($query);
-	
-	while($row = mysql_fetch_array($result))
-	{		
-		$review_id = $row[0];
-		$tags = array();
-		$tag_query  = "SELECT * FROM sl_tags WHERE review_id = '$review_id'";
-    	//echo $tag_query;
-    	$tag_result = mysql_query($tag_query);
-    	while($tag_row = mysql_fetch_array($tag_result))
-		{
-			$temp_tags['tag_key'] = $tag_row[5];
-			$temp_tags['tag'] = $tag_row[6];
-			array_push($tags, $temp_tags);
-		}
-		
-		$date = date("F j, Y",strtotime( $row[1] ));
-		$review_data   = array($row[0], $row[4], $row[5], $date, 'Jane', $row[6], $row[8], $tags);
-		$temp_array  = array_combine($review_fields, $review_data);
-		array_push($json, $temp_array);
-	}
-	
-	if ($callback) 
-		echo $callback . '({"num_found": ' . $count . ', "average": ' . $average . ', "reviews": ' . json_encode($json) . '})'; 
-	else 
-		echo '({"reviews": ' . json_encode($json) . '})';
-		
-	mysql_close();
-}
-
 function fetch_tag_neighborhood()
 {
 	$tag = $_GET['query'];
@@ -899,28 +848,23 @@ function fetch_author_subjects()
 	mysql_close();
 }
 
-function fetch_librarything_id()
+function text_call_num() 
 {
-$isbn = $_GET['isbn'];
-
-$url = "http://www.librarything.com/api/whatwork.php?isbn=" . $isbn;
-
-$contents = fetch_page($url);
-	
-$wxml = new SimpleXmlElement($contents, LIBXML_NOCDATA); 
-	
-//print_r($pxml);
-	
-$work = $wxml->work;
-
-global $LIBRARYTHING_KEY;
-
-$url = "http://www.librarything.com/services/rest/1.1/?method=librarything.ck.getwork&id=$work&apikey=$LIBRARYTHING_KEY";
-
-$contents = fetch_page($url);
-
-echo $contents;	
-
+  $to = $_GET["number"] . $_GET["carrier"];
+  $title = $_GET['title'];
+  $msg = $_GET["library"];
+  //$sub = "Call #";
+  $title_max = 140 - strlen($msg);
+  $msg .= " ";
+  $msg .= substr($title, 0, $title_max);
+  require '../../etc/class.phpmailer.php';
+  
+  $mail = new PHPMailer(true);
+  $mail->SetFrom("shelflife@law.harvard.edu", 'ShelfLife');
+  $mail->AddAddress($to);
+  $mail->Body = $msg;
+  
+  $mail->Send();
 }
 
 function set_also_viewed()

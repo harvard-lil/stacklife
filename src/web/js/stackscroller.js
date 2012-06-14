@@ -22,7 +22,7 @@
         heightmultiple: 12,
         search_type: 'callno',
         query: '',
-        url: '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY',
+        url: '/platform/v0.03/api/item/',
         facet: new Array(),
         filter: new Array()
       }, options );
@@ -60,11 +60,10 @@
             id: options.id,
             limit: options.books_per_page * ( mode !== 'center' ? 2 : 2 ),
             mode: mode,
-            query: options.query,
             start: offset,
-            search_type: options.search_type,
-            facet: ['rsrc_key', 'format', 'language'],
-            filter: options.filter
+            filter: options.search_type + ':' + options.query,
+            //facet: ['rsrc_key', 'format', 'language'],
+            //filter: options.filter
           }),
           tmp;
 

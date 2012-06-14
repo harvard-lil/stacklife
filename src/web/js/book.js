@@ -6,19 +6,17 @@ $(document).ready(function() {
 	});
 	
 	$.ajax({
-  		url: '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY',
+  		url: '/platform/v0.03/api/item/',
   		dataType: 'json',
   		data: {query : uid, search_type : 'id', start : '0', limit : '1'},
   		async: false,
   		success: function(data){
-  			source = data.docs[0].source;
-  			prettysource = prettySource(source);
-  			if(loc_sort_order && loc_sort_order != undefined)
-  				loc_sort_order = data.docs[0].loc_sort_order[0];
+  			if(data.docs[0].loc_call_num_sort_order && data.docs[0].loc_call_num_sort_order != undefined)
+  				loc_call_num_sort_order = data.docs[0].loc_call_num_sort_order[0];
   			uniform_count = data.docs[0].ut_score;
   			uniform_id = data.docs[0].ut_uuid;
-  			if (data.docs[0].desc_subject_lcsh != undefined) { 
-				$.each(data.docs[0].desc_subject_lcsh, function(i, item) {
+  			if (data.docs[0].lcsh != undefined) { 
+				$.each(data.docs[0].lcsh, function(i, item) {
 					item = item.replace(/\.\s*$/, '');
 					if(anchor_subject === '') {
   						anchor_subject = item;
@@ -68,17 +66,17 @@ $(document).ready(function() {
 
 	if(uniform_count > 1) {
 		var ulabel = $('#uniform').text();
-		$.getJSON('/librarycloud/v.3/api/item/?key=BUILD-LC-KEY&sort=shelfrank desc', $.param({ 'query' : uniform_id, 'search_type' : 'ut_uuid', 'start' : '0', 'limit' : '1' }),
+		$.getJSON('/platform/v0.03/api/item/&sort=shelfrank desc', $.param({ 'query' : uniform_id, 'search_type' : 'ut_uuid', 'start' : '0', 'limit' : '1' }),
 			function (data) {
 				if ( data.docs && data.docs.length > 0 ) {
 					$('#callview').removeClass('button-selected');
 					$('#uniform').addClass('button-selected');
-					stackoptions.url = '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY&sort=shelfrank desc';
+					stackoptions.url = '/platform/v0.03/api/item/&sort=shelfrank desc';
 					stackoptions.search_type = 'ut_uuid';
 					stackoptions.query = uniform_id;
 					drawStack(ulabel);
 
-					if(!loc_sort_order) {
+					if(!loc_call_num_sort_order) {
 						$('#callview').text('No infinite bookshelf').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
 					}
 				}
@@ -87,40 +85,28 @@ $(document).ready(function() {
 				}
 		});
 	}
-	else if (loc_sort_order) {
-		stackoptions.url = '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY&sort=loc_sort_order%20asc';
-		stackoptions.search_type = 'loc_sort_order';
+	else if (loc_call_num_sort_order) {
+		stackoptions.url = '/platform/v0.03/api/item/&sort=loc_call_num_sort_order%20asc';
+		stackoptions.search_type = 'loc_call_num_sort_order';
 		stackoptions.query = '';
-		stackoptions.loc_sort_order = loc_sort_order;
+		stackoptions.loc_call_num_sort_order = loc_call_num_sort_order;
 		scroller.stackScroller(stackoptions);
 	}
 	
 	else if(anchor_subject !== '') {
-		$.getJSON('/librarycloud/v.3/api/item/?callback=?&key=BUILD-LC-KEY', $.param({ 'query' : anchor_subject, 'search_type' : 'desc_subject_lcsh_exact', 'limit' : 1 }),
+		$.getJSON('/platform/v0.03/api/item/?callback=?', $.param({ 'query' : anchor_subject, 'search_type' : 'lcsh_exact', 'limit' : 1 }),
 			function (data) {
 				if(data.docs && data.docs.length > 0){
 					$('#callview').text('No infinite bookshelf').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
 					$('.subject-button:first').addClass('button-selected');
-					stackoptions.url = '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY';
-					stackoptions.search_type = 'desc_subject_lcsh_exact';
+					stackoptions.url = '/platform/v0.03/api/item/';
+					stackoptions.search_type = 'lcsh_exact';
 					stackoptions.query = anchor_subject;
 					drawStack(anchor_subject);
 				}
 			});
 	}
-	else if(source !== '') {
-		$.getJSON('/librarycloud/v.3/api/item/?callback=?&key=BUILD-LC-KEY', $.param({ 'query' : source, 'search_type' : 'source', 'limit' : 1 }),
-			function (data) {
-				if(data.docs && data.docs.length > 0){
-					$('#callview').text('No infinite bookshelf').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
-					stackoptions.url = '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY';
-					stackoptions.search_type = 'source';
-					stackoptions.query = source;
-					drawStack(prettysource, false);
-					$('.subjects ul').append('<li id="sourceview" class="button button-selected stack-button" source="' + source + '"><span class="reload">' + prettysource + '</span></li>');
-				}
-			});
-	}
+	
 	else if(anchor_subject === '') {
 		$('.ribbonBody .ribbonLabel').text('Sorry, no Library of Congress call number or subject neighborhood found.');
 		scroller.empty();
@@ -128,12 +114,11 @@ $(document).ready(function() {
 		$('.subject-hits').addClass('empty');
 	}
 	
-	if(!loc_sort_order) {
+	if(!loc_call_num_sort_order) {
 			$('#callview').text('No call number stack').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
 		}
 
     drawTagNeighborhood();
-    drawReviews();
 
    	// load availability details
 	function loadAvailability (page, div) {
@@ -304,7 +289,7 @@ $(document).ready(function() {
 		//build form
 		var html = ""; 
 		if(location.length>0) {	
-			html = "<div id='wrap'><p>" + location + "<br />" + title + "</p><br /><form id='form'><input id='smstitle' type='hidden' value='" + title + "' /><input id='smslibrary' type='hidden' value='" + location + "' /><input id='smsnumber' type='text' size='12' maxlength='12' />";
+			html = "<div id='wrap'><p>" + location + "<br />" + title + "</p><br /><form id='form'><input id='smstitle' type='hidden' value='" + title + "' /><input id='smslibrary' type='hidden' value='" + location + "' /><input id='smsnumber' type='text' size='12' maxlength='12' placeholder='your number' />";
 			html += "<select id='smscarrier'><option>Select a Carrier</option>";
 			html += "<option value=@txt.att.net>AT&T</option>";
 			html += "<option value=@message.alltel.com>Alltel</option>";
@@ -331,10 +316,10 @@ $(document).ready(function() {
 			facet = 'source:sfpl_org';
 		}
 
-		$.getJSON('/librarycloud/v.3/api/item/?callback=?&key=BUILD-LC-KEY', $.param({ 'query' : stackoptions.query, 'search_type' : stackoptions.search_type, 'limit' : 1, 'filter': facet }),
+		$.getJSON('/platform/v0.03/api/item/?callback=?', $.param({ 'query' : stackoptions.query, 'search_type' : stackoptions.search_type, 'limit' : 1, 'filter': facet }),
 			function (data) {
 				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY&filter=' + facet;
+					stackoptions.url = '/platform/v0.03/api/item/&filter=' + facet;
 					scroller.unbind( '.infiniteScroller' );
 					scroller.html(scrollercontent).stackScroller(stackoptions);
 				}
@@ -389,7 +374,7 @@ $(document).ready(function() {
 		$('#recentlyviewed').html('<span class="reload">You recently viewed these</span>');
 		$('#recentlyviewed').addClass('stack-button').removeClass('button-disabled');
 
-		loc_sort_order = item_details.loc_sort_order;
+		loc_call_num_sort_order = item_details.loc_call_num_sort_order;
 
 		// set our global var
 		hollis = item_details.id_inst;
@@ -431,9 +416,6 @@ $(document).ready(function() {
 
 		// replace imprint
 		$('.imprint').text(imprint_vals.join(', '));
-
-		// draw reviews
-		//drawReviews();
 
 		// replace scores
 		$('.shelfRank').text(left_pad(item_details[perspective]));
@@ -512,8 +494,8 @@ $(document).ready(function() {
 
 		subject_markup += '<li id="callview" class="button stack-button"><span class="reload">Infinite bookshelf</span></li>';
 
-		if (item_details.desc_subject_lcsh != undefined) {
-			$.each(item_details.desc_subject_lcsh, function(i, item) {
+		if (item_details.lcsh != undefined) {
+			$.each(item_details.lcsh, function(i, item) {
 				item = item.replace(/\.\s*$/, '');
 				subject_markup += '<li class="subject-button" id=" ' + item.replace(/[\W]/g, '_') + '"><span class="reload">' + item + '</span></li>';
 			});
@@ -522,7 +504,7 @@ $(document).ready(function() {
 		subject_markup += '</ul>';
 		$('.subjects').html(subject_markup);
 		
-		if(!loc_sort_order) {
+		if(!loc_call_num_sort_order) {
 			$('#callview').text('No call number stack').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
 		}
 
@@ -544,29 +526,6 @@ $(document).ready(function() {
 		}
 		else {
 			$('.wikipedia_link').hide();
-		}
-
-		// play button
-		if (item_details.rsrc_value != undefined && item_details.format !== 'Book' && item_details.format !== 'Map') {
-			if(item_details.format === 'online_full_text') {
-				$('.play-media').html('<div class="play-media-link"><a data-media-width="890" data-media-height="720" data-fancy-width="900" data-fancy-height="900" data-media-source="' + item_details.rsrc_value[0].replace(/.epub/, '') + '" href="#bookview" class="' + item_details.format + ' readme">Read Book</a></div>');									
-			} else if(item_details.format === 'online_video') {
-				$('.play-media').html('<div class="play-media-link"><a data-media-width="700" data-media-height="440" data-fancy-width="700" data-fancy-height="440" data-media-source="' + item_details.rsrc_value[0] + '" href="#videoview" class="' + item_details.format + ' watchme">Watch video</a></div>');											
-			} else if(item_details.format === 'online_audio') {
-				$('.play-media').html('<div class="play-media-link"><a data-media-width="425" data-media-height="115" data-fancy-width="425" data-fancy-height="115" data-media-source="' + item_details.rsrc_value[0] + '" href="#audioview" class="' + item_details.format + ' hearme">Listen to audio</a></div>');												
-			} else if(item_details.format === 'webpage') {
-				$('.play-media').html('<div class="play-media-link"><a data-media-width="700" data-media-height="700" data-fancy-width="700" data-fancy-height="700" data-media-source="' + item_details.rsrc_value[0] + '" href="#webpageview" class="' + item_details.format + ' linkme">Visit webpage</a></div>');												
-			}
-			$('.play-media-link').show();
-			$(".play-media-link a").fancybox({
-				'overlayShow': true,
-				'autoDimensions' : false,
-				'width': $(".play-media-link a").attr('data-fancy-width'),
-				'height': $(".play-media-link a").attr('data-fancy-height')	
-			});
-		}
-		else {
-			$('.play-media-link').hide();
 		}
 
 		// Load the worldcat data
@@ -690,14 +649,14 @@ $(document).ready(function() {
 			});
 		}
 		else if(compare === 'callview') {
-			stackoptions.url = '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY&sort=loc_sort_order%20asc';
-			stackoptions.search_type = 'loc_sort_order';
+			stackoptions.url = '/platform/v0.03/api/item/&sort=loc_call_num_sort_order%20asc';
+			stackoptions.search_type = 'loc_call_num_sort_order';
 			stackoptions.query = '';
-			stackoptions.loc_sort_order = loc_sort_order;
+			stackoptions.loc_call_num_sort_order = loc_call_num_sort_order;
 			drawStack('Call number shelf: what you\'d see in the library');
 		}
 		else if(compare === 'sourceview') {
-			stackoptions.url = '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY';
+			stackoptions.url = '/platform/v0.03/api/item/';
 			stackoptions.search_type = 'source';
 			stackoptions.query = $(this).attr('source');
 			drawStack(nlabel, false);
@@ -718,10 +677,10 @@ $(document).ready(function() {
 			});
 		}
 		else if(compare === 'uniform') {
-			$.getJSON('/librarycloud/v.3/api/item/?key=BUILD-LC-KEY&sort=shelfrank desc', $.param({ 'query' : uniform_id, 'search_type' : 'ut_uuid', 'start' : '0', 'limit' : '1' }),
+			$.getJSON('/platform/v0.03/api/item/&sort=shelfrank desc', $.param({ 'query' : uniform_id, 'search_type' : 'ut_uuid', 'start' : '0', 'limit' : '1' }),
 			function (data) {
 				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY&sort=shelfrank desc';
+					stackoptions.url = '/platform/v0.03/api/item/&sort=shelfrank desc';
 					stackoptions.search_type = 'ut_uuid';
 					stackoptions.query = uniform_id;
 					drawStack(nlabel);
@@ -736,11 +695,11 @@ $(document).ready(function() {
 	$('.subject-button').live('click',function() {
 		var subject = $(this).text();
 
-		$.getJSON('/librarycloud/v.3/api/item/?callback=?&key=BUILD-LC-KEY', $.param({ 'query' : subject, 'search_type' : 'desc_subject_lcsh_exact', 'limit' : 1 }),
+		$.getJSON('/platform/v0.03/api/item/?callback=?', $.param({ 'filter' : 'lcsh:' + subject, 'limit' : 1 }),
 			function (data) {
 				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY';
-					stackoptions.search_type = 'desc_subject_lcsh_exact';
+					stackoptions.url = '/platform/v0.03/api/item/';
+					stackoptions.search_type = 'lcsh';
 					stackoptions.query = subject;
 
 					drawStack(subject);
@@ -754,10 +713,10 @@ $(document).ready(function() {
 	$('.wp_category-button').live('click',function() {
 		var wp_category = $(this).text();
 
-		$.getJSON('/librarycloud/v.3/api/item/?callback=?&key=BUILD-LC-KEY', $.param({ 'query' : wp_category, 'search_type' : 'wp_categories_exact', 'limit' : 1 }),
+		$.getJSON('/platform/v0.03/api/item/?callback=?', $.param({ 'query' : wp_category, 'search_type' : 'wp_categories_exact', 'limit' : 1 }),
 			function (data) {
 				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = '/librarycloud/v.3/api/item/?key=BUILD-LC-KEY';
+					stackoptions.url = '/platform/v0.03/api/item/';
 					stackoptions.search_type = 'wp_categories_exact';
 					stackoptions.query = wp_category;
 
@@ -845,81 +804,12 @@ $(document).ready(function() {
         }
     });
 
-    $('.collectionadd').live('click', function() {
-    	$(this).toggleClass('collectionadded').toggleClass('collectionadd');
-    	$('.collectionsubmit').removeClass('collection-icon-disabled').addClass('collection-icon');
-    });
-
-    $('.collectionadded').live('click', function() {
-    	$(this).toggleClass('collectionadded').toggleClass('collectionadd');
-    	if(!$('.collectionadded').is(':checked'))
-    		$('.collectionsubmit').addClass('collection-icon-disabled').removeClass('collection-icon');
-    });
-
-	$('.collectionsubmit').live('click', function() {
-		var item_ids = '';
-		$.each($('.collectionadded:checked'), function() {
-        	item_ids += '&item_id[]=' + $(this).attr('value');
-    	});
-    	if(item_ids.length > 0){
-		//var item_name = $(this).next().data('item_details').title;
-		var html = '<div id="collectionaddwrap"><p>Add items to which collection?</p><br /><form><ul>';
-		$.getJSON(slurl + "?callback=?&function=fetch_collections", $.param({ 'user_id' : '123456' }), function(data) {
-			if(data && data.collections.length > 0) {
-				$.each(data.collections, function(i, item){
-				html += '<li><input type="radio" value="' + item.collection_id + '" name="existing_collection" id="existing_collection" /> <label for="existing_collection">' + item.name + '</label></li>';
-				});
-
-				html += '<li><input type="radio" value=null name="existing_collection" id="existing_collection" /> <input type="text" id="collection_name" placeholder="Create a collection"/></li>';
-				html += '</ul>';
-				html += '<br /><p>Add collection tags</p><input type="text" id="collection_tags" name="collection_tags" class="required" type="text" /></form></div>';
-				var $dialog = $('<div class="remove"></div>')
-				.html(html)
-				.dialog({
-					autoOpen: false,
-					title: 'Add to a collection',
-					modal: true,
-					resizable: false,
-					draggable: false,
-					width: 450 ,
-					buttons: { 'Add': function() {
-						var collection_id = $('#existing_collection:checked').attr('value');
-						var collection_name = "";
-						if(collection_id === 'null')
-							collection_name = $('#collection_name').attr('value');
-						else
-							collection_name = $('#existing_collection:checked').next().text();
-						var data = item_ids;
-						data += '&collection_id=' + collection_id + '&collection_name=' + collection_name;
-						$.ajax({
-							url: slurl + "?function=set_collection_addition",
-							type: "get",
-							data: data,
-							success: function(){
-								$('#collectionaddwrap').html('Items added to <b>' + collection_name + '</b>');
-								$('.ui-dialog-buttonpane').hide();
-								$('.collectionadded').toggleClass('collectionadded').toggleClass('collectionadd').removeAttr('checked').hide();
-								$('.collectionsubmit').addClass('collection-icon-disabled').removeClass('collection-icon');
-							}
-						});
-					}},
-					close: function(event, ui) {
-						//$dialog.dialog('destroy');
-						$('.remove').remove();
-					}
-				});
-				$dialog.dialog('open');
-			}
-		});
-		}
-	});
-
 	function drawStack(ribbon, isfacetable) {
 		if(isfacetable === undefined) isfacetable = true;
 		scroller.unbind( '.infiniteScroller' );
 		scroller.html(scrollercontent).stackScroller(stackoptions);
 		$('.ribbonBody .ribbonLabel').text(ribbon);
-		if((stackoptions.search_type === 'desc_subject_lcsh_exact' || stackoptions.search_type === 'keyword') && isfacetable)
+		if((stackoptions.search_type === 'lcsh_exact' || stackoptions.search_type === 'keyword') && isfacetable)
 			$('.refine-stack-disabled').addClass('refine-stack').removeClass('refine-stack-disabled');
 		else
 			
@@ -971,7 +861,7 @@ function get_heat(scaled_value) {
 
 function loadResults() {
 	rows = '';
-	$.getJSON('/librarycloud/v.3/api/item/', $.param({ 'search_type' : 'keyword', 'key' : 'BUILD-LC-KEY', 'start' : start_record, 'limit' : num_requested, 'sort' : 'shelfrank' + " " + 'desc', 'query' : q }),
+	$.getJSON('/platform/v0.03/api/item/', $.param({ 'search_type' : 'keyword', 'start' : start_record, 'limit' : num_requested, 'sort' : 'shelfrank' + " " + 'desc', 'query' : q }),
 		function (results) {
 		if(results.num_found === 0) {
 			$('.num_found').text('No results');
@@ -1037,38 +927,6 @@ function drawTagNeighborhood(){
 	});
 }
 
-function drawReviews(){
-	$.getJSON(slurl + "?callback=?&function=fetch_reviews", $.param({ 'uid' : uid }), function(data) {
-		var reviews = '';
-		if(data.reviews.length > 0) {
-			$('#createreview').html(' (<a href="#reviewfull">' + data.num_found + ' reviews</a>)<br /><a class="iframe" href="' + www_root + '/src/web/review.php?uid=' + uid + '">Write a review!</a>');
-
-			$('#reviewsummary').localScroll();
-			$('#ratingaverage').attr('data-rateit-value', data.average);
-			$.each(data.reviews, function(i,value) {
-				var tags = '';
-				$.each(value.tags, function(i,t) {
-					tags += '<br /><b>' + t.tag_key + ':</b> ' + t.tag;
-				});
-				reviews += '<div class="rateit" data-rateit-value="' + value.rating + '" data-rateit-ispreset="true" data-rateit-readonly="true"></div> <b>' + value.headline + '</b><span class="reviewdate"><b>' + value.date + '</b>' + tags + '</span><p>By <a href="#">' + value.user + '</a></p><p class="reviewcontent">' + value.review + '</p><p class="helpful"><span class="button recommend" review="' + value.review_id + '">Recommend</span> <span class="recommend_count">' + value.recommended_count + '</span> people recommended this review</p><br />';
-			});
-			$("#reviewfull").html('<span class="heading">Reviews</span>' + reviews);
-			$('.rateit').rateit();
-		}
-		else {
-			$('#ratingaverage').replaceWith('<div id="ratingaverage" class="rateit" data-rateit-value="" data-rateit-ispreset="true" data-rateit-readonly="true"></div>');
-			$('#createreview').html('<a class="iframe" href="../../review.php?uid=' + uid + '">Write a review!</a>');
-			$('#reviewfull').html('');
-		}
-		$("a.iframe").fancybox({
-			'autoDimensions' : false,
-    		'width' : 850,
-    		'height' : 615,
-    		'onClosed' : function(){ $('#reviewfull').trigger('click'); }
-		});
-	});
-}
-
 function ProcessGBSBookInfo(booksInfo) {
 	$('.button-google').hide();
 	$('.button-google-disabled').show();
@@ -1111,7 +969,7 @@ function launchDialog(html){
 				data += '&library=' + $('#smslibrary').val();
 				data += '&title=' + $('#smstitle').val();
 				$.ajax({
-					url: www_root + "/sms.php",
+					url: www_root + "/sl_funcs.php?func=text_call_num",
 					type: "get",
 					data: data,
 					success: function(){
@@ -1124,20 +982,3 @@ function launchDialog(html){
 	$dialog.dialog('open');
 	kill = 0;	
 }
-
-function prettySource(source_name) {
-		var source_assoc = new Object;
-		source_assoc['harvard_edu'] = 'Harvard University';
-		source_assoc['sfpl_org'] = 'San Francisco Public Library';
-		source_assoc['ted_com'] = 'TED';
-		source_assoc['sjlibrary_org'] = 'San Jose Public Library';
-		source_assoc['darienlibrary_org'] = 'Darien Public Library';
-		source_assoc['northeastern_edu'] = 'Northeastern University';
-		source_assoc['wikipedia_org'] = 'Wikipedia';
-		source_assoc['youtube_com'] = 'YouTube';
-		source_assoc['npr_org'] = 'NPR';
-		source_assoc['openlibrary_org'] = 'Open Library';
-		source_assoc['1'] = 'Online Only';
-		
-		return source_assoc[source_name];
-	}

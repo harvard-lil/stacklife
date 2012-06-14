@@ -6,7 +6,6 @@ echo <<<EOF
   
   <link rel="stylesheet" href="$www_root/css/start/jquery-ui-1.8.2.custom.css" type="text/css" />
   <link rel="stylesheet" href="$www_root/css/jquery.fancybox-1.3.4.css" type="text/css" />
-  <link rel="stylesheet" href="$www_root/css/jquery.qtip.min.css" type="text/css" />
   <link rel="stylesheet" href="$www_root/css/shelflife.theme.css" type="text/css" />
   <link rel="stylesheet" href="$www_root/css/rateit.css" type="text/css" />
   <link rel="stylesheet" href="$www_root/css/reviews.css" type="text/css" />
@@ -25,10 +24,8 @@ echo <<<EOF
   <script type="text/javascript" src="$www_root/js/jquery.infinitescroller.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.mousewheel.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.tabSlideOut.v2.0.js"></script>
-  <script type="text/javascript" src="$www_root/js/jquery.qtip.min.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.localscroll-1.2.7-min.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.scrollTo-1.4.2-min.js"></script>
-  <script type="text/javascript" src="$www_root/js/jquery.rateit.min.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.fancybox-1.3.4.pack.js"></script>
   <script type="text/javascript" src="http://use.typekit.com/gre3ysx.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
