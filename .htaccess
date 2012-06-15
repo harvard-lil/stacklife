@@ -12,6 +12,7 @@ RewriteRule ^$ src\/web\/index.php [L,NC,QSA]
 RewriteRule ^css/(.*)$ src\/web\/css\/$1 [L,NC,QSA]
 RewriteRule ^images/(.*)$ src\/web\/images\/$1 [L,NC,QSA]
 RewriteRule ^js/(.*)$ src\/web\/js\/$1 [L,NC,QSA]
+RewriteRule ^stackview/(.*)$ src\/web\/stackview\/$1 [L,NC,QSA]
 
 # If the user requested a specific page, serve it up here
 RewriteRule ^([^/]+)\/?$ src\/web\/$1 [L,NC,QSA]

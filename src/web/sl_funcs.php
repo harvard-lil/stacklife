@@ -183,10 +183,6 @@ function format_stack_json($result, $home = '', $type = 'book', $label = '')
 	return $json;
 }
 
-function fetch_trending_stack() {
-	fetch_custom_stack('sl_custom_stack');
-}
-
 function fetch_custom_stack($table)
 {
 	$offset = $_GET['start'];
