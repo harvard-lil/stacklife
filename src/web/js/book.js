@@ -12,7 +12,7 @@ $(document).ready(function() {
   		async: false,
   		success: function(data){
   			if(data.docs[0].loc_call_num_sort_order && data.docs[0].loc_call_num_sort_order != undefined)
-  				loc_call_num_sort_order = data.docs[0].loc_call_num_sort_order[0];
+  				loc_call_num_sort_order = data.docs[0].loc_call_num_sort_order;
   			uniform_count = data.docs[0].ut_score;
   			uniform_id = data.docs[0].ut_uuid;
   			if (data.docs[0].lcsh != undefined) { 
@@ -28,38 +28,14 @@ $(document).ready(function() {
         	draw_item_panel(data.docs[0]);
         }
 	});
-	
-	scroller = $('#scroller-wrapper');
 
-	var stackheight = $(window).height() - $('.header').height(),
+	var stackheight = $(window).height() - $('.header').height();
 
-	scrollercontent = '<div class="scroller-content"><div class="scroller-loading scroller-loading-prev"></div><div class="scroller-page"></div><div class="scroller-loading scroller-loading-next"></div></div>';
-
-	$.ajax({
-		type: "POST",
-		url: slurl,
-		data: "function=session_info&type=get",
-		success: function(response){
-			$('.stackswap').removeClass('stackswap-icon-covers').removeClass('stackswap-icon-spines').addClass('stackswap-icon-' + response);
-			stackoptions = {books_per_page: 50,
-							orientation: 'V',
-							axis: 'y',
-							display: response,
-							threshold: 2000,
-							heatmap: 'yes',
-							pagemultiple: 0.11,
-							heightmultiple: 12};
-		},
-		async: false
-	});
-
-	scroller.css('height', stackheight);
 	$('.container').css('height', stackheight);
 	$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
 
 	$(window).resize(function() {
 		stackheight = $(window).height() - $('.header').height();
-		scroller.css('height', stackheight);
 		$('.container').css('height', stackheight);
 		$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
 	});
@@ -86,25 +62,13 @@ $(document).ready(function() {
 		});
 	}
 	else if (loc_call_num_sort_order) {
-		stackoptions.url = '/platform/v0.03/api/item/&sort=loc_call_num_sort_order%20asc';
-		stackoptions.search_type = 'loc_call_num_sort_order';
-		stackoptions.query = '';
-		stackoptions.loc_call_num_sort_order = loc_call_num_sort_order;
-		scroller.stackScroller(stackoptions);
+		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, items_per_page: 25, ribbon: 'Call number shelf: what you\'d see in the library'});
 	}
 	
 	else if(anchor_subject !== '') {
-		$.getJSON('/platform/v0.03/api/item/?callback=?', $.param({ 'query' : anchor_subject, 'search_type' : 'lcsh_exact', 'limit' : 1 }),
-			function (data) {
-				if(data.docs && data.docs.length > 0){
-					$('#callview').text('No infinite bookshelf').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
-					$('.subject-button:first').addClass('button-selected');
-					stackoptions.url = '/platform/v0.03/api/item/';
-					stackoptions.search_type = 'lcsh_exact';
-					stackoptions.query = anchor_subject;
-					drawStack(anchor_subject);
-				}
-			});
+		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'lcsh', query: anchor_subject, items_per_page: 25, ribbon: anchor_subject});
+		$('#callview').text('No infinite bookshelf').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
+		$('.subject-button:first').addClass('button-selected');
 	}
 	
 	else if(anchor_subject === '') {
@@ -117,8 +81,6 @@ $(document).ready(function() {
 	if(!loc_call_num_sort_order) {
 			$('#callview').text('No call number stack').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
 		}
-
-    drawTagNeighborhood();
 
    	// load availability details
 	function loadAvailability (page, div) {
@@ -306,39 +268,6 @@ $(document).ready(function() {
 		launchDialog(html);
 	});
 
-	// When a facet item is clicked, add a facet (a filter)
-	$('.refine-stack').live('click', function() {
-		var facet = '';
-		if(!$(this).hasClass('refine-stack-selected'))
-			facet = $(this).attr('id');
-		
-		if($(this).attr('id') === 'mylibrary' && !$(this).hasClass('refine-stack-selected')) {
-			facet = 'source:sfpl_org';
-		}
-
-		$.getJSON('/platform/v0.03/api/item/?callback=?', $.param({ 'query' : stackoptions.query, 'search_type' : stackoptions.search_type, 'limit' : 1, 'filter': facet }),
-			function (data) {
-				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = '/platform/v0.03/api/item/&filter=' + facet;
-					scroller.unbind( '.infiniteScroller' );
-					scroller.html(scrollercontent).stackScroller(stackoptions);
-				}
-				else{
-					$('.subject-hits').html('').addClass('empty');
-					scroller.unbind( '.infiniteScroller' );
-					scroller.html('<p class="stackError heading">Sorry, no items</p>');
-				}
-			});
-			
-		$('.refine-stack').removeClass('refine-stack-selected');
-		if(facet !== '')
-			$(this).addClass('refine-stack-selected');
-	});
-
-	//
-	//	Stackview functions
-	//
-
 	// When an item in the stack is clicked, we update the book panel here
 	function draw_item_panel(item_details) {
 
@@ -433,24 +362,24 @@ $(document).ready(function() {
 
 		// Translate a total score value to a class value (after removing the old class)
 		$('.shelfRank').removeClass(function (index, css) {
-		    return (css.match(/heat\d+/g) || []).join(' ');
+		    return (css.match(/color\d+/g) || []).join(' ');
 		});
 
-		$('.shelfRank').addClass('heat' + get_heat(item_details[perspective]));
+		$('.shelfRank').addClass('color' + get_heat(item_details[perspective]));
 		$('.itemData-container').removeClass(function (index, css) {
-		    return (css.match(/heat\d+/g) || []).join(' ');
+		    return (css.match(/color\d+/g) || []).join(' ');
 		});
 
-		$('.itemData-container').addClass('heat' + get_heat(item_details[perspective]));
+		$('.itemData-container').addClass('color' + get_heat(item_details[perspective]));
 		
 		// replace hollis and button vals
 		$('#hollis_button').attr('href', 'http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|' + hollis);
 
 		$('.unpack').removeClass(function (index, css) {
-		    return (css.match(/heat\d+/g) || []).join(' ');
+		    return (css.match(/color\d+/g) || []).join(' ');
 		});
 
-		$('.unpack').addClass('heat' + get_heat(item_details[perspective]));
+		$('.unpack').addClass('color' + get_heat(item_details[perspective]));
 		// replace google books link
 		// get the google books info for our isbn and oclc (and if those are empty, use 0s)
 		var isbn = -1;
@@ -579,41 +508,22 @@ $(document).ready(function() {
 	}
 
 	// When a new anchor book is selected
-	$('.scroller-page ul li').live('click', function(){
-		var this_details = $(this).data('item_details');
-		History.pushState({data:this_details,rand:Math.random()}, this_details.title, "../" + this_details.title_link_friendly + "/" + this_details.id);
-		draw_item_panel(this_details);
+	$('.stack-item a').live('click', function(e){
+	  var this_details = $(this).parent().data('stackviewItem');
+		$.ajax({
+  		url: '/platform/v0.03/api/item/',
+  		dataType: 'json',
+  		data: {query : this_details.id, search_type : 'id', start : '0', limit : '1'},
+  		async: false,
+  		success: function(data){
+			  var this_details = data.docs[0];
+			  History.pushState({data:this_details,rand:Math.random()}, this_details.title, "../" + this_details.title_link_friendly + "/" + this_details.id);
+        	draw_item_panel(data.docs[0]);
+        }
+	  });
 		$('.anchorbook').removeClass('anchorbook');
 		$(this).parent().addClass('anchorbook');
-	});
-
-	// Change stack display
-	$('.stackswap').live('click', function(){
-		stackoptions.display = stackoptions.display === 'covers' ? 'spines' : 'covers';
-		$('.stackswap').removeClass('stackswap-icon-covers').removeClass('stackswap-icon-spines').addClass('stackswap-icon-' + stackoptions.display);
-		$.ajax({
-			type: "POST",
-			url: slurl,
-			data: "function=session_info&type=set&stackdisplay=" + stackoptions.display,
-			async: false
-		});
-		scroller.unbind( '.infiniteScroller' );
-		scroller.html(scrollercontent).stackScroller(stackoptions);
-	});
-
-	scroller.bind('mousewheel', function(event, delta){
-		scroller.trigger('move-by', -delta * 75);
-		return false;
-	});
-
-	$('.upstream').live('click', function(){
-		scroller.trigger('move-by', -stackheight*.95);
-		return false;
-	});
-
-	$('.downstream').live('click', function(){
-		scroller.trigger('move-by', stackheight*.95);
-		return false;
+		e.preventDefault();
 	});
 
 	$('.stack-button').live('click', function() {
@@ -649,17 +559,7 @@ $(document).ready(function() {
 			});
 		}
 		else if(compare === 'callview') {
-			stackoptions.url = '/platform/v0.03/api/item/&sort=loc_call_num_sort_order%20asc';
-			stackoptions.search_type = 'loc_call_num_sort_order';
-			stackoptions.query = '';
-			stackoptions.loc_call_num_sort_order = loc_call_num_sort_order;
-			drawStack('Call number shelf: what you\'d see in the library');
-		}
-		else if(compare === 'sourceview') {
-			stackoptions.url = '/platform/v0.03/api/item/';
-			stackoptions.search_type = 'source';
-			stackoptions.query = $(this).attr('source');
-			drawStack(nlabel, false);
+			$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, items_per_page: 25, ribbon: 'Call number shelf: what you\'d see in the library'});
 		}
 		else if(compare === 'alsoviewed') {
 			$.getJSON(slurl + '?callback=?', $.param({ 'id' : uid, 'search_type' : 'fetch_also_neighborhood', 'start' : '0', 'limit' : '1' }),
@@ -693,21 +593,7 @@ $(document).ready(function() {
 	});
 
 	$('.subject-button').live('click',function() {
-		var subject = $(this).text();
-
-		$.getJSON('/platform/v0.03/api/item/?callback=?', $.param({ 'filter' : 'lcsh:' + subject, 'limit' : 1 }),
-			function (data) {
-				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = '/platform/v0.03/api/item/';
-					stackoptions.search_type = 'lcsh';
-					stackoptions.query = subject;
-
-					drawStack(subject);
-				}
-				else{
-					emptyStack('Sorry, no more books on this subject.');
-				}
-			});
+		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'lcsh', query: $(this).text(), items_per_page: 25, ribbon: $(this).text()});
 	});
 	
 	$('.wp_category-button').live('click',function() {
@@ -743,12 +629,6 @@ $(document).ready(function() {
 					emptyStack('Sorry, no more books have this tag.');
 				}
 			});
-	});
-
-	// Start show/hide message threads 
-	$(".showhide").hide();
-	$(".msgbutton").live('click', function(){
-		$(this).toggleClass("active").next().slideToggle("fast");
 	});
 
     //
@@ -794,15 +674,6 @@ $(document).ready(function() {
 				}
 			});
 	});
-
-    $('.scroller-page div[class*="Container"]').live({
-        mouseenter: function(){
-			$(this).children('.collectioncontainer').children('.collectionadd').show();
-        },
-        mouseleave: function(){
-			$(this).children('.collectioncontainer').children('.collectionadd').hide();
-        }
-    });
 
 	function drawStack(ribbon, isfacetable) {
 		if(isfacetable === undefined) isfacetable = true;

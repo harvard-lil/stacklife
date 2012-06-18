@@ -15,10 +15,8 @@ echo <<<EOF
 	<title></title>
 
 	<link rel="stylesheet" href="$www_root/css/book.css" type="text/css" />
-	<link rel="stylesheet" href="$www_root/css/jPlayer_Blue_Monday_Theme/jplayer.blue.monday.css" type="text/css" />
 	<script type="text/javascript" src="$www_root/js/book.js"></script>
 	<script type="text/javascript" src="$www_root/js/jquery.history.js"></script>
-	<script type="text/javascript" src="$www_root/js/jPlayer/jquery.jplayer.min.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 EOF;
 ?>
@@ -126,37 +124,7 @@ $(document).ready(function() {
       	<div class="container-content">
       		<div class="main">
 				<div id="fixedstack">
-					<div id="navigation">
-            			<div> <!-- start of our control center (arrows and breadcrumbs)-->
-             	 			<span id="arrows">
-            					<div class="upstream" alt="previous button"></div>
-            					<div class="subject-hits"></div>
-            					<div class="downstream" alt="next button"></div>
-            				</span>
-            			</div> <!-- end of our control center (arrows) -->
-        			</div> <!-- end navigation -->
-						<div class="ribbon">
-							<div class="ribbonBody group">
-								<span class="ribbonLabel">Call number shelf: what you'd see in the library</span>
-								<ul class="facet-icons">
-            						<li class="stackswap button stackswap-icon"></li>
-            						<!--<li id="format:online_audio" class="refine-stack-disabled soundrecording-icon"></li>
-            						<li id="format:online_video" class="refine-stack-disabled videofilm-icon"></li>
-            						<li id="format:online_full_text" class="refine-stack-disabled ebook-icon"></li>
-            						<li id="format:webpage" class="refine-stack-disabled webpage-icon"></li>
-            						<li id="mylibrary" class="mylibrary-icon refine-stack-disabled"></li>
-            						<li class="collection-icon-disabled collectionsubmit"></li>-->
-            					</ul>
-            				</div><!-- end ribbonBody -->
-							<div class="ribbonBehind"></div>
-						</div><!-- end ribbon class -->
-            			<div id="scroller-wrapper" class="scroller scroller-vertical">
-							<div class="scroller-content">
-  								<div class="scroller-loading scroller-loading-prev"></div>
-  								<div class="scroller-page"></div>
-  								<div class="scroller-loading scroller-loading-next"></div>
-							</div><!-- end scroller-content -->
-						</div> <!-- end scroller-wrapper -->
+					
 				</div><!-- end fixedstack-->
         </div><!-- end main-->
 			<div class="itemData-container scrollmarg">
@@ -278,94 +246,6 @@ $(document).ready(function() {
     </div><!--end container-->
     <div id="dug"></div>
 
-
-  <?php include('views/book_read_epub.php'); ?>
-  <?php include('views/book_watch_video.php'); ?>
-  <?php include('views/book_listen_audio.php'); ?>
-  <?php include('views/book_visit_webpage.php'); ?>
-  <script>  
-		
-		$(".play-media-link a").live('click', function(e){e.preventDefault;
-			var mediaWidth = $(this).attr('data-media-width'),
-				mediaHeight = $(this).attr('data-media-height'),
-				mediaSource = $(this).attr('data-media-source');
-			var reggie;
-			if($(this).hasClass("online_full_text")){
-					reggie = mediaSource.split(/^.*\//);
-					mediaSource = reggie[1];
-				var pubview = $("#epubviewer").attr({
-					src: "http://www.archive.org/stream/" + mediaSource,
-					width: mediaWidth,
-					height: mediaHeight
-				});
-				//$("#bookWrap").html(pubview);
-			}
-			if($(this).hasClass("online_video")){
-				
-				//console.log("Original Media Source: ", mediaSource);
-				
-				var reggie = /^.+youtube\.com\/watch\?v=([^&]+)&feature=/i;
-		
-				reggie.test(mediaSource);
-
-				mediaSource = "http://www.youtube.com/embed/" + RegExp.$1;
-				var videoview = $("#youtube_frame").attr({
-					src: mediaSource,
-					width: mediaWidth,
-					height: mediaHeight
-				});
-
-				//$("#videoview").html(videoview);
-			}
-			if($(this).hasClass("online_audio")){
-				$.ajax({
-				  url: '<?php echo $www_root; ?>/audio_process.php',
-				  type: 'POST',
-				  dataType: 'html',
-				  data:{audio: mediaSource},
-				  success: function(mp3Source) {
-				  	
-				  	var nprRegx = /(^.+\.mp3)/i;
-					nprRegx.test(mp3Source);
-					mp3Source = RegExp.$1;
-					
-					//console.log("This is the mp3: >>>>>: ", mp3Source);
-					/*
-    				var audioview = $("#audioviewer").attr({
-						src: mp3Source,
-						width: mediaWidth,
-						height: mediaHeight
-					});
-					*/
-
-					$("#jquery_jplayer_1").jPlayer({
-						ready: function () {
-						  $(this).jPlayer("setMedia", {
-						    mp3: mp3Source
-						  });
-						},
-						swfPath: "../../js/jPlayer",
-						solution:"flash, html",
-						supplied: "mp3",
-				        preload: true
-					});	
-															
-				  }
-				});	
-			}
-			if($(this).hasClass("webpage")){
-
-				var webpageview = $("#webpage_frame").attr({
-					src: mediaSource,
-					width: mediaWidth,
-					height: mediaHeight
-				});
-
-				//$("#videoview").html(videoview);
-			}
-														
-		});
-  </script>
   <script id="gbscript" type="text/javascript" src="http://books.google.com/books?jscmd=viewapi&bibkeys=OCLC:<?php echo $oclcnum ?>,ISBN:<?php echo $isbn_trim ?>&callback=ProcessGBSBookInfo"></script>
    </div> <!--end wrapper-->
 </body>

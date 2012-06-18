@@ -225,3 +225,105 @@ ShelfLife DropDown Theme, thanks to jQuery
 *+html .ui-state-disabled,
 *+html .ui-state-disabled a { color: silver }
 
+.color1 {
+	background:  #ccebff url('../images/superGloss.png') repeat-x 0 47%;	/*//*/
+	color: #222;
+	text-shadow: 0px 1px 0px #fff;
+	border-color:#adf;
+	border-style:solid;
+	position:relative;
+}
+
+/*--------------------------------*/
+
+.color2 {
+	background: #adf url('../images/superGloss.png') repeat-x 0 47%;	/*//*/
+	color: #222;
+	text-shadow: 0px 1px 0px #ddf1ff;
+	border-color:#88cfff;
+	border-style:solid;
+}
+
+/*--------------------------------*/
+
+.color3 {
+	background: #77c9ff url('../images/highGloss.png') repeat-x 0 47%;	/*//*/
+	color: #111;
+	text-shadow: 0px 1px 0px #adf;
+	border-color:#59B6EF;
+	border-style:solid;
+}
+
+/*--------------------------------*/
+
+.color4 {
+	background-color: #44b4ff;
+	color: #fff;
+	text-shadow: 0px -1px 0px #11a0ff;
+	border-color:#11a0ff;
+	border-style:solid;
+}
+
+/*--------------------------------*/
+
+.color5 {
+	background-color: #22a7ff;
+	color: #fff;
+	text-shadow: 0px -1px 0px #008fee;
+	border-color:#008fee;
+	border-style:solid;
+}
+
+/*--------------------------------*/
+
+.color6 {
+	background-color: #0099ff;
+	color: #fff;
+	text-shadow: 0px -1px 0px #0085dd;
+	border-color:#007acc;
+	border-style:solid;
+}
+
+/*--------------------------------*/
+
+.color7 {
+	background-color: #0085dd;
+	color: #fff;
+	text-shadow: 0px -1px 0px #0070bb;
+	border-color:#06a;
+	border-style:solid;
+}
+
+/*--------------------------------*/
+
+.color8 {
+	background-color: #0070bb;
+	color: #fff;
+	text-shadow: 0px -1px 0px #005c99;
+	border-color:#004777;
+	border-style:solid;
+}
+
+/*--------------------------------*/
+
+.color9 {
+	background-color: #005c99;
+	color: #fff;
+	text-shadow: 0px -1px 0px #004777;
+	border-color:#002944;
+	border-style:solid;
+}
+
+/*--------------------------------*/
+
+.color10 {
+	background-color: #004777;
+	color: #fff;
+	text-shadow: 0px -1px 0px #035;
+	border-color:#001522;
+	border-style:solid;
+}
+
+.color1, .color2, .color3, .color4, .color5, .color6, .color7, .color8, .color9, .color10 {
+	border-width:1px;
+}
