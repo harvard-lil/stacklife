@@ -60,17 +60,6 @@ a {
 
 }
 
-#wrapper {
-/*  -moz-box-shadow: 0px 0px 3px #ddd;
-  -webkit-box-shadow: 0px 0px 3px #ddd;
-  -ms-box-shadow: 0px 0px 3px #ddd;	
-  -o-box-shadow: 0px 0px 3px #ddd;
-   box-shadow: 0px 0px 3px #ddd;
-   margin:-3px 6px;
-   background:#fdfdfd; */
-}
-
-
 h1, h1 a {
 	letter-spacing:0px;
 	font-size:1.6em;
@@ -83,8 +72,6 @@ h1, h1 a {
 	text-decoration:none;
 	color:#333;
 }
-
-
 
 h2, h2 a, .creator, .creator a {
 	letter-spacing:-1px;
@@ -199,110 +186,6 @@ p{
 	text-shadow: 0px 1px #fff;
 }
 /*header-content and *-content classes below exist so we can have the header, footer and content background coloring flow to the edges of the window, but retain the ability to constrain max-width of the content itself*/
-
-/*///////////////////////////////////*/
-#map {
-	background-image:url('../images/map.png');
-	background-repeat:no-repeat;
-	width:463px;
-	height:293px;
-	margin:10px auto -5px;
-	   -webkit-user-select: none;
-   -moz-user-select:none;
-	user-select:none;
-}
-
-
-.dot {
-	width:10px;
-	height:10px;
-   -moz-border-radius: 5px;
-   -webkit-border-radius: 5px;
-   -o-border-radius: 5px;
-   -ms-border-radius: 5px;
-   	border-radius: 5px;
-	background:#f60;
-	cursor:pointer;
-}
-
-.dot:hover {
-	background:#09f;
-}
-
-.dot:active {
-	background:#007acc;
-}
-
-.popup {
-    display:none;
-    color: #f60;
-    border:1px solid #09f;
-    background:white;
-    padding:4px;
-   -o-border-radius: 2px;
-   -ms-border-radius: 2px;	
-   -moz-border-radius: 2px;
-   -webkit-border-radius: 2px;
-    border-radius: 2px;
-    font-size:11px;
-    text-align:left;
-}
-
-.dot:hover .popup {
-	display:inline;
-	position: absolute;
-    margin: -36px 0 0 15px; /* To compensate for parent block's padding */
-    width:70px;
-    opacity:1;
-}
-
-.harvard {
-	position:relative;
-	left:435px;
-	top:63px;
-}
-
-.northeastern {
-	position:relative;
-	left:434px;
-	top:66px;
-}
-
-.darien {
-	position:relative;
-	left:426px;
-	top:64px;
-}
-
-.sanjose {
-	position:relative;
-	left:15px;
-	top:99px;
-}
-
-.sanfrancisco {
-	position:relative;
-	left:14px;
-	top:79px;
-}
-
-.dpla {
-	position:relative;
-	left:184px;
-	top:60px;
-	font-size:14px;
-	cursor:pointer;
-}
-
-.dpla:hover {
-	color:#09f;
-}
-
-.dpla:active {
-	color:#007acc; 
-}
-/*///////////////////////////////////*/
-
 
 .welcome {
 	position:relative;

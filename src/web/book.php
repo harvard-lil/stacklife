@@ -14,7 +14,6 @@ echo <<<EOF
 
 	<title></title>
 
-	<link rel="stylesheet" href="$www_root/css/book.css" type="text/css" />
 	<script type="text/javascript" src="$www_root/js/book.js"></script>
 	<script type="text/javascript" src="$www_root/js/jquery.history.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
