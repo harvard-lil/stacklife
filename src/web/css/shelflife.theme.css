@@ -327,3 +327,11 @@ ShelfLife DropDown Theme, thanks to jQuery
 .color1, .color2, .color3, .color4, .color5, .color6, .color7, .color8, .color9, .color10 {
 	border-width:1px;
 }
+
+.active-item {
+  -webkit-transform: translate(15px, 0);
+  -moz-transform: translate(15px, 0);
+  -ms-transform: translate(15px, 0);
+  -o-transform: translate(15px, 0);
+  transform: translate(15px, 0); 
+}

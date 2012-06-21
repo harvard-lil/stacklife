@@ -17,8 +17,6 @@ function session_info()
 	session_start(); 
 
 	if($_REQUEST['type'] == 'set') {
-		if(isset($_REQUEST['stackdisplay']))
-			$_SESSION['stackdisplay'] = $_REQUEST['stackdisplay'];
 		if(isset($_REQUEST['uid'])) {
 			foreach(array_reverse($_SESSION['books']) as $id => $past_book){
 				if($id != $_REQUEST['uid']) {
@@ -27,15 +25,7 @@ function session_info()
 			}
 		}
 	}
-	
-	if($_REQUEST['type'] == 'get') {
-		if(isset($_SESSION['stackdisplay']))
-    		$_SESSION['stackdisplay'] = $_SESSION['stackdisplay'];
-		else
-    		$_SESSION['stackdisplay'] = 'spines';
-    		
-		echo $_SESSION['stackdisplay'];
-	}
+
 }
 
 function fetch_availability()
@@ -55,533 +45,11 @@ function fetch_availability()
 	echo $contents;
 }
 
-function fetch_worldcat_data()
-{
-	global $WORLDCAT_KEY;
-    
-	$oclcnum = $_GET['oclcnum'];
-	$type = $_GET['type'];
-
-	if($type == 'summary')
-		$url = "http://www.worldcat.org/webservices/catalog/content/". $oclcnum . "?wskey=" . $WORLDCAT_KEY;
-	if($type == 'count')
-		$url = "http://www.worldcat.org/wcpa/servlet/org.oclc.lac.ui.ajax.ServiceServlet?wcoclcnum=". $oclcnum . "&ht=edition&serviceCommand=holdingsdata";
-	if($type == 'review')
-		$url = "http://www.worldcat.org/webservices/catalog/content/". $oclcnum . "?wskey=" . $WORLDCAT_KEY;
-
-	$contents = fetch_page($url);
-	
-	//$contents = preg_replace('/\/wcpa\/*$/', '', $contents);
-	$contents = preg_replace('/<img/', '', $contents);
-
-	echo $contents;
-}
-
-function format_stack_json($result, $home = '', $type = 'book', $label = '')
-{
-	$json = array();
-	
-	$books_fields = array('title','creator','measurement_page_numeric','measurement_height_numeric', 'title_link_friendly', 'shelfrank', 'pub_date', 'format', 'id_oclc', 'id_isbn', 'id', 'rsrc_value', 'loc_sort_order', 'publisher', 'desc_subject_lcsh', 'aggregation_checkout', 'source', 'wp_categories', 'wp_url', 'id_inst');
-
-	while($row = mysql_fetch_array($result))
-	{
-		$uid = $row[0];
-
-		$title = $row[1];
-		$link_title = link_title($title);
-		
-  		//if($row[6] == 'English')
-  		//	$title = title_case($title);
-		
-		$author = '';
-		$creator = array();
-		if(isset($row[2]))
-			$authors = explode('%%', $row[2]);
-
-		foreach($authors as &$author) {
-			$author = preg_replace("/\.$/", '', $author);
-			array_push($creator, $author);
-		}
-	
-		$pages = $row[3]; //echo "pages preprocessing: $pages <br />";
-		// Assume for the moment that all page indications are followed by possible white space and the letter "p" (without "p" initiating a new word)
-		if(preg_match("/(\d*)\s*p\.*/", $pages, $match) || preg_match("/(\d*)/", $pages, $match))
-		$pages = $match[1]; //echo 'pages: ' . $pages . '<br />';
-		if ($pages == "" || $pages < 200) $pages = 200;
-		if ($pages > 540) $pages = 540;
-	
-		$height_cm = $row[4];
-		// Assume for the moment that all heights will be followed by possible white space and then "cm"
-		preg_match("/^(\d*)/", $height_cm, $match);
-		$height_cm = $match[1]; //echo 'height: ' . $height_cm . '<br />';
-		if ($height_cm == "" || $height_cm < 20) $height_cm = 20;
-		if ($height_cm > 39) $height_cm = 39;
-	
-		$shelfrank = $row[5];
-		
-		$year = $row[7];
-		
-		$format = $row[8];
-		
-		$oclc = null;
-		$oclc = $row[10];
-		
-		if(isset($row[11]))
-			$rsrc_value = array($row[11]);
-		else
-			unset($rsrc_value);
-		
-		$sort_order = $row[12];
-		
-		$publisher = $row[13];
-		
-		$subjects = array();
-		if(isset($row[14]))
-			$subject_array = explode('%%', $row[14]);
-		
-		foreach($subject_array as $subject) {
-			array_push($subjects, $subject);
-		}
-		
-			
-		if(isset($row[15]))
-			$checkouts = array($row[15]);
-		else
-			unset($checkouts);
-		
-		$source = $row[16];
-			
-		if(isset($row[17]))
-			$wp_url = $row[17];
-		else
-			unset($wp_url);
-			
-		$wp_categories = array();
-		if(isset($row[18])) {
-			$wp_categories_pieces = explode('%%', $row[18]);
-			foreach($wp_categories_pieces as $wp_category) {
-				array_push($wp_categories, $wp_category);
-			}
-		}
-		else
-			unset($wp_categories);
-		
-		$id_inst = $row[19];
-
-		$isbn = array();
-		if(isset($row[9])) { 
-			$isbn_full = explode('%%', $row[9]);
-			$isbn_temp = $isbn_full[0];
-			$isbn_full = explode(' ', $isbn_temp);
-			array_push($isbn, $isbn_full[0]);
-		}
-
-		$books_data   = array($title, $creator, $pages, $height_cm, $link_title, $shelfrank, $year, $format, $oclc, $isbn, $uid, $rsrc_value, $sort_order, $publisher, $subjects, $checkouts, $source, $wp_categories, $wp_url, $id_inst);
-		$temp_array  = array_combine($books_fields, $books_data);
-		array_push($json, $temp_array);
-	}
-	return $json;
-}
-
-function fetch_custom_stack($table)
-{
-	$offset = $_GET['start'];
-	if (!isset($_GET['limit'])) $count = 11;
-	else $count = $_GET['limit'];
-	$neighborhood = array();
-	
-	if($table == 'sl_custom_stack') $order = 'ORDER BY shelfrank DESC';
-	
-	$limit = "LIMIT $offset, $count";
-
-	connect_db();
-	
-	mysql_select_db("sl");
-	
-	$count_query = "SELECT COUNT(DISTINCT id) 
-    				FROM $table  
-	";
-	//echo $count_query;
-	$hits = 0;
-	$count_result = mysql_query($count_query);
-	$row = mysql_fetch_row($count_result);
-	$hits = $row[0];
-	$last = $offset + $count;
-	
-	//$hollis_id = preg_replace("/^0+/", "", $hollis_id);
-
-    $userList  = "SELECT id
-    				FROM $table 
-    				$limit";
-    
-    //echo $userList;
-    $user_result = mysql_query($userList);
-    $user_books = array();
-    while($row = mysql_fetch_row($user_result)) {
-    	$uid = $row[0];
-    	array_push($user_books, $uid);
-    }
-    $number_books = count($user_books);
-    if($number_books == 0)
-    	$where = "WHERE 1 = 2";
-    else
-	    $where = "WHERE ";
-    $count_books = 1;
-    foreach($user_books as $uid) {
-    	//$where .= "Marc001 = '$hollis_id' ";
-    	$where .= "id = '$uid' ";
-    	if($count_books < $number_books)
-    		$where .= " OR ";
-    	$count_books++;
-    }
-	
-	if (!isset($_GET['callback'])) $callback = "";
-	else $callback = $_GET['callback'];
-	
-	mysql_select_db("sl");
-	
-	$sl_stackview_select_query = "SELECT id, title, creator, measurement_page_numeric, measurement_height_numeric, shelfrank, language, pub_date, format, id_isbn, id_oclc, rsrc_value, loc_sort_order, publisher, desc_subject_lcsh, aggregation_checkout, source, wp_url, wp_categories, id_inst
-	FROM sl.item
-	$where
-	$order
-	";
-	//print "sl_stackview_select_query: [$sl_stackview_select_query]<br />";
-	$result = mysql_query($sl_stackview_select_query);
-	if (!$result) 
-	{
-		echo 'Could not run sl_stackview_select_query: ' . mysql_error();
-	} 	
-
-	$json = array();
-	$json = format_stack_json($result, '', '', $label);	
-	
-	if(count($json) == 0 || $offset == -1) {
-		if ($callback) echo $callback . ' ({"start": "0", "num_found": "0", "limit": "0", "docs": ""})'; 
-		else echo '({"start": "0", "num_found": "0", "limit": "0", "docs": ""})';
-	}
-	else {
-		if ($callback) echo $callback . '({"start": ' . $last. ', "limit": "' . $count . '", "num_found": "' . $hits . '", "docs": ' . json_encode($json) . '})'; 
-		else echo '({"start": ' . $last . ', "limit": "' . $count . '", "num_found": "' . $hits . '", "docs": ' . json_encode($json) . '})';
-	}
-	mysql_close();
-}
-
-function fetch_recently_viewed()
-{
-	fetch_recently_neighborhood('book');
-}
-
-function fetch_recently_viewed_auth()
-{
-	fetch_recently_neighborhood('author');
-}
-
-function fetch_recently_neighborhood($type)
-{
-	$user_books = array_unique($_GET['recently']);
-	$offset = $_GET['start'];
-	
-	connect_db();
-	
-	$neighborhood = array();
-
-    $number_books = count($user_books);
-    
-    if($number_books == 0)
-    	$where = "WHERE 1 = 2";
-    else
-	    $where = "WHERE ";
-    $count_books = 1;
-    foreach($user_books as $item_id) {
-    	//$where .= "Marc001 = '$hollis_id' ";
-    	$where .= "id = '$item_id' ";
-    	if($count_books < $number_books)
-    		$where .= " OR ";
-    	$count_books++;
-    }
-    
-    $home = 'not_used';
-	
-	if (!isset($_GET['callback'])) $callback = "";
-	else $callback = $_GET['callback'];
-	
-	mysql_select_db("sl");
-	
-	$sl_stackview_select_query = "SELECT id, title, creator, measurement_page_numeric, measurement_height_numeric, shelfrank, language, pub_date, format, id_isbn, id_oclc, rsrc_value, loc_sort_order, publisher, desc_subject_lcsh, aggregation_checkout, source, wp_url, wp_categories, id_inst
-	FROM sl.item
-	$where
-	LIMIT $offset, $number_books
-	";
-	//print "sl_stackview_select_query: [$sl_stackview_select_query]<br />";
-	$result = mysql_query($sl_stackview_select_query);
-	if (!$result) 
-	{
-		echo 'Could not run sl_stackview_select_query: ' . mysql_error();
-	} 	
-
-	$json = array();
-	$json = format_stack_json($result, '', $type, 'Your recently viewed items');
-	
-	
-	if(count($json) == 0 || $offset == -1) {
-		if ($callback) echo $callback . ' ({"start": "0", "num_found": "0", "limit": "0", "docs": ""})'; 
-		else echo '({"start": "0", "num_found": "0", "limit": "0", "docs": ""})';
-	}
-	else {
-		if ($callback) echo $callback . '({"start": "0", "limit": "' . $number_books . '", "num_found": "' . $number_books . '", "docs": ' . json_encode($json) . '})'; 
-		else echo '({"start": "0", "limit": "' . $number_books . '", "num_found": "' . $number_books . '", "docs": ' . json_encode($json) . '})';
-	}
-	mysql_close();
-}
-
-function fetch_also_neighborhood()
-{
-	fetch_user_neighborhood('book_also_views');
-}
-
-function fetch_friend_neighborhood()
-{
-	fetch_user_neighborhood('book_friends');
-}
-
-function fetch_user_neighborhood($type)
-{
-	$uid = $_GET['id'];
-	$offset = $_GET['start'];
-	if (!isset($_GET['limit'])) $count = 11;
-	else $count = $_GET['limit'];
-	//$type = $_GET['type'];
-	//$type = 'hreg.book_also_views';
-	$uid_home = $uid;
-	$neighborhood = array();
-	
-	$limit = "LIMIT $offset, $count";
-
-	connect_db();
-	
-	$count_query = "SELECT COUNT(DISTINCT book_two) 
-    				FROM $type 
-    				WHERE book_one = '$uid' 
-	";
-	//echo $count_query;
-	$hits = 0;
-	$count_result = mysql_query($count_query);
-	$row = mysql_fetch_row($count_result);
-	$hits = $row[0];
-	$last = $offset + $count;
-	
-	//$hollis_id = preg_replace("/^0+/", "", $hollis_id);
-
-    $userList  = "SELECT COUNT(*), book_two 
-    				FROM $type 
-    				WHERE book_one = '$uid' 
-    				GROUP BY book_two
-    				ORDER BY COUNT(*) DESC
-    				$limit";
-    
-    //echo $userList;
-    $user_result = mysql_query($userList);
-    $user_books = array();
-    while($row = mysql_fetch_row($user_result)) {
-    	$uid = $row[1];
-    	array_push($user_books, $uid);
-    }
-    $number_books = count($user_books);
-    if($number_books == 0)
-    	$where = "WHERE 1 = 2";
-    else
-	    $where = "WHERE ";
-    $count_books = 1;
-    foreach($user_books as $uid) {
-    	//$where .= "Marc001 = '$hollis_id' ";
-    	$where .= "id = '$uid' ";
-    	if($count_books < $number_books)
-    		$where .= " OR ";
-    	$count_books++;
-    }
-    
-    $home = 'not_used';
-    if($type == 'book_also_views')
-    	$label = 'People who viewed this also viewed these';
-    else
-    	$label = 'Read this too';
-	
-	if (!isset($_GET['callback'])) $callback = "";
-	else $callback = $_GET['callback'];
-	
-	mysql_select_db("sl");
-	
-	$sl_stackview_select_query = "SELECT id, title, creator, measurement_page_numeric, measurement_height_numeric, shelfrank, language, pub_date, format, id_isbn, id_oclc, rsrc_value, loc_sort_order, publisher, desc_subject_lcsh, aggregation_checkout, source, wp_url, wp_categories, id_inst
-	FROM sl.item
-	$where
-	";
-	//print "sl_stackview_select_query: [$sl_stackview_select_query]<br />";
-	$result = mysql_query($sl_stackview_select_query);
-	if (!$result) 
-	{
-		echo 'Could not run sl_stackview_select_query: ' . mysql_error();
-	} 	
-
-	$json = array();
-	$json = format_stack_json($result, '', '', $label);	
-	
-	if(count($json) == 0 || $offset == -1) {
-		if ($callback) echo $callback . ' ({"start": "0", "num_found": "0", "limit": "0", "docs": ""})'; 
-		else echo '({"start": "0", "num_found": "0", "limit": "0", "docs": ""})';
-	}
-	else {
-		if ($callback) echo $callback . '({"start": ' . $last. ', "limit": "' . $count . '", "num_found": "' . $hits . '", "docs": ' . json_encode($json) . '})'; 
-		else echo '({"start": ' . $last . ', "limit": "' . $count . '", "num_found": "' . $hits . '", "docs": ' . json_encode($json) . '})';
-	}
-	mysql_close();
-}
-
-function fetch_collections()
-{
-	connect_db();
-	
-	$user_id = $_REQUEST['user_id'];
-	if (!isset($_GET['callback'])) $callback = "";
-	else $callback = $_GET['callback'];
-	
-	$fields = array('collection_id','name');
-	
-	$query = "SELECT id, name
-	FROM sl_collections
-	WHERE user_id = '$user_id'
-	ORDER BY name
-	";
-
-	$result = mysql_query($query);
-
-	$json = array();
-	while($row = mysql_fetch_row($result))
-	{
-		$data   = array($row[0], $row[1]);
-		$temp_array  = array_combine($fields, $data);
-		array_push($json, $temp_array);
-	}
-
-	if ($callback) echo $callback . '({"collections": ' . json_encode($json) . '})'; 
-	else echo '({"collections": ' . json_encode($json) . '})';
-	
-	mysql_close();
-}
-
-function amazon_recommendations()
-{
-    global $AMAZON_KEY;
-    global $AMAZON_SECRET_KEY;
-    
-	$isbn = $_GET['isbn'];
-	$public_key = $AMAZON_KEY;
-   	$private_key = $AMAZON_SECRET_KEY;
-   	$pxml = aws_signed_request("com", array("Operation"=>"ItemLookup","ItemId"=>$isbn,"ResponseGroup"=>"Similarities"), $public_key, $private_key);
-   	print_r($pxml);
-   	if ($pxml === False)
-   	{
-   		echo 'false';
-   	}
-  	else
-  	{ 
-  		foreach($pxml->Items->Item->SimilarProducts->SimilarProduct as $product){
-  			$img_url = $product->ASIN;
-  			echo "$img_url<br />";
-  		}
-   	}
-}
-
-function fetch_tag_neighborhood()
-{
-	$tag = $_GET['query'];
-	$offset = $_GET['start'];
-	if (!isset($_GET['limit'])) $count = 11;
-	else $count = $_GET['limit'];
-
-	$neighborhood = array();
-	
-	$limit = "LIMIT $offset, $count";
-
-	connect_db();
-	
-	$count_query = "SELECT COUNT(DISTINCT item_id) 
-    				FROM sl_tags 
-    				WHERE tag = '$tag' 
-	";
-	//echo $count_query;
-	$hits = 0;
-	$count_result = mysql_query($count_query);
-	$row = mysql_fetch_row($count_result);
-	$hits = $row[0];
-	$last = $offset + $count;
-	
-	//$hollis_id = preg_replace("/^0+/", "", $hollis_id);
-
-    $userList  = "SELECT COUNT(*), item_id 
-    				FROM sl_tags 
-    				WHERE tag='$tag' 
-    				GROUP BY item_id 
-    				ORDER BY COUNT(*) DESC
-    				$limit";
-    
-    //echo $userList;
-    $user_result = mysql_query($userList);
-    $user_books = array();
-    while($row = mysql_fetch_row($user_result)) {
-    	$uid = $row[1];
-    	array_push($user_books, $uid);
-    }
-    $number_books = count($user_books);
-    if($number_books == 0)
-    	$where = "WHERE 1 = 2";
-    else
-	    $where = "WHERE ";
-    $count_books = 1;
-    foreach($user_books as $item_id) {
-    	$where .= "id = '$item_id' ";
-    	if($count_books < $number_books)
-    		$where .= " OR ";
-    	$count_books++;
-    }
-    
-    $home = 'not_used';
-	
-	if (!isset($_GET['callback'])) $callback = "";
-	else $callback = $_GET['callback'];
-	
-	mysql_select_db("sl");
-	
-	$sl_stackview_select_query = "SELECT id, title, creator, measurement_page_numeric, measurement_height_numeric, shelfrank, language, pub_date, format, id_isbn, id_oclc, rsrc_value, loc_sort_order, publisher, desc_subject_lcsh, aggregation_checkout, source, wp_url, wp_categories, id_inst
-	FROM sl.item
-	$where
-	";
-	//print "sl_stackview_select_query: [$sl_stackview_select_query]<br />";
-	$result = mysql_query($sl_stackview_select_query);
-	if (!$result) 
-	{
-		echo 'Could not run sl_stackview_select_query: ' . mysql_error();
-	} 	
-
-	$json = array();
-	$json = format_stack_json($result);	
-	
-	if(count($json) == 0 || $offset == -1) {
-		if ($callback) echo $callback . ' ({"start": "0", "num_found": "0", "limit": "0", "docs": ""})'; 
-		else echo '({"start": "0", "num_found": "0", "limit": "0", "docs": ""})';
-	}
-	else {
-		if ($callback) echo $callback . '({"start": ' . $last . ', "limit": "' . $count . '", "num_found": "' . $hits . '", "docs": ' . json_encode($json) . '})'; 
-		else echo '({"start": ' . $last . ', "limit": "' . $count . '", "num_found": "' . $hits . '", "docs": ' . json_encode($json) . '})';
-	}
-	mysql_close();
-}
-
 function fetch_tag_cloud()
 {	
 	connect_db();
 	
 	$uid        = trim($_REQUEST['uid']);	
-	//$hollis = preg_replace("/^0+/", "", $hollis);
 	$biggest = 0;
 
 	//query the database
@@ -867,43 +335,17 @@ function set_also_viewed()
 {
 	connect_db();	
 
-	// CLIENT INFORMATION
-	$book        = trim($_REQUEST['book']);
-	$uid        = trim($_REQUEST['uid']);
-	$id = trim($_REQUEST['id']);
-	
-	$friend = $book;
-	
-	//$hollis = preg_replace("/^0+/", "", $hollis);
-	//$friend = preg_replace("/^0+/", "", $friend);
+	$also        = trim($_REQUEST['also']);
+	$id        = trim($_REQUEST['id']);
 
-    $addClient  = "INSERT INTO book_also_views (book_one,book_two, session) VALUES ('$uid','$friend', '$id')";
-    //echo $addClient;
-    mysql_query($addClient) or die(mysql_error());
+  $addClient  = "INSERT INTO book_also_views (book_one,book_two) VALUES ('$id','$also')";
+
+  mysql_query($addClient) or die(mysql_error());
     
-    $addClientReverse  = "INSERT INTO book_also_views (book_one,book_two, session) VALUES ('$friend','$uid', '$id')";
-    //echo $addClient;
-    mysql_query($addClientReverse) or die(mysql_error());
-    mysql_close();
-}
+  $addClientReverse  = "INSERT INTO book_also_views (book_one,book_two) VALUES ('$also','$id')";
 
-function set_book_friend()
-{
-	connect_db();	
-
-	$book        = trim($_REQUEST['book']);
-	$uid        = trim($_REQUEST['uid']);
-	
-	$friend = $book;
-
-    $addClient  = "INSERT INTO book_friends (book_one,book_two) VALUES ('$uid','$friend')";
-    //echo $addClient;
-    mysql_query($addClient) or die(mysql_error());
-    
-    $addClientReverse  = "INSERT INTO book_friends (book_one,book_two) VALUES ('$friend','$uid')";
-    //echo $addClient;
-    mysql_query($addClientReverse) or die(mysql_error());
-    mysql_close();
+  mysql_query($addClientReverse) or die(mysql_error());
+  mysql_close();
 }
 
 function set_book_tag()
@@ -912,95 +354,17 @@ function set_book_tag()
 
 	// TAG INFORMATION
 	$uid        = trim($_REQUEST['uid']);
-	//$hollis        = trim($_REQUEST['hollis']);
+
 	$tag_array = $_REQUEST['tags']; 
 	$tags = explode(',', $tag_array); 
-	
-	//$hollis = preg_replace("/^0+/", "", $hollis);
 
-    foreach($tags as $tag){
-    	$tag = strtolower(trim($tag));
-    	//$addClient  = "INSERT INTO sl_tags (item_id,hollis,tag) VALUES ('$uid','$hollis','$tag')";
-    	$addClient  = "INSERT INTO sl_tags (item_id,tag) VALUES ('$uid','$tag')";
-    	//echo $addClient;
-    	mysql_query($addClient) or die(mysql_error());
-    }
-    mysql_close();
+  foreach($tags as $tag){
+    $tag = strtolower(trim($tag));
+    $addClient  = "INSERT INTO sl_tags (item_id,tag) VALUES ('$uid','$tag')";
+    mysql_query($addClient) or die(mysql_error());
+  }
+  mysql_close();
 }	
-
-function set_review()
-{
-	connect_db();	
-
-	$uid        = trim($_REQUEST['uid']);
-	$date = date( 'Y-m-d H:i:s' );
-	$rating = $_REQUEST['rating'];
-	$review = addslashes($_REQUEST['review']); 
-	$headline = addslashes($_REQUEST['headline']);
-	$recommended = $_REQUEST['recommended'];
-	if($_REQUEST['tag1'] && $_REQUEST['tag1'] != '') {
-		$tag[0] = explode("=", $_REQUEST['tag1']);
-	}
-	if($_REQUEST['tag2'] && $_REQUEST['tag2'] != '') {
-		$tag[1] = explode("=", $_REQUEST['tag2']);
-	}
-
-    $query  = "INSERT INTO sl_reviews (item_id,date,rating,headline,review,recommend_to_friend) VALUES ('$uid','$date','$rating','$headline','$review','$recommended')";
-    //echo $query;
-    mysql_query($query) or die(mysql_error());
-    
-    $review_id = mysql_insert_id();
-    
-    foreach($tag as $tag_pieces) {
-    	$tag_key = $tag_pieces[0];
-    	$tag = $tag_pieces[1];
-    	$tag_query  = "INSERT INTO sl_tags (item_id,review_id, tag_type, tag_key, tag) VALUES ('$uid','$review_id','review_meta','$tag_key','$tag')";
-
-    	mysql_query($tag_query) or die(mysql_error());
-    }
-    
-    mysql_close();
-}	
-
-function set_review_recommendation()
-{
-	connect_db();
-	
-	$review_id = $_REQUEST['review_id'];
-	
-	$query  = "UPDATE sl_reviews SET recommended = recommended + 1 WHERE id=$review_id";
-
-    mysql_query($query) or die(mysql_error());
-    
-    mysql_close();
-}
-
-function set_collection_addition()
-{
-	connect_db();
-	
-	$item_ids = $_REQUEST['item_id']; print_r($item_ids);
-	$collection_id = $_REQUEST['collection_id'];
-	$collection_name = $_REQUEST['collection_name'];
-	
-	if($collection_id == 'null') {
-		$col_query  = "INSERT INTO sl_collections (name, user_id) VALUES ('$collection_name', '123456')";
-
-    mysql_query($col_query) or die(mysql_error());
-    
-    $collection_id = mysql_insert_id();
-	}
-	
-	foreach($item_ids as $item_id) {
-	
-	$query  = "INSERT IGNORE INTO sl_collections_items (collection_id, item_id) VALUES ('$collection_id', '$item_id')";
-
-    mysql_query($query) or die(mysql_error());
-    
-    }
-    
-    mysql_close();
-}
 
 function check_amazon()
 {
@@ -1011,11 +375,11 @@ function check_amazon()
 	}
 	
 	global $AMAZON_KEY;
-    global $AMAZON_SECRET_KEY;
+  global $AMAZON_SECRET_KEY;
 
 	$public_key = $AMAZON_KEY;
-   	$private_key = $AMAZON_SECRET_KEY;
-   	$pxml = aws_signed_request("com", array("Operation"=>"ItemLookup","ItemId"=>$isbn,"ResponseGroup"=>"ItemAttributes"), $public_key, $private_key);
+  $private_key = $AMAZON_SECRET_KEY;
+  $pxml = aws_signed_request("com", array("Operation"=>"ItemLookup","ItemId"=>$isbn,"ResponseGroup"=>"ItemAttributes"), $public_key, $private_key);
    	if ($pxml === False)
    	{
    		echo 'false';
@@ -1031,90 +395,7 @@ function check_amazon()
        	{
            	echo 'false';
        	}
-   	//echo "<p><img src=\"".$img_url."\" /></p>";
    	}
-}
-
-function ReplaceAccents ($s) {
-	$a = array (
-		chr(195).chr(167)=>'c', //c with cedilla
-		chr(231)=>'c',
-		chr(195).chr(166)=>'ae', //a and e next to each other
-		chr(230)=>'ae',
-		chr(197).chr(147)=>'oe', //o and e next to each other
-		chr(195).chr(161)=>'a', //a acute (small slash from bottom left)
-		chr(225)=>'a',
-		chr(195).chr(169)=>'e', //e acute
-		chr(233)=>'e',
-		chr(195).chr(173)=>'i', //i acute
-		chr(237)=>'i',
-		chr(195).chr(179)=>'o', //o acute
-		chr(243)=>'o',
-		chr(195).chr(186)=>'u', //u acute
-		chr(250)=>'u',
-		chr(195).chr(160)=>'a', //a grave (small slash from top left)
-		chr(224)=>'a',
-		chr(195).chr(168)=>'e', //e grave
-		chr(232)=>'e',
-		chr(195).chr(172)=>'i', //i grave
-		chr(236)=>'i',
-		chr(195).chr(178)=>'o', //o grave
-		chr(242)=>'o',
-		chr(195).chr(185)=>'u', //u grave
-		chr(249)=>'u',
-		chr(195).chr(164)=>'a', //a umlaut (two dots)
-		chr(228)=>'a',
-		chr(195).chr(171)=>'e', //e umlaut
-		chr(235)=>'e',
-		chr(195).chr(175)=>'i', //i umlaut
-		chr(239)=>'i',
-		chr(195).chr(182)=>'o', //o umlaut
-		chr(246)=>'o',
-		chr(195).chr(188)=>'u', //u umlaut
-		chr(252)=>'u',
-		chr(195).chr(191)=>'y', //y umlaut
-		chr(255)=>'u',
-		chr(195).chr(162)=>'a', //a circumflex (a little hat)
-		chr(226)=>'a',
-		chr(195).chr(170)=>'e', //e circumflex
-		chr(234)=>'e',
-		chr(195).chr(174)=>'i', //i circumflex
-		chr(238)=>'i',
-		chr(195).chr(180)=>'o', //o circumflex
-		chr(244)=>'o',
-		chr(195).chr(187)=>'u', //u circumflex
-		chr(251)=>'u',
-		chr(195).chr(165)=>'a', //a with a small ring on top
-		chr(229)=>'a',
-		chr(101).chr(0)=>'e', //e
-		chr(105).chr(0)=>'i', //i
-		chr(195).chr(184)=>'o', //o with a slash through it
-		chr(248)=>'o',
-		chr(117).chr(0)=>'u', //u
-	);
-	return strtr ($s, $a);
-}
-
-function link_title($title) {
-	$title = preg_replace('/&sbquo;|&rsquo;|&fnof;|&bdquo;|&hellip;|&dagger;|&Dagger;|&circ;|&lsaquo;|&lsquo;|&ldquo;|&rdquo;|&ndash;|&mdash;|&tilde;|&rsaquo;/', '', $title);
-	$title = ReplaceAccents($title);
-	$title_words = explode(' ', strtolower($title));
-	$link_title = trim(implode(' ', array_slice($title_words, 0, 6)));
-    $link_title = str_replace(' :', '', $link_title);
-	$link_title = str_replace('#', '', $link_title);
-	$link_title = str_replace(',', '', $link_title);
-	$link_title = str_replace('\'', '', $link_title);
-	$link_title = str_replace('"', '', $link_title);
-	$link_title = str_replace('.', '', $link_title);
-	$link_title = preg_replace("/[^a-zA-Z0-9\s]/", "", $link_title);
-	$link_title = htmlspecialchars(str_replace(' ', '-', $link_title)); 
-	return $link_title;
-}
-
-function format_link() {
-	$title = $_POST['title'];
-	$title = link_title($title);
-	echo $title;
 }
 
 function fetch_page($url) {
@@ -1288,12 +569,12 @@ function aws_signed_request($region, $params, $public_key, $private_key)
     // GMT timestamp
     $params["Timestamp"] = gmdate("Y-m-d\TH:i:s\Z");
     // API version
-    $params["Version"] = "2009-08-01";
+    $params["Version"] = "2011-08-01";
     
     global $AMAZON_ASSOC_TAG;
     
     $params["AssociateTag"] = $AMAZON_ASSOC_TAG;
-    
+
     // sort the parameters
     ksort($params);
     
@@ -1340,40 +621,4 @@ function aws_signed_request($region, $params, $public_key, $private_key)
         }
     }
 }
-
-function title_case($title) {
-    $smallwordsarray = array('of','a','the','and','an','or','nor','but','is','if','then','else','when','at','from','by','on','off','for','in','out','over','to','into','with');
-
-    $words = explode(' ', $title);
-    foreach ($words as $key => $word)
-    {
-        if ($key == 0 or !in_array($word, $smallwordsarray))
-        	$words[$key] = my_ucwords(strtolower($word));
-    }
-
-    $newtitle = implode(' ', $words);
-    return $newtitle;
-} 
-
-function my_ucwords($string){
-
-    $invalid_characters = array('"',
-                                '\(',
-                                '\[',
-                                '\/',
-                                '<.*?>',
-                                '<\/.*?>');
-
-    foreach($invalid_characters as $regex){
-        $string = preg_replace('/('.$regex.')/','$1 ',$string);
-    }
-
-    $string=ucwords($string);
-
-    foreach($invalid_characters as $regex){
-        $string = preg_replace('/('.$regex.') /','$1',$string);
-    }
-
-    return $string;
-} 
 ?>

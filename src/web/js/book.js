@@ -13,8 +13,8 @@ $(document).ready(function() {
   		success: function(data){
   			if(data.docs[0].loc_call_num_sort_order && data.docs[0].loc_call_num_sort_order != undefined)
   				loc_call_num_sort_order = data.docs[0].loc_call_num_sort_order;
-  			uniform_count = data.docs[0].ut_score;
-  			uniform_id = data.docs[0].ut_uuid;
+  			uniform_count = data.docs[0].ut_count;
+  			uniform_id = data.docs[0].ut_id;
   			if (data.docs[0].lcsh != undefined) { 
 				$.each(data.docs[0].lcsh, function(i, item) {
 					item = item.replace(/\.\s*$/, '');
@@ -25,8 +25,7 @@ $(document).ready(function() {
 			}
 			var this_details = data.docs[0];
 			History.replaceState({data:this_details,rand:Math.random()}, this_details.title, "../" + this_details.title_link_friendly + "/" + this_details.id);
-        	draw_item_panel(data.docs[0]);
-        }
+    }
 	});
 
 	var stackheight = $(window).height() - $('.header').height();
@@ -41,46 +40,21 @@ $(document).ready(function() {
 	});
 
 	if(uniform_count > 1) {
-		var ulabel = $('#uniform').text();
-		$.getJSON('/platform/v0.03/api/item/&sort=shelfrank desc', $.param({ 'query' : uniform_id, 'search_type' : 'ut_uuid', 'start' : '0', 'limit' : '1' }),
-			function (data) {
-				if ( data.docs && data.docs.length > 0 ) {
-					$('#callview').removeClass('button-selected');
-					$('#uniform').addClass('button-selected');
-					stackoptions.url = '/platform/v0.03/api/item/&sort=shelfrank desc';
-					stackoptions.search_type = 'ut_uuid';
-					stackoptions.query = uniform_id;
-					drawStack(ulabel);
-
-					if(!loc_call_num_sort_order) {
-						$('#callview').text('No infinite bookshelf').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
-					}
-				}
-				else {
-					emptyStack('<span class="heading">There are no other editions.</span>');
-				}
-		});
+		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'ut_id', query: uniform_id, ribbon: $('#uniform').text()});
 	}
 	else if (loc_call_num_sort_order) {
-		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, items_per_page: 25, ribbon: 'Call number shelf: what you\'d see in the library'});
+		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, ribbon: 'Call number shelf: what you\'d see in the library'});
 	}
-	
 	else if(anchor_subject !== '') {
-		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'lcsh', query: anchor_subject, items_per_page: 25, ribbon: anchor_subject});
-		$('#callview').text('No infinite bookshelf').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
-		$('.subject-button:first').addClass('button-selected');
+		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'lcsh', query: anchor_subject, ribbon: anchor_subject});
 	}
-	
 	else if(anchor_subject === '') {
-		$('.ribbonBody .ribbonLabel').text('Sorry, no Library of Congress call number or subject neighborhood found.');
-		scroller.empty();
-		$('#callview').text('No call number stack').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
-		$('.subject-hits').addClass('empty');
+		$('#fixedstack').text('Sorry, no Library of Congress call number or subject neighborhood found.');
 	}
 	
 	if(!loc_call_num_sort_order) {
-			$('#callview').text('No call number stack').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
-		}
+		$('#callview').text('No call number stack').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
+	}
 
    	// load availability details
 	function loadAvailability (page, div) {
@@ -202,45 +176,6 @@ $(document).ready(function() {
 		$(this).find('.arrow').toggleClass('arrow-down');
 		$(this).next().next('.slide-full').slideToggle();
 	});
-
-    $('.readtoo').click(function() {
-    	$(this).find('.arrow').toggleClass('arrow-down');
-		$('#friend-box').slideToggle();
-		$('#friendSearch').focus();
-	});
-
-	$('#results').hide();
-
-	$('#titlesearch').submit(function() {
-		start_record = 0;
-		q = $('#friendSearch').attr('value');
-		loadResults();
-		return false;
-	});
-
-	$('.next-page').live('click', function() {
-		start_record = start_record + num_requested;
-		loadResults();
-	});
-	$('.prev-page').live('click', function() {
-		start_record = start_record - num_requested;
-		loadResults();
-	});
-
-	$('.read-this').live('click', function() {
-		var book = $(this).attr('href');
-		var that = $(this);
-
-		$.ajax({
-			type: "POST",
-			url: slurl,
-			data: "book="+ book + "&uid=" + uid + "&function=set_book_friend",
-			success: function(){
-				$(that).text('Added');
-				$(that).removeClass('read-this').removeClass('readButton').addClass('read-added');
-			}
-		});
-	});
 	
 	$('.sms').live('click', function() {
 
@@ -282,15 +217,18 @@ $(document).ready(function() {
 			return value;
 		}
 
-
 		// store this as an "also viewed"
-		$.ajax({
-			type: "POST",
-			url: slurl,
-			data: "book="+ uid + "&uid=" + item_details.id + "&id=" + sessionid + "&function=set_also_viewed",
-			success: function(){
-			}
-		});
+		$.each(alsoviewed, function(i, item){
+
+      $.ajax({
+        type: "POST",
+        url: slurl,
+        data: "also="+ item + "&id=" + item_details.id + "&function=set_also_viewed",
+        success: function(){
+        }
+      });
+      alsoviewed.push(item_details.id);
+    });
 
 		// add to recently viewed
 		$.ajax({
@@ -307,14 +245,13 @@ $(document).ready(function() {
 
 		// set our global var
 		hollis = item_details.id_inst;
+		title = item_details.title;
 		
 		// update our window title
-		document.title = item_details.title + ' | ShelfLife';
-		
-		title = item_details.title;
+		document.title = title + ' | ShelfLife';
 
 		// replace title
-		var home_stack_title = item_details.title;
+		var home_stack_title = title;
 		if(item_details.sub_title != undefined)
 			home_stack_title += ' : ' + item_details.sub_title;
 		$('.home-stack').text(home_stack_title);
@@ -347,7 +284,7 @@ $(document).ready(function() {
 		$('.imprint').text(imprint_vals.join(', '));
 
 		// replace scores
-		$('.shelfRank').text(left_pad(item_details[perspective]));
+		$('.shelfRank').text(left_pad(item_details.shelfrank));
 
 		var perspective_markup = '';
         if (item_details.aggregation_checkout) {
@@ -365,12 +302,12 @@ $(document).ready(function() {
 		    return (css.match(/color\d+/g) || []).join(' ');
 		});
 
-		$('.shelfRank').addClass('color' + get_heat(item_details[perspective]));
+		$('.shelfRank').addClass('color' + get_heat(item_details.shelfrank));
 		$('.itemData-container').removeClass(function (index, css) {
 		    return (css.match(/color\d+/g) || []).join(' ');
 		});
 
-		$('.itemData-container').addClass('color' + get_heat(item_details[perspective]));
+		$('.itemData-container').addClass('color' + get_heat(item_details.shelfrank));
 		
 		// replace hollis and button vals
 		$('#hollis_button').attr('href', 'http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|' + hollis);
@@ -379,7 +316,7 @@ $(document).ready(function() {
 		    return (css.match(/color\d+/g) || []).join(' ');
 		});
 
-		$('.unpack').addClass('color' + get_heat(item_details[perspective]));
+		$('.unpack').addClass('color' + get_heat(item_details.shelfrank));
 		// replace google books link
 		// get the google books info for our isbn and oclc (and if those are empty, use 0s)
 		var isbn = -1;
@@ -408,18 +345,13 @@ $(document).ready(function() {
 		$('.advanced-language p').text('Language: ' + item_details.language);
 
 		// replace cover image
-		//$('#itemData .cover-image:first').attr('src', 'http://images.amazon.com/images/P/' + isbn + '.01.ZTZZZZZZ.jpg');
 		$('#itemData .ol-cover-image').attr('src', 'http://covers.openlibrary.org/b/isbn/' + isbn + '-M.jpg');
-
-		// update like and follow buttons
-		$('div[fid^="uid:"]').attr('fid', 'uid:' + uid);
 
 		// replace subject buttons
 		var subject_markup = '<span class="heading">Library Shelves</span><ul>';
 
-		if(item_details.ut_score > 0)
+		if(item_details.ut_count > 0)
 			subject_markup += '<li id="uniform" class="button stack-button"><span class="reload">All Editions</span></li>';
-			//subject_markup += '<li id="uniform" class="button stack-button">All ' + item_details.ut_score + ' editions</li>';
 
 		subject_markup += '<li id="callview" class="button stack-button"><span class="reload">Infinite bookshelf</span></li>';
 
@@ -456,15 +388,12 @@ $(document).ready(function() {
 		else {
 			$('.wikipedia_link').hide();
 		}
-
-		// Load the worldcat data
-		if(item_details.id_oclc != '') {
-			var url = slurl + "?oclcnum=" + item_details.id_oclc + "&type=summary&function=fetch_worldcat_data";
-			$.ajax({
-				url: url,
-				method: 'GET',
-				success: function(msg){loadWorldcat(msg, $('.worldcat'));}
-			});
+		
+		$("#toc").html('');
+		var toc = item_details.toc[0];
+		toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
+		if(toc) {
+		  $("#toc").html('<span class="heading">Table of Contents</span><p class="longtoc>' + toc + '</p>');
 		}
 		
 		// load availability data
@@ -521,8 +450,8 @@ $(document).ready(function() {
         	draw_item_panel(data.docs[0]);
         }
 	  });
-		$('.anchorbook').removeClass('anchorbook');
-		$(this).parent().addClass('anchorbook');
+		$('.active-item').removeClass('active-item');
+		$(this).parent().addClass('active-item');
 		e.preventDefault();
 	});
 
@@ -530,65 +459,16 @@ $(document).ready(function() {
 		var compare = $.trim($(this).attr('id'));
 		var nlabel = $(this).text();
 		if(compare === 'recentlyviewed') {
-			$.getJSON(slurl + '?callback=?' + recentlyviewed, $.param({ 'search_type' : 'fetch_recently_viewed', 'start' : '0', 'limit' : '1' }),
-			function (data) {
-				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = slurl + '?' + recentlyviewed;
-					stackoptions.search_type = 'fetch_recently_viewed';
-					stackoptions.query = '';
-					drawStack(nlabel);
-				}
-				else {
-					emptyStack('You have no recently viewed items.');
-				}
-			});
-		}
-		else if(compare === 'friend') {
-			$.getJSON(slurl + '?callback=?', $.param({ 'id' : uid, 'search_type' : 'fetch_friend_neighborhood', 'start' : '0', 'limit' : '1' }),
-			function (data) {
-				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = slurl + '?';
-					stackoptions.search_type = 'fetch_friend_neighborhood';
-					stackoptions.query = '';
-					stackoptions.id = uid;
-					drawStack(nlabel);
-				}
-				else {
-					emptyStack('No books have been connected with this one yet.');
-				}
-			});
+			$('#fixedstack').stackView({url: www_root + '/recently.php?' + recentlyviewed, search_type: 'recently', ribbon: 'You recently viewed these'});
 		}
 		else if(compare === 'callview') {
 			$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, items_per_page: 25, ribbon: 'Call number shelf: what you\'d see in the library'});
 		}
 		else if(compare === 'alsoviewed') {
-			$.getJSON(slurl + '?callback=?', $.param({ 'id' : uid, 'search_type' : 'fetch_also_neighborhood', 'start' : '0', 'limit' : '1' }),
-			function (data) {
-				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = slurl + '?';
-					stackoptions.search_type = 'fetch_also_neighborhood';
-					stackoptions.id = uid;
-					stackoptions.query = '';
-					drawStack(nlabel);
-				}
-				else {
-					emptyStack('No books have been viewed with this one yet.');
-				}
-			});
+			$('#fixedstack').stackView({url: www_root + '/also.php', query: uid, search_type: 'also', ribbon: 'People who viewed this also viewed these'});
 		}
 		else if(compare === 'uniform') {
-			$.getJSON('/platform/v0.03/api/item/&sort=shelfrank desc', $.param({ 'query' : uniform_id, 'search_type' : 'ut_uuid', 'start' : '0', 'limit' : '1' }),
-			function (data) {
-				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = '/platform/v0.03/api/item/&sort=shelfrank desc';
-					stackoptions.search_type = 'ut_uuid';
-					stackoptions.query = uniform_id;
-					drawStack(nlabel);
-				}
-				else {
-					emptyStack('There are no other editions.');
-				}
-			});
+			$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'ut_id', query: uniform_id, items_per_page: 25, ribbon: ulabel});
 		}
 	});
 
@@ -597,38 +477,11 @@ $(document).ready(function() {
 	});
 	
 	$('.wp_category-button').live('click',function() {
-		var wp_category = $(this).text();
-
-		$.getJSON('/platform/v0.03/api/item/?callback=?', $.param({ 'query' : wp_category, 'search_type' : 'wp_categories_exact', 'limit' : 1 }),
-			function (data) {
-				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = '/platform/v0.03/api/item/';
-					stackoptions.search_type = 'wp_categories_exact';
-					stackoptions.query = wp_category;
-
-					drawStack(wp_category);
-				}
-				else{
-					emptyStack('Sorry, no more books on this subject.');
-				}
-			});
+		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'wp_categories', query: $(this).text(), items_per_page: 25, ribbon: $(this).text()});
 	});
 
 	$('.tag-button').live('click', function() {
-		var tag = $('span', this).text();
-		var that = $(this);
-		$.getJSON(slurl +'?callback=?', $.param({ 'query' : tag, 'start' : '0', 'limit' : '1', 'search_type' : 'fetch_tag_neighborhood' }),
-			function (data) {
-				if ( data.docs && data.docs.length > 0 ) {
-					stackoptions.url = slurl + '?';
-					stackoptions.search_type = 'fetch_tag_neighborhood';
-					stackoptions.query = tag;
-					drawStack(tag);
-				}
-				else{
-					emptyStack('Sorry, no more books have this tag.');
-				}
-			});
+		$('#fixedstack').stackView({url: www_root + '/tag.php', query: $('span', this).text(), search_type: 'tag', ribbon: $('span', this).text()});
 	});
 
     //
@@ -793,7 +646,6 @@ function drawTagNeighborhood(){
 			});
 
 			$('#tagGraph').append('<span class="heading">Tags</span><ul>' + tagList + '</ul>');
-			drawHelp();
 		}
 	});
 }

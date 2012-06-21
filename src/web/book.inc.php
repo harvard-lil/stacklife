@@ -20,12 +20,6 @@ else
 
 $uid = $_GET['id'];
 
-// Our passed in perspective
-$perspective = 'shelfrank';
-if (!empty($_GET['perspective'])) {
-  $perspective = $_GET['perspective'];
-}
-
 // Put our decoded stuff back into the session cookie
 $_SESSION['books'][$uid]['link'] = $_SERVER['REQUEST_URI'];
 ?>
