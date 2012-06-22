@@ -42,39 +42,40 @@
       
     $books_fields = array('id', 'title','creator','measurement_page_numeric','measurement_height_numeric', 'shelfrank', 'pub_date', 'title_link_friendly', 'format', 'loc_sort_order');
       
-    foreach($items as $item) {
-      $title = '';
-      $author = '';
+      foreach($items as $item) {
+        $title = '';
+        $author = '';
+        
+        $id = $item['id'];
       
-      $id = $item['id'];
-    
-      $title_link_friendly = $item['title_link_friendly'];
-      $shelfrank = (int) $item['shelfrank'];
-    
-      $creator = $item['creator'];
-      $title = $item['title'];
-      $height_cm = $item['height'];
-      if(!$height_cm || $height_cm > 33 || $height_cm < 20) $height_cm = 27;
-      $pages = $item['pages'];
-      if(!$pages) $pages = 200;
-      $year = $item['pub_date_numeric'];
-      $year = substr($year, 0, 4);
-      $format = $item['format'];
-      //$format = str_replace(" ", "", $format);
-      $loc_sort_order = $item['loc_call_num_sort_order'];
+        $title_link_friendly = $item['title_link_friendly'];
+        $shelfrank = (int) $item['shelfrank'];
       
-      $books_data   = array($id, $title, $creator, $pages, $height_cm, $shelfrank, $year, $title_link_friendly, $format, $loc_sort_order);
-      $temp_array  = array_combine($books_fields, $books_data);
-      array_push($json, $temp_array);
+        $creator = $item['creator'];
+        $title = $item['title'];
+        $height_cm = $item['height'];
+        if(!$height_cm || $height_cm > 33 || $height_cm < 20) $height_cm = 27;
+        $pages = $item['pages'];
+        if(!$pages) $pages = 200;
+        $year = $item['pub_date_numeric'];
+        $year = substr($year, 0, 4);
+        $format = $item['format'];
+        //$format = str_replace(" ", "", $format);
+        $loc_sort_order = $item['loc_call_num_sort_order'];
+        
+        $books_data   = array($id, $title, $creator, $pages, $height_cm, $shelfrank, $year, $title_link_friendly, $format, $loc_sort_order);
+        $temp_array  = array_combine($books_fields, $books_data);
+        array_push($json, $temp_array);
+      }
     }
-  }
-    
-  if($hits == 0 || count($json) == 0 || $start > 0) {
-    echo '{"start": "-1", "num_found": ' . $hits . ', "limit": "0", "docs": ""}'; 
-  }
-  else {
-    echo '{"start": "1", "limit": "' . $limit . '", "num_found": ' . $hits . ', "docs": ' . json_encode($json) . '}'; 
-  }
+      
+    if($hits == 0 || count($json) == 0 || $start > 0) {
+      echo '{"start": "-1", "num_found": ' . $hits . ', "limit": "0", "docs": ""}'; 
+    }
+    else {
+      echo '{"start": "1", "limit": "' . $limit . '", "num_found": ' . $hits . ', "docs": ' . json_encode($json) . '}'; 
+    }
+  mysql_close();
 
 function fetch_page($url) {
 	$ch = curl_init();

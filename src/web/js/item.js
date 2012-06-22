@@ -5,6 +5,7 @@ $(document).ready(function() {
 		draw_item_panel(State.data.data);
 	});
 	
+	// Fetch data about the item
 	$.ajax({
   		url: '/platform/v0.03/api/item/',
   		dataType: 'json',
@@ -53,7 +54,7 @@ $(document).ready(function() {
 	}
 	
 	if(!loc_call_num_sort_order) {
-		$('#callview').text('No call number stack').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
+		$('#callview').text('No call number stack').removeClass('button').removeClass('stack-button').addClass('button-disabled');
 	}
 
    	// load availability details
@@ -131,50 +132,10 @@ $(document).ready(function() {
 			}
 			div.wrapInner('<ul>');
 		}
-	
-   function loadWorldcat(page, div) {
-		var summary = '',
-		more = '';
-
-		// Empty out the old contents
-		div.empty();
-
-		$(page).find("datafield[tag='520']").each(function() {
-			var desc = $(this).text();
-			var shortDesc = '';
-			if(desc.length > 75) {
-				shortDesc = jQuery.trim(desc);
-				shortDesc = shortDesc.substring(0, 75).split(" ").slice(0, -1).join(" ") + '...';
-				more = '<span class="arrow"></span>';
-			}
-			else
-				shortDesc = desc;
-			summary += '<p class="shortdesc slide-teaser">' + shortDesc + '</p><p class="longdesc slide-full" style="display:none;">' + desc + '</p>';
-		});
-
-		if(summary != '') {
-			div.append('<div id="wc-description"><span class="heading toggledesc slide-teaser-more">Description ' + more + '</span>' + summary + '</div>');
-		}
-
-		$(page).find("datafield[tag='505']").each(function() {
-			var toc = $(this).text();
-			toc = toc.replace(/--/g, '<br />');
-			toc = toc.replace(/- -/g, '<br />');
-			toc = toc.replace(/-/g, '<br />');
-			var shortToc = toc.split("<br />",1).join(" ") + '...';
-			div.append('<divid="wc-toc"><span class="heading toggletoc slide-more">Table of Contents<span class="arrow"></span></span><p class="longtoc slide-content" style="display:none;">' + toc + '</p></div>');
-		});
-	}
 
 	$('.slide-more').live('click', function() {
 		$(this).next('.slide-content').slideToggle();
 		$(this).find('.arrow').toggleClass('arrow-down');
-	});
-	
-	$('.slide-teaser-more').live('click', function() {
-		$(this).next('.slide-teaser').toggle();
-		$(this).find('.arrow').toggleClass('arrow-down');
-		$(this).next().next('.slide-full').slideToggle();
 	});
 	
 	$('.sms').live('click', function() {
@@ -504,7 +465,6 @@ $(document).ready(function() {
 				success: function(){
 					var phrases = ['Nice!', 'Good one!', 'Woot!', 'Rock n\' roll!', 'Hey thanks.', 'Super cool!', 'Yeah, that seems like a good one-', 'Smart.', 'Keep \'em coming!', 'They say the darkest hour is right before the dawn', 'en fuego!'];
 					var number = Math.floor(Math.random()*phrases.length);
-					//$('form#book-tags-form').hide();
 					$('#book-tags').attr('value', '');
 					$('.book-tag-success span').text(phrases[number]);
 					$('.book-tag-success span').fadeIn().delay(750).fadeOut(400);
@@ -514,38 +474,6 @@ $(document).ready(function() {
 			return false;
 		}
 	});
-
-	$('.recommend').live('click', function() {
-		var review_id = $(this).attr('review');
-		var that = $(this);
-		$.ajax({
-				type: "POST",
-				url: slurl,
-				data: "review_id=" + review_id + "&function=set_review_recommendation",
-				success: function(){
-					$(that).parent().html('Thanks for your recommendation');
-				}
-			});
-	});
-
-	function drawStack(ribbon, isfacetable) {
-		if(isfacetable === undefined) isfacetable = true;
-		scroller.unbind( '.infiniteScroller' );
-		scroller.html(scrollercontent).stackScroller(stackoptions);
-		$('.ribbonBody .ribbonLabel').text(ribbon);
-		if((stackoptions.search_type === 'lcsh_exact' || stackoptions.search_type === 'keyword') && isfacetable)
-			$('.refine-stack-disabled').addClass('refine-stack').removeClass('refine-stack-disabled');
-		else
-			
-			$('.refine-stack').addClass('refine-stack-disabled').removeClass('refine-stack');
-	}
-
-	function emptyStack(message) {
-		scroller.unbind( '.infiniteScroller' );
-		scroller.empty();
-		$('.ribbonBody .ribbonLabel').text(message);
-		$('.subject-hits').html('').addClass('empty');
-	}
 }); //end document ready
 
 // We heatmap our shelfrank fields based on the scaled value
@@ -580,58 +508,6 @@ function get_heat(scaled_value) {
 	if (scaled_value >= 90 && scaled_value <= 100) {
 		return 10;
 	}
-}
-
-
-function loadResults() {
-	rows = '';
-	$.getJSON('/platform/v0.03/api/item/', $.param({ 'search_type' : 'keyword', 'start' : start_record, 'limit' : num_requested, 'sort' : 'shelfrank' + " " + 'desc', 'query' : q }),
-		function (results) {
-		if(results.num_found === 0) {
-			$('.num_found').text('No results');
-			$('.next-page').hide();
-			$('.prev-page').hide();
-		}
-		else {
-			end = start_record + results.docs.length - 1;
-			if(start_record === 0) {
-				startdisplay = 1;
-				end = end + 1;
-            }
-        	else {
-        		startdisplay = start_record + 1;
-            	end = end + 1;
-            }
-            if(end >= results.num_found)
-            	$('.next-page').hide();
-            else
-            	$('.next-page').show();
-            if(start_record < 1)
-            	$('.prev-page').hide();
-            else
-            	$('.prev-page').show();
-            $('.num_found').text(startdisplay + ' - ' + end + ' of ' + results.num_found);
-			$.each(results.docs, function(i, item){
-				if(item.title.length > 60){
-					var shortTitle = jQuery.trim(item.title);
-					shortTitle = shortTitle.substring(0, 60).split(" ").slice(0, -1).join(" ") + "...";
-				}
-				else{
-					var shortTitle = item.title;
-				}
-				if(item.creator){
-					if(item.creator instanceof Array)
-						creator = item.creator[0];
-					else
-						creator = item.creator;
-				}
-				rows += '<tr><td><span href="' + item.id + '" class="read-this button small">Add</span></td><td><span class="tooltip" title="' + item.title + '<br />' + item.publisher + ' ' + item.pub_date + '<br />' + item.language + '">' + shortTitle + '<br /><span class="read-author">' + creator + '</span></span></td></tr>';
-			});
-			$('#searchresults').html(rows);
-			$('#results').show();
-		}
-	});
-	return false;
 }
 
 function drawTagNeighborhood(){

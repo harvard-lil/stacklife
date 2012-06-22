@@ -311,15 +311,6 @@ hr {
 	border : 0;
 }
 
-
-/*drawing the bookshelf to the page so it scrolls with the content*/
-
-.scroller-wrapper {}
-
-.scroller-content {
-}
-
-
 #holder {
 	position:absolute;
 	z-index:20;
@@ -374,6 +365,7 @@ hr {
 }
 
 .text-description {
+  clear:both;
 	width:40%;
 	float:left;
 	display:inline-block;
@@ -383,9 +375,6 @@ hr {
 	margin:10px 0 0 0;
 }
 
-.test {
-
-}
 .shadow {
   -moz-box-shadow: 1px 1px 4px #eee;
   -webkit-box-shadow: 1px 1px 4px #eee;
@@ -405,7 +394,6 @@ hr {
 	width:100%;
 	top:0px;
 }
-
 
 #overlaynav a {
 	text-decoration:none;
@@ -439,91 +427,10 @@ hr {
 					/*HOME PAGE ELEMENTS*/
 /*/////////////////////////////////////////////////////////*/
 
-#diagram iframe{
-
-}
-
-
-.diveIn a {
-	text-align:center;
-	margin:80px auto;
-}
-
-.diveIn .button {
-	color:#035;
-	font-size:1.2em;
-	margin-top:50px;
-	
-}
-
-.diveIn .button:hover {
-	border:1px solid 060;
-}
-
-.column {
-	display: inline; 
-	list-style-type: none;
-	float:left;
-	padding:0 6px;
-	width:29%;
-}
-
-.column img {
-	display:block;
-}
-
-img.third-ill {
-	margin-top:40px;
-}
-
-/*
-.shelflife, .backdrop { 
-	padding: .8em 1.2em;
-	border-radius: .4em;
-   -moz-border-radius: .4em;
-   -webkit-border-radius: .4em;
-}
-*/
-.index-search {
-	margin:20px 0 0 0;
-}
-
-
-.stamp {
-	background-image:url('../images/LibLabStampNew.png');
-	background-repeat:none;
-	width:100px;
-	height:100px;
-	float:right;
-	margin-top:-125px;
-}
-
-.stamp2 {
-	clear:both;
-	background-image:url('../images/LibLabStampNew.png');
-	background-repeat:none;
-	width:100px;
-	height:100px;
-	float:right;
-	margin-top:-55px;
-	position:relative;
-}
 
 /*/////////////////////////////////////////////////////////*/
 					/*BOOK DATA OVERLAY*/
 /*/////////////////////////////////////////////////////////*/
-
-.resource-access {
-	float:left;		
-	   -webkit-user-select: none;
-   -moz-user-select:none;
-	user-select:none;
-}
-.resource-access li {
-	display:inline; 
-	float:left;		
-	margin-bottom: 4px;
-}
 
 .cover-image{
 	float:left;
@@ -539,10 +446,6 @@ img.third-ill {
 
 .indent1 {
 	margin-left:30px;
-}
-
-#collections {
-	clear:both;
 }
 
 .book-data { /* centering the content in overlay */
@@ -576,56 +479,17 @@ img.third-ill {
 	color: #ff9600;
 }
 
-.readButton {
-  	display:inline-block;
-	font-size: 12px;
- 	margin-left: 10px;
- 	margin-right: 10px;
-  	color:#FFF;
-  	padding-top:2px;
-  	padding-bottom:2px;
-  	border-radius:           4px;
-  	-moz-border-radius:      4px;
-  	-webkit-border-radius:   4px; 
-  	border:            0px solid;
-  	border-top-color:       #ccc;
-  	border-left-color:      #ccc;
-  	border-right-color:     #bbb;
-  	border-bottom-color:    #bbb;
-  	background-color:  #09F;
-  	border-color: #09F;
-  	padding:2px;
-  	cursor:pointer;
-}
-  
-.readButton:hover {
-  	border-color: #090;
-
-}
-
-.readButton:active {
-  	border-color: #09F;
-  	color:#35B600; 
-
-}
-
 .big-stuff {
 	border:1px solid red;
 }
-.worldcat {
+.toc {
 	float:left;
 }
-
-#reviewfull, #createreview, #reviewsummary {
-	margin-bottom:10px;
-}
-
 
 .search-instructions {
 	font-size:12px;
 	color:#666;
 }
-
 
 .read-author {
 	font-size: 12px;
@@ -648,10 +512,6 @@ img.third-ill {
   	-moz-border-radius: 2px;
   	-webkit-border-radius: 2px; 
   	padding: 3px 3px 3px;
-}
-
-.toggledesc, .toggletoc {
-	cursor:pointer;
 }
 
 #viewerCanvas {
@@ -814,15 +674,6 @@ strong {
 	cursor:pointer;
 }
 
-/*.highlight {
-	width:100%;
-	margin 10px auto;
-	border:2px solid #f60;
-	border-radius: 4px;
-   -moz-border-radius: 4px;
-   -webkit-border-radius: 4px; 
-}*/
-
 .highlight-border {
 	min-height:50px;
 }
@@ -897,11 +748,9 @@ strong {
 	text-decoration:none;
 }
 
-
 .small-button{
    	padding: 1px 2px 0px;
 }
-
 
 .button:hover a, .tag-button:hover a, .small-button:hover a, button-shelfRank:hover a, .subject-button:hover a, .stack-button:hover a, .button-google:hover a, button-availability:hover a, #shelfRankCalc:hover a, #shelfRankCalc:active a, .button-availability:hover a {
 	color: #000;
@@ -965,15 +814,9 @@ p.button.collectionsubmit, p.button-disabled.collectionsubmit {
 	display:block;
 }
 
-.subject-button, .wp_category-button, #callview, #uniform, #searchview, #usercollectionstack, #sourceview, .subject-shelves .button, .neighborhoods .button, .subject-shelves .button-disabled, .neighborhoods .button-disabled, .tag-button, .stack-button {
+.subject-button, .wp_category-button, #callview, #uniform, #searchview, .subject-shelves .button, .neighborhoods .button, .subject-shelves .button-disabled, .neighborhoods .button-disabled, .tag-button, .stack-button {
 	margin:0 0 0px 10px;
 }
-
-.subject-button, .stack-button, #callview {
-	
-}
-
-
 
 #arecentlyviewed, #authortitles {
 	display:inline-block;
@@ -981,9 +824,6 @@ p.button.collectionsubmit, p.button-disabled.collectionsubmit {
 
 #tagGraph { 
 	float:left;
-}
-
-#tagGraph {
 	margin:15px 0 0 0;
 }
 
@@ -1029,8 +869,6 @@ p.button.collectionsubmit, p.button-disabled.collectionsubmit {
 	top: 1px; 
 	background-image: url('../images/sort-arrow.png'); 
 }
-
-
 
 .arrow {
 	background-position:0 -13px;
@@ -1082,77 +920,6 @@ p.button.collectionsubmit, p.button-disabled.collectionsubmit {
 
 					/*CONTROL PANEL*/
 /* ------------------------------------------------------- */
-.upstream, .prev-page {
-	position:relative;
-	width:41px;
-	height:43px;
-	background-image: url('../images/nav.png');
-	background-repeat:no-repeat;
-	background-position: 0 -87px;
-   -webkit-user-select: none;
-   -moz-user-select:none;
-	user-select:none;
-	margin-bottom:10px;
-}
-
-.upstream:hover, .prev-page:hover {
-	background-position: 0 -44px;
-}
-
-.upstream:active, .prev-page:active {
-	background-position: 0 -1px;
-}
-
-.downstream, .next-page {
-	position:relative;
-	width:41px;
-	height:43px;
-	background-image:url('../images/nav.png');
-	background-repeat:no-repeat;
-	background-position: 0 -130px;
-   -webkit-user-select: none;
-   -moz-user-select:none;
-	user-select:none;
-	margin-top:10px;
-}
-
-.downstream:hover, .next-page:hover {
-	background-position: 0 -173px;
-}
-
-.downstream:active, .next-page:active {
-	background-position: 0 -216px;
-}
-
-.subject-hits {
-	text-align:center;
-	color: #09f;
-	border-radius: 2px;
-   -moz-border-radius: 2px;
-   -webkit-border-radius: 2px; 
-	border:0px solid #ddd;
-	font-size:15px;
-	line-height:16px;
-	height:40px;
-	width:70px;
-	padding:6px 0 0 0;
-	text-shadow: 0 1px 0 #ddd;
-	margin-left:-15px;
-
-}
-
-.empty {
-	border:0px solid #fefefe;
-}
-.next-page2, .prev-page2 {
-	float:left;
-	position:relative;
-	z-index: 24;
-	margin:0;
-}
-.prev-page2 {
-	float:right;
-}
 
 form {
 	position:relative;
@@ -1635,424 +1402,3 @@ input {
 .wrap span.ui-selectmenu-item-header,.wrap ul.ui-selectmenu-menu li a { 
 	text-decoration: underline !important; 
 }
-
-/* -------------------------------------------------------------- 
-   sociability elements
--------------------------------------------------------------- */
-
-div#ss-bar {
-  color: #232323;
-  width:200px;
-  font-size:.9em;
-  float:right;
- 
-  position:relative;
-  z-index:99;
-  margin-top:0px;
-}
-
-div#ss-bar a {
-	border:0;
-}
-/* line 12, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-div#ss-bar > div {
-  height: 100%;
-  float: right;
-}
-
-/* line 18, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-div#ss-bar > div > ol {
-  display: block;
-  padding: 0;
-  margin: 0;
-}
-
-/* line 24, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-div#ss-bar > div > ol > li {
-  display: inline-block;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* line 31, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-div#ss-bar > div > ol > li#sign-in {
-  display: none;
-}
-
-/* line 32, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-div#ss-bar > div > ol > li#sign-name {
-  display: none;
-}
-
-/* line 33, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-div#ss-bar > div > ol > li#sign-out {
-  display: none;
-}
-
-/* line 34, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-div#ss-bar > div > ol > li#sign-up {
-  display: none;
-}
-
-/* line 51, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-span.ss-box {
-  color: #eff;
-  cursor: default;
-  padding: 0px;
-  margin: 0px;
-  /*
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-bottom: 10px;
-  padding-top: 13px;
-  */
-  border-radius: 3px;
-}
-
-/* line 54, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-span.ss-box-sep {
-  color: #fff;
-  cursor: default;
-  padding: 10px;
-  margin: 0px;
-  /*
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-bottom: 10px;
-  padding-top: 13px;
-  */
-  border-radius: 3px;
-  padding: 0px;
-  margin: 0px;
-}
-
-/* line 60, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-/* this is the font color as you know it */
-span.ss-box-h {
-  color: #232323;
-  cursor: default;
-  padding: 0px;
-  margin: 0px;
-  /*
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-bottom: 10px;
-  padding-top: 13px;
-  */
-  border-radius: 3px;
-}
-/* line 62, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-span.ss-box-h:hover {
-  color: #09f;
- /*/ background: #55ddff;
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); /*/
-}
-/* line 27, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_base.scss */
- /*/span.ss-box-h:hover:before {
-  top: 10px;
-  bottom: 10px;
-  left: 0;
-  right: 50%;
-  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  -moz-border-radius: 10px/100px;
-  border-radius: 10px/100px;
-} /*/
-/* line 41, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_base.scss */
-span.ss-box-h:hover:before {
-  right: 0;
-}
-
-/* line 71, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_bar.scss */
-a.boxing {
-  text-decoration: none !important;
-}
-
-.play-media {
-	clear:both;
-}
-
-/* line 2, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-div.ss-glass {
-  display: block;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background: white;
-  opacity: 0.9;
-  z-index: 100;
-}
-
-/* line 15, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-div.ss-screen {
-  display: block;
-  position: fixed;
-  z-index: 200;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  vertical-align: middle;
-  text-align: center;
-}
-
-
-
-/* line 28, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-screen {
-  font: 13px;
-  margin:O auto;
-}
-
-/* line 31, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-screen h2 {
-  color: #d24;
-  font: 30px/35px;
-  padding:10px 0;
-}
-
-/* line 35, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-screen .footnote {
-  font: 9px;
-  display:inline;
-}
-
-/* line 38, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-screen .errmsg {
-  font: 15px;
-  color: #c04;
-}
-
-/* line 43, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-screen [disabled] {
-  background: #ccc;
-  color: #eee;
-}
-
-/* line 50, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-simple-form {
-  display: inline-block;
-  margin-top: 100px;
-  text-align: center;
-}
-
-/* line 55, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-simple-form table {
-  margin: 30px;
-  width: 400px;
-}
-
-/* line 56, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-simple-form td {
-  vertical-align: top;
-  text-align: left;
-}
-
-/* line 57, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-simple-form td.label {
-  font: 13px/33px;
-  text-align: right;
-}
-
-/* line 61, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-simple-form td.msg {
-  font: 13px/17px;
-  text-align: center;
-}
-
-/* line 65, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-simple-form td.submit {
-  text-align: center;
-}
-
-/* line 66, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-simple-form td.msg {
-  text-align: center;
-}
-
-/* line 67, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-simple-form td {
-  padding: 10px;
-}
-
-/* line 68, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-simple-form .button {
-  font-size: 14px;
-  color:#232323;
-  font-family:'helvetica neue', arial, sans-serif;
-  border-bottom:1px dotted #ccc;
-}
-
-/* line 71, /home/petar/ShelfLife-git/src/static/vanilla-style/sass/_form.scss */
-.ss-simple-form input[type="text"], .ss-simple-form input[type="password"] {
-  background: #fff;
-  font: 14px/18px;
-  padding: 4px;
-  width: 200px;
-}
-
-.collections-placeholder {
-	background-image:url('../images/collections.png');
-	width:931px;
-	height:1208px;
-}
-
-#createreview {
-	margin-left:-3px;
-	text-decoration:underline;
-	color:#333;
-}
-
-
-#action {
-	padding:1px 4px 0px;
-	border:1px solid #aaa;
-	margin:8px 0;
-	border-radius: 2px;
-   -moz-border-radius: 2px;
-   -webkit-border-radius: 2px;
-   -o-border-radius: 2px;
-   -ms-border-radius: 2px;
-   cursor:pointer;
-   border-color:#09f;
-	color:#007acc;
-}
-
-
-
-#action:hover {
-	border-color:#09f;
-	color:#005288;
-}
-
-#action:active {
-	color:#f60;
-}
-
-#footnote {
-	color:#f60;
-	padding: 4px 0;
-	display:block;
-	margin-top:5px;
-}
-
-.ss-line-height {
-	line-height:1.6em;
-}
-/*////////////////////////////////
-////////////////////////////////*/
-
-.tbl{
-
- }
-#tab{
- 	margin-left:auto; 
- 	margin-right:auto;
- }
- 
-.title,.date,.desc,.score,.hdr, .explanation{
- font-size:11pt;
- text-align:left;
-}
-
-.trendTitle {
-	font-size:15px;
-	color:#000;
-	text-shadow: 0px 1px #fff;
-}
-
-.trendAuthor {
-	font-size:13px;
-	color:#555;
-	text-shadow: 0px 1px #fff;
-}
-
-.checkOutsLogo {
-	position:relative;
-	background-image:url('../images/checkOutsLogo.png');
-	background-repeat:no-repeat;
-	width:218px;
-	height:112px;
-	float:right;
-	margin:-53px 66px 0px 0;
-	z-index:-1;
-
-}
-
-#ui {
-	float:left;
-	width:50%;
-	margin-top:-40px;
-}
-
-#displayarea table {
-	margin:0px 0;
-	padding:5px 0;
-	border:1px solid #f2e4d7;
-   -moz-border-radius: 3px;
-   -webkit-border-radius: 3px;
-   -o-border-radius: 3px;
-   -ms-border-radius: 3px;
-   	border-radius: 3px;
-	background:#fff;
-	width:98.2%;
-}
-
-.found {
-	color:#999;
-}
-
-.score{
- text-align: center;
- }
- 
-.hdr{
- text-align:left;
- font-size:16px; 
- color:#09f;
- border-bottom:1px solid #eef8ff;
-
- }
-.explanation{
-  font-size:10pt;
-  }
-#explans{
-  width:400px;
-  border-width: 1px;
-  color: gray;
-  }
-td{
-  vertical-align:top;
-  max-width:350px;
-}
-.bookcell{
-  font-size:12px;
-  max-height:110px;
-  overflow:hidden;
-}
-
-#trending-container{
-	display:none;
-}
-
-.row1{
-background:#eef8ff;
-	
-}
-
-.row0{
-	background:#fff;	
-}
-
-
-
-a.webpage {
-	color:#09f;
-}
-

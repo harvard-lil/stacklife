@@ -2,7 +2,7 @@
 
 <?php
   require_once ('../../sl_ini.php');
-  include_once('book.inc.php');
+  include_once('item.inc.php');
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,7 +14,7 @@ echo <<<EOF
 
 	<title></title>
 
-	<script type="text/javascript" src="$www_root/js/book.js"></script>
+	<script type="text/javascript" src="$www_root/js/item.js"></script>
 	<script type="text/javascript" src="$www_root/js/jquery.history.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 EOF;
