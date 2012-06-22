@@ -18,15 +18,11 @@ echo <<<EOF
 
   <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
   <script type="text/javascript" src="$www_root/js/selectmenu.js"></script>
-  <script type="text/javascript" src="$www_root/js/jquery.localscroll-1.2.7-min.js"></script>
-  <script type="text/javascript" src="$www_root/js/jquery.scrollTo-1.4.2-min.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.fancybox-1.3.4.pack.js"></script>
   <script type="text/javascript" src="http://use.typekit.com/gre3ysx.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-<link rel="stylesheet" href="$www_root/css/template.css" type="text/css" />
+  <link rel="stylesheet" href="$www_root/css/template.css" type="text/css" />
   <link rel="stylesheet" href="$www_root/stackview/jquery.stackview.css" type="text/css" />
-  
-  <title> $title_without_author | ShelfLife</title>
 EOF;
 ?>

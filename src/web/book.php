@@ -26,7 +26,6 @@ var
 hollis = '<?php echo $hollis ?>',
 worldcatnum = '',
 loc_sort_order = '';
-sessionid = '<?php echo $session_id ?>',
 anchor_subject = '',
 uniform_id = '',
 uniform_count = '',
@@ -35,10 +34,6 @@ title = '';
 
 var slurl = '<?php echo $www_root ?>/src/web/sl_funcs.php';
 var www_root = '<?php echo $www_root ?>';
-
-var start_record = 0,
-num_requested = 3,
-q = '';
 
 var recentlyviewed = '';
 var alsoviewed = new Array();

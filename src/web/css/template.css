@@ -851,7 +851,7 @@ strong {
 	color:#f60;
 }
 
-.button, .button-disabled, .tag-button, .button-availability, .subject-button, .wp_category-button, .stack-button, .button-google, .button-google-disabled, .small-button, .author-toggle, .subject-toggle {
+.button, .button-disabled, .tag-button, .button-availability, .subject-button, .wp_category-button, .stack-button, .button-google, .button-google-disabled, .small-button, .toggle {
    	font-size: 15px; 
    	padding: 0px 0px 8px 0px;
    	text-decoration: none;
@@ -868,7 +868,7 @@ strong {
 	line-height:1.6em;
 }
 
-.button a, .button a:visited, .button-disabled a, .button-shelfRank a, .button-shelfRank a:visited, .tag-button a, .tag-button a:visited, .button-availability a, .button-availability a:visited, .subject-button a, .subject-button a:visited, .wp_category-button a, .wp_category-button a:visited, .stack-button a, .stack-button a:visited, .button-google, .button-google-disabled, .small-button a, .author-toggle a, .author-toggle a:visited, .subject-toggle a, .subject-toggle a:visited  {
+.button a, .button a:visited, .button-disabled a, .button-shelfRank a, .button-shelfRank a:visited, .tag-button a, .tag-button a:visited, .button-availability a, .button-availability a:visited, .subject-button a, .subject-button a:visited, .wp_category-button a, .wp_category-button a:visited, .stack-button a, .stack-button a:visited, .button-google, .button-google-disabled, .small-button a  {
    	text-decoration: none;
    	text-align: left;
    	color: #444;
@@ -999,7 +999,7 @@ p.button.collectionsubmit, p.button-disabled.collectionsubmit {
 
 }
 
-.author-toggle, .subject-toggle, .author-toggle a, .subject-toggle a {
+.toggle {
 	text-decoration:none;
 	font-size: .7em;
 	color: #555;
