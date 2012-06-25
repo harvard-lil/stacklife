@@ -98,54 +98,11 @@ $(document).ready(function() {
       	<div class="main">
 				  <div id="fixedstack"></div>
         </div><!-- end main-->
-			<div class="itemData-container scrollmarg">
-				<div id="itemData">
-          <h1 class="home-stack"></h1>
-          <div id="creator_container"></div>
-
-          <img class="cover-image ol-cover-image" src="" />
-
-					<a href="" target="_blank" class="button" id="hollis_button">HOLLIS</a>
-					<div id="online">
-            <a class="button-google-disabled" href="#viewerCanvas"><img src="<?php echo $www_root ?>/images/gbs_preview_disabled.png" /></a>
-            <a id="gviewer" class="button-google" href="#viewerCanvas" style="display:none;"><img src="<?php echo $www_root ?>/images/gbs_preview.png" border="0" /></a>
-          </div>
-          <div class="wikipedia-icon"> 
-						<div class="wikipedia_link">
-						  <a href="" target="_blank" >
-						    <img src="<?php echo $www_root ?>/images/wikipedia.png" />
-						  </a>
-					  </div>
-					</div><!--end wikipedia-icon-->	
-					<div class="buy" style="display:none;">	 
-            <a id="amzn" href="" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/amazon.png" alt="Amazon"/></a><span class="author-divider">|</span>                 	
-            <a id="abes" href="" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/abeBooks.png" alt="AbeBooks"/> </a><span class="author-divider">|</span>
-            <a id="bandn" href="" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/barnesAndNoble.png" alt="Barnes&amp;Noble"/></a><span class="author-divider">|</span>
-            <a id="hrvbs" href="" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/harvardBookStore.png" alt="Harvard Book Store"/></a>
-          </div>  <!--end buy-->	
-          <span class="button-availability available-button slide-more" style="display:none;"><span class="icon"></span>Availability<span class="arrow"></span></span>
-					<div id="availability" class="slide-content" style="display:none;"></div>
-          
-          <h3 class="imprint"></h3>  
-                  
-          <h3 class="clickable advanced-data slide-more">Advanced Bibliographic Data<span class="arrow"></span></h3>
-        	
-        	<div class="advanced-data-box slide-content" style="display:none;">
-        	  <ul>
-        	    <li class="advanced-isbn"><p>ISBN: </p></li>
-        	    <li class="advanced-oclc"><p>OCLC: </p></li>
-        	    <li class="advanced-language"><p>Language: </p></li>
-        	  </ul>
-        	</div>
-        </div><!--end itemData-->              
+			<div id="item-panel" class="itemData-container scrollmarg">
+				
+           
                 
-        <div id="all-rank" class="slide-more">	            
-        	<div id="shelfRankCalc" class="button-shelfRank">
-        		<span class="unpack">ShelfRank</span>
-        		<span class="shelfRank"></span>
-        	</div><!--end shelfRankCalc-->
-        </div><!--end all-rank-->
-        <div id="rank-math" class="slide-content" style="display:none;"></div><!--end rank-math-->
+
       </div><!--end itemDataContainer-->   
                 
 			<div id="contextData" class="group">
@@ -184,5 +141,65 @@ $(document).ready(function() {
 
   <script id="gbscript" type="text/javascript" src="http://books.google.com/books?jscmd=viewapi&bibkeys=OCLC:<?php echo $oclcnum ?>,ISBN:<?php echo $isbn_trim ?>&callback=ProcessGBSBookInfo"></script>
    </div> <!--end wrapper-->
+   
+  <script id="item-template" type="text/x-handlebars-template">
+  <div id="itemData">
+    <h1 class="home-stack">
+      {{title}}{{#if sub_title}} : {{sub_title}}{{/if}}
+    </h1>
+    <div id="creator_container">
+    {{{creators}}}
+    </div>
+    <img class="cover-image ol-cover-image" src="http://covers.openlibrary.org/b/isbn/{{isbn}}-M.jpg" />
+    <a href="http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|{{id_inst}}" target="_blank" class="button" id="hollis_button">HOLLIS</a>
+    <div id="online">
+      <a class="button-google-disabled" href="#viewerCanvas"><img src="<?php echo $www_root ?>/images/gbs_preview_disabled.png" /></a>
+      <a id="gviewer" class="button-google" href="#viewerCanvas" style="display:none;"><img src="<?php echo $www_root ?>/images/gbs_preview.png" border="0" /></a>
+    </div>
+    <div class="wikipedia-icon"> 
+			<div class="wikipedia_link">
+				<a href="" target="_blank" >
+					<img src="<?php echo $www_root ?>/images/wikipedia.png" />
+				</a>
+			</div>
+		</div><!--end wikipedia-icon-->	
+		<div class="buy" style="display:none;">	 
+      <a id="amzn" href="http://www.amazon.com/dp/{{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/amazon.png" alt="Amazon"/></a><span class="author-divider">|</span>                 	
+      <a id="abes" href="http://www.abebooks.com/products/isbn/{{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/abeBooks.png" alt="AbeBooks"/> </a><span class="author-divider">|</span>
+      <a id="bandn" href="http://search.barnesandnoble.com/booksearch/ISBNInquiry.asp?EAN={{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/barnesAndNoble.png" alt="Barnes&amp;Noble"/></a><span class="author-divider">|</span>
+      <a id="hrvbs" href="http://site.booksite.com/1624/showdetail/?isbn={{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/harvardBookStore.png" alt="Harvard Book Store"/></a>
+    </div>  <!--end buy-->	
+    
+    <span class="button-availability available-button slide-more" style="display:none;"><span class="icon"></span>Availability<span class="arrow"></span></span>
+		<div id="availability" class="slide-content" style="display:none;"></div>
+		
+		<h3 class="imprint">{{#if pub_location}}{{pub_location}}{{/if}}{{#if publisher}}, {{publisher}}{{/if}}{{#if pub_date}}, {{pub_date}}{{/if}}</h3>
+		
+		<h3 class="clickable advanced-data slide-more">Advanced Bibliographic Data<span class="arrow"></span></h3>
+        	
+    <div class="advanced-data-box slide-content" style="display:none;">
+      <ul>
+        <li class="advanced-isbn"><p>ISBN: {{isbn}}</p></li>
+        <li class="advanced-oclc"><p>OCLC: {{oclc}}</p></li>
+        <li class="advanced-language"><p>Language: {{language}}</p></li>
+      </ul>
+    </div>
+  </div>
+  <div id="all-rank" class="slide-more">	            
+    <div id="shelfRankCalc" class="button-shelfRank">
+      <span class="unpack">ShelfRank</span>
+      <span class="shelfRank">{{shelfrank}}</span>
+    </div><!--end shelfRankCalc-->
+  </div><!--end all-rank-->
+  <div id="rank-math" class="slide-content" style="display:none;">
+    <ul>
+      <li><p>Faculty checkouts: {{score_checkouts_fac}}</p></li>
+      <li><p>Undergrad checkouts: {{score_checkouts_undergrad}}</p></li>
+      <li><p>Graduate checkouts: {{score_checkouts_grad}}</p></li>
+      <li><p>Holding libraries: {{score_holding_libs}}</p></li>
+    </ul>
+  </div><!--end rank-math-->
+
+  </script> 
 </body>
 </html>

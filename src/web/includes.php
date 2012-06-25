@@ -12,11 +12,12 @@ echo <<<EOF
         <link rel="stylesheet" href="$www_root/css/ie.css" type="text/css" />
   <![endif]-->
 
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
 
   <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
+  <script type="text/javascript" src="$www_root/js/handlebars.js"></script>
   <script type="text/javascript" src="$www_root/js/selectmenu.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.fancybox-1.3.4.pack.js"></script>
   <script type="text/javascript" src="http://use.typekit.com/gre3ysx.js"></script>

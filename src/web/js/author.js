@@ -1,5 +1,12 @@
 $(document).ready(function() {
 	$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'creator_exact', query: author, ribbon: author});
+	
+	// stackview link workaround
+	$('body').on('stackview.pageload', function(e) {
+    $('.stack-item a').each(function() {
+      this.href = this.href.replace("shelflife/item", "item");
+    });
+	});
        			       			
 	$.getJSON('../sl_funcs.php', $.param({ 'author' : author, 'function' : 'fetch_author_neighborhood'}), 
     function(authors) {

@@ -167,20 +167,17 @@ $(document).ready(function() {
 	// When an item in the stack is clicked, we update the book panel here
 	function draw_item_panel(item_details) {
 
+		// set our global var
+		hollis = item_details.id_inst;
+		loc_call_num_sort_order = item_details.loc_call_num_sort_order;
+		title = item_details.title;
 		uid = item_details.id;
 		
-		// Here we pad any values less than 10 with a 0
-		function left_pad(value) {
-			if (value < 10) {
-				return '0' + value;
-			}
-
-			return value;
-		}
+		// update our window title
+		document.title = title + ' | ShelfLife';
 
 		// store this as an "also viewed"
 		$.each(alsoviewed, function(i, item){
-
       $.ajax({
         type: "POST",
         url: slurl,
@@ -199,114 +196,48 @@ $(document).ready(function() {
 			async: false
 		});
 		recentlyviewed += '&recently[]=' + uid;
-		$('#recentlyviewed').html('<span class="reload">You recently viewed these</span>');
-		$('#recentlyviewed').addClass('stack-button').removeClass('button-disabled');
-
-		loc_call_num_sort_order = item_details.loc_call_num_sort_order;
-
-		// set our global var
-		hollis = item_details.id_inst;
-		title = item_details.title;
-		
-		// update our window title
-		document.title = title + ' | ShelfLife';
-
-		// replace title
-		var home_stack_title = title;
-		if(item_details.sub_title != undefined)
-			home_stack_title += ' : ' + item_details.sub_title;
-		$('.home-stack').text(home_stack_title);
 
 		// replace creator list
-		$('#creator_container').html('');
+		item_details.creators = '';
 		if(item_details.creator && item_details.creator.length > 0) {
 			var creator_markup_list = [];
 			$.each(item_details.creator, function(i, item){
 				creator_markup_list.push('<a class="creator" href="../../author/' + item + '">' + item + '</a>');
 			});
 
-			var creator_markup = creator_markup_list.join('<span class="divider"> | </span>');
-			$('#creator_container').html(creator_markup);
+			item_details.creators = creator_markup_list.join('<span class="divider"> | </span>');
 		}
 
-		var imprint_vals = [];
-
-		if (item_details.pub_location) {
-			imprint_vals.push(item_details.pub_location);
-		}
-		if (item_details.publisher) {
-			imprint_vals.push(item_details.publisher);
-		}
-		if (item_details.pub_date) {
-			imprint_vals.push(item_details.pub_date);
-		}
-
-		// replace imprint
-		$('.imprint').text(imprint_vals.join(', '));
-
-		// replace scores
-		$('.shelfRank').text(left_pad(item_details.shelfrank));
-
-		var perspective_markup = '';
-        if (item_details.aggregation_checkout) {
-            perspective_markup += '<p><strong id="fac_val">' + item_details.aggregation_checkout + '</strong>  checkouts</p><br />';
-            perspective_markup += '<p>For this demo, we are only tracking checkouts aggregated from participating libraries. ShelfRank will factor in downloads, views, social activity and much more, and will make those factors transparent here.</p>';
-		}
-		else {
-			perspective_markup += '<p>ShelfRank will factor in downloads, views, social activity, circulation information from participating libraries, and much more, and will make those factors transparent here.</p><br /><p>Using randomized circ data for this item.</p>';
-		}
-
-		$('#rank-math').html(perspective_markup);
+		item_details.shelfrank = left_pad(item_details.shelfrank);
 
 		// Translate a total score value to a class value (after removing the old class)
-		$('.shelfRank').removeClass(function (index, css) {
+		$('.shelfRank, .itemData-container, .unpack').removeClass(function (index, css) {
 		    return (css.match(/color\d+/g) || []).join(' ');
 		});
 
-		$('.shelfRank').addClass('color' + get_heat(item_details.shelfrank));
-		$('.itemData-container').removeClass(function (index, css) {
-		    return (css.match(/color\d+/g) || []).join(' ');
-		});
+		$('.shelfRank, .itemData-container, .unpack').addClass('color' + get_heat(item_details.shelfrank));
 
-		$('.itemData-container').addClass('color' + get_heat(item_details.shelfrank));
-		
-		// replace hollis and button vals
-		$('#hollis_button').attr('href', 'http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|' + hollis);
-
-		$('.unpack').removeClass(function (index, css) {
-		    return (css.match(/color\d+/g) || []).join(' ');
-		});
-
-		$('.unpack').addClass('color' + get_heat(item_details.shelfrank));
 		// replace google books link
 		// get the google books info for our isbn and oclc (and if those are empty, use 0s)
-		var isbn = -1;
+		var isbn = '';
 		if (item_details.id_isbn && item_details.id_isbn[0] && item_details.id_isbn[0].split(' ')[0]) {
 			isbn = item_details.id_isbn[0].split(' ')[0];
 		}
+		
+		item_details.isbn = isbn;
 
-		var oclc = -1;
+		var oclc = '';
 		if (item_details.id_oclc) {
 			oclc = item_details.id_oclc;
 		}
+		
+		item_details.oclc = oclc;
 		
 		var gbsrc = 'http://books.google.com/books?jscmd=viewapi&bibkeys=OCLC:' + oclc + ',ISBN:' + isbn + '&callback=ProcessGBSBookInfo';
 		$("#gbscript").attr('src', gbsrc);		
 		
 		GBSArray = ['ISBN:' + isbn, 'OCLC:' + oclc];
 		$.getScript($("#gbscript").attr('src'));
-		
-		// replace advanced data
-		$('.advanced-isbn p').text('ISBN:');
-		$('.advanced-oclc p').text('OCLC:');
-		if(isbn != undefined && isbn != -1)
-			$('.advanced-isbn p').text('ISBN: ' + isbn);
-		if(oclc != undefined && oclc != -1)
-			$('.advanced-oclc p').text('OCLC: ' + oclc);
-		$('.advanced-language p').text('Language: ' + item_details.language);
-
-		// replace cover image
-		$('#itemData .ol-cover-image').attr('src', 'http://covers.openlibrary.org/b/isbn/' + isbn + '-M.jpg');
 
 		// replace subject buttons
 		var subject_markup = '<span class="heading">Library Shelves</span><ul>';
@@ -341,7 +272,23 @@ $(document).ready(function() {
 			$('.wikipedia').html(wikipedia_markup);
 		}
 
-		// wikipedia link
+		$("#toc").html('');
+		if(item_details.toc) {
+		var toc = item_details.toc[0];
+		toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
+		if(toc) {
+		  $("#toc").html('<span class="heading">Table of Contents</span><p class="longtoc>' + toc + '</p>');
+		}
+		}
+
+		// Redraw our tags
+		drawTagNeighborhood();
+		
+		var source = $("#item-template").html();
+		var template = Handlebars.compile(source);
+    $('#item-panel').html(template(item_details));
+    
+    // wikipedia link
 		if (item_details.wp_url != undefined) {
 			$('.wikipedia_link a').attr('href', item_details.wp_url);
 			$('.wikipedia_link').show();
@@ -350,38 +297,14 @@ $(document).ready(function() {
 			$('.wikipedia_link').hide();
 		}
 		
-		$("#toc").html('');
-		var toc = item_details.toc[0];
-		toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
-		if(toc) {
-		  $("#toc").html('<span class="heading">Table of Contents</span><p class="longtoc>' + toc + '</p>');
-		}
-		
-		// load availability data
-		$.ajax({
-			url: slurl + "?hollis=" + hollis + "&function=fetch_availability",
-			method: 'GET',
-			success: function(page){loadAvailability(page, $('#availability'));}
-		});
-		
-		var trimmed_isbns = [];
-		if (item_details.id_isbn && item_details.id_isbn[0]) {
-			trimmed_isbns = item_details.id_isbn[0].split(' ');  			
-		}
-
 		// If we have our first isbn, get affiliate info. if not, hide the DOM element
-		if (trimmed_isbns[0]) {
+		if (isbn) {
 			$.ajax({
 				type: "GET",
 				url: slurl,
-				data: "isbn=" + trimmed_isbns[0] + "&function=check_amazon",
+				data: "isbn=" + isbn + "&function=check_amazon",
 				success: function(response){
 					if(response != 'false') {
-						$('#amzn').attr('href', 'http://www.amazon.com/dp/' + response);
-						$('#abes').attr('href', 'http://www.abebooks.com/products/isbn/' + response);
-						$('#bandn').attr('href', 'http://search.barnesandnoble.com/booksearch/ISBNInquiry.asp?EAN=' + response);
-						$('#hrvbs').attr('href', 'http://site.booksite.com/1624/showdetail/?isbn=' + response);
-	
 						$('.buy').show();
 					} else {
 						$('.buy').hide();
@@ -391,11 +314,15 @@ $(document).ready(function() {
 		} else {
 			$('.buy').hide();
 		}
+		
+		// load availability data
+		$.ajax({
+			url: slurl + "?hollis=" + hollis + "&function=fetch_availability",
+			method: 'GET',
+			success: function(page){loadAvailability(page, $('#availability'));}
+		});
 
-		// Redraw our tags
-		drawTagNeighborhood();
-
-	}
+	} //end draw item panel
 
 	// When a new anchor book is selected
 	$('.stack-item a').live('click', function(e){
@@ -418,7 +345,6 @@ $(document).ready(function() {
 
 	$('.stack-button').live('click', function() {
 		var compare = $.trim($(this).attr('id'));
-		var nlabel = $(this).text();
 		if(compare === 'recentlyviewed') {
 			$('#fixedstack').stackView({url: www_root + '/recently.php?' + recentlyviewed, search_type: 'recently', ribbon: 'You recently viewed these'});
 		}
@@ -580,4 +506,12 @@ function launchDialog(html){
 		});
 	$dialog.dialog('open');
 	kill = 0;	
+}
+
+// Here we pad any values less than 10 with a 0
+function left_pad(value) {
+	if (value < 10) {
+		return '0' + value;
+	}
+	return value;
 }

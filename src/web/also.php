@@ -11,7 +11,7 @@
 	$json = array();
 	
 	$count_query = "SELECT COUNT(DISTINCT book_two) 
-    				FROM book_also_views 
+    				FROM sl_also_viewed 
     				WHERE book_one = '$uid'";
 	$hits = 0;
 	$count_result = mysql_query($count_query);
@@ -19,7 +19,7 @@
 	$hits = $row[0];
 	
 	$userList  = "SELECT book_two 
-    				FROM book_also_views 
+    				FROM sl_also_viewed 
     				WHERE book_one = '$uid' 
     				GROUP BY book_two
     				DESC
