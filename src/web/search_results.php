@@ -28,7 +28,6 @@ EOF;
 ?>
 <script type="text/javascript">
 
-
 $(function(){				
 	$('select#weight_select').selectmenu({
 		style:'dropdown', 

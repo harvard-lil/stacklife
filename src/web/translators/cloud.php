@@ -1,23 +1,46 @@
 <?php
-  require_once('../../../sl_ini.php');
+    error_reporting(E_ALL ^ E_NOTICE);
 
-	$q = $_GET['query'];
+
+  $q = $_GET['query'];
   $q = urlencode($q);
   $offset = $_GET['start'];
   $limit = $_GET['limit']; 
   $search_type = $_GET['search_type'];
+
+  $url = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q&limit=$limit&start=$offset";
+
+  // Get facets and filters
+  // TODO: This is ugly. Clean this stuff up.
+  $incoming = $_SERVER['QUERY_STRING'];
+  $facet_list = array();
+  foreach (explode('&', $incoming) as $pair) {
+      list($key, $value) = explode('=', $pair);
+      if ($key == 'facet') {
+          $url = $url . "&facet=" . $value;
+    }
+  }
+  
+  $filter_list = array();
+  $filter_string = '';
+    foreach (explode('&', $incoming) as $pair) {
+        list($key, $value) = explode('=', $pair);
+        if ($key == 'filter') {
+            $url = $url . "&filter=" . $value;
+      }
+    }
     
   $json = array();
-  
-  $url = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q&limit=$limit&start=$offset";
-    
+
   $contents = fetch_page($url);
     
   $book_data = json_decode($contents, true);
-  
+
   $hits = $book_data['num_found'];
   
   $items = $book_data['docs'];
+ 
+  $facets = $book_data["facets"];
     
   $books_fields = array('id', 'title','creator','measurement_page_numeric','measurement_height_numeric', 'shelfrank', 'pub_date', 'title_link_friendly', 'format', 'loc_sort_order');
     
@@ -50,17 +73,19 @@
   $last = $offset + 10;
     
   if(count($json) == 0 || $offset == -1) {
+    header('Content-type: application/json');
     echo '{"start": "-1", "num_found": ' . $hits . ', "limit": "0", "docs": ""}'; 
   }
   else {
-    echo '{"start": ' . $last. ', "limit": "' . $limit . '", "num_found": ' . $hits . ', "docs": ' . json_encode($json) . '}'; 
+    header('Content-type: application/json');
+    echo '{"start": ' . $last. ', "limit": "' . $limit . '", "num_found": ' . $hits . ', "docs": ' . json_encode($json) . ', "facets": ' . json_encode($facets) . '}'; 
   }
 
 function fetch_page($url) {
+
 	$ch = curl_init();
 
-	curl_setopt($ch, CURLOPT_URL,
-	$url);
+	curl_setopt($ch, CURLOPT_URL, $url);
 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 

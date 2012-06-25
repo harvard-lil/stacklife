@@ -1,8 +1,5 @@
 $(document).ready(function() {
 
-//var wheight = $(window).height() - $('.header').height() - $('.header').height() - //$('.footer').height();
-//$('.container').css('height', wheight);
-	
 // Utilities class (dumping ground for common methods)
 var util = (function () {
     var my = {};
@@ -39,20 +36,10 @@ var util = (function () {
 	// Clean up field names
 	my.massage_field_name = function(field_name) {
 		var field_assoc = new Object;
-		field_assoc['source'] = 'Source';
-		field_assoc['language'] = 'Language';
-		field_assoc['creator'] = 'Creator';
-		field_assoc['imprint'] = 'Imprint';
 		field_assoc['format'] = 'Material Format';
-		field_assoc['desc_subject_lcsh'] = 'Subject';
-		field_assoc['rsrc_key'] = 'Online Resource';
-		field_assoc['online_avail'] = 'Online Only';
-		//field_assoc['pub_date_range'] = 'Publication Date';
-		field_assoc['university_checkouts_undergrad_score:[1 TO *]'] = 'Checked out by undergrads';
-		field_assoc['university_checkouts_grad_score:[1 TO *]'] = 'Checked out by grad students';
-		field_assoc['university_checkouts_fac_score:[1 TO *]'] = 'Checked out by faculty';
-		field_assoc['wp_categories'] = 'Wikipedia Categories';
-		
+		field_assoc['language'] = 'Language';
+		field_assoc['lcsh'] = 'Subject';
+		field_assoc['holding_libs'] = 'Holding Library';
 		return field_assoc[field_name];
 	}
 	
@@ -150,7 +137,7 @@ var config = (function () {
 	}
 	
     // LibraryCloud location:
-    my.lc_url = '/librarycloud/v.3/api/item/';
+    my.lc_url = '/shelflife/translators/cloud.php';
 	
     uri_params = util.get_uri_params();
 
@@ -188,11 +175,7 @@ var config = (function () {
     
     // The list of facets we want to get from LibraryCloud and display
 	my.facets = [
-                     //'pub_date_range', 
-                      'online_avail', 'source', 'rsrc_key',
-                     'format', 
-	             'desc_subject_lcsh', 'language', my.get_scaled_field(),
-	             'wp_categories'];
+                     'format', 'lcsh', 'holding_libs', 'language'];
 	
 	// The list of facet queries we want to display
 	/*
@@ -204,27 +187,18 @@ var config = (function () {
 	// The list of facets we want to display in list form (the missing 
 	// facets are used by a jQuery UI widget or ...)
 	my.facets_to_display = [
-                     'online_avail', 'source',
-	             'rsrc_key', 
-                     'language',
-	             'format', 'desc_subject_lcsh',
-                     //'pub_date_range', 
-                     'holding_libs', 'wp_categories'];
+                     'format', 'lcsh', 'holding_libs', 'language'];
 	
 	// Facets to be opened (clamshelled open)
-	my.facets_open_by_default = ['online_avail', 'source', 'rsrc_key'];
+	my.facets_open_by_default = ['format',  'holding_libs', 'language'];
 	
 	// Get stats (we'll use them for min and max values in our jQuery UI sliders)
 	my.stats = [my.get_scaled_field()];
 	
 	// The number of facet results we want to display for each category
 	my.facet_limits = {
-                           'source' : 10,
-                           'language' : 10, 
-                           //'pub_date_range' : 10,
-					   'format' : 10, 'desc_subject_lcsh' : 10,
-					   'rsrc_key' : 10, 
-					   'holding_libs' : 10};
+                           'format' : 10,
+                           'language' : 10, 'lcsh' : 10, 'holding_libs' : 10};
 	
 	// A method to combine all of the above params into a query string
 	// we can send to LibraryCloud
@@ -274,9 +248,9 @@ var filter = (function () {
 		if (index === -1) {
 			var replaced = false;
 			// We need to make sure we're only adding one range filter per field
-			if (/_scaled/.test(filter_value)) {
+			if (/shelfrank/.test(filter_value)) {
 				$.each(config.filters, function(i, item) {
-					if (/_scaled/.test(item)) {
+					if (/shelfrank/.test(item)) {
 						var splice_loc = jQuery.inArray(item, config.filters);
 						config.filters.splice(splice_loc, 1, filter_value);
 						replaced = true;
@@ -368,7 +342,7 @@ var view = (function () {
 				if(!item.pub_date)
 					item.pub_date = '';
 					
-				rows += '<tr class="result_row"><td class=\"title-column\"><a href="book/' + item.title_link_friendly + '/' + item.id + '?perspective=' + config.get_scaled_field() + '">' + item.title; 
+				rows += '<tr class="result_row"><td class=\"title-column\"><a href="item/' + item.title_link_friendly + '/' + item.id + '">' + item.title; 
 				if (item.ut_score != null && item.ut_score > 0) {
 //					rows += ' (' + item.ut_score + ')';
 					rows += ' <span class="ut-count">(All Editions)</span>';
