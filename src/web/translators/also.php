@@ -1,6 +1,6 @@
 <?php
 
-  require_once('../../etc/sl_ini.php');
+  require_once('../../../etc/sl_ini.php');
   
   connect_db();
   

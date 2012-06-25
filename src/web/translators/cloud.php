@@ -1,5 +1,5 @@
 <?php
-  require_once('../../sl_ini.php');
+  require_once('../../../sl_ini.php');
 
 	$q = $_GET['query'];
   $q = urlencode($q);

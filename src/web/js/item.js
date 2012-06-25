@@ -41,13 +41,13 @@ $(document).ready(function() {
 	});
 
 	if(uniform_count > 1) {
-		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'ut_id', query: uniform_id, ribbon: $('#uniform').text()});
+		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'ut_id', query: uniform_id, ribbon: $('#uniform').text()});
 	}
 	else if (loc_call_num_sort_order) {
-		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, ribbon: 'Call number shelf: what you\'d see in the library'});
+		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, ribbon: 'Call number shelf: what you\'d see in the library'});
 	}
 	else if(anchor_subject !== '') {
-		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'lcsh', query: anchor_subject, ribbon: anchor_subject});
+		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'lcsh', query: anchor_subject, ribbon: anchor_subject});
 	}
 	else if(anchor_subject === '') {
 		$('#fixedstack').text('Sorry, no Library of Congress call number or subject neighborhood found.');
@@ -346,29 +346,29 @@ $(document).ready(function() {
 	$('.stack-button').live('click', function() {
 		var compare = $.trim($(this).attr('id'));
 		if(compare === 'recentlyviewed') {
-			$('#fixedstack').stackView({url: www_root + '/recently.php?' + recentlyviewed, search_type: 'recently', ribbon: 'You recently viewed these'});
+			$('#fixedstack').stackView({url: www_root + '/translators/recently.php?' + recentlyviewed, search_type: 'recently', ribbon: 'You recently viewed these'});
 		}
 		else if(compare === 'callview') {
-			$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, items_per_page: 25, ribbon: 'Call number shelf: what you\'d see in the library'});
+			$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, ribbon: 'Call number shelf: what you\'d see in the library'});
 		}
 		else if(compare === 'alsoviewed') {
-			$('#fixedstack').stackView({url: www_root + '/also.php', query: uid, search_type: 'also', ribbon: 'People who viewed this also viewed these'});
+			$('#fixedstack').stackView({url: www_root + '/translators/also.php', query: uid, search_type: 'also', ribbon: 'People who viewed this also viewed these'});
 		}
 		else if(compare === 'uniform') {
-			$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'ut_id', query: uniform_id, items_per_page: 25, ribbon: ulabel});
+			$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'ut_id', query: uniform_id, ribbon: ulabel});
 		}
 	});
 
 	$('.subject-button').live('click',function() {
-		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'lcsh', query: $(this).text(), items_per_page: 25, ribbon: $(this).text()});
+		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'lcsh', query: $(this).text(), ribbon: $(this).text()});
 	});
 	
 	$('.wp_category-button').live('click',function() {
-		$('#fixedstack').stackView({url: www_root + '/cloud.php', search_type: 'wp_categories', query: $(this).text(), items_per_page: 25, ribbon: $(this).text()});
+		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'wp_categories', query: $(this).text(), ribbon: $(this).text()});
 	});
 
 	$('.tag-button').live('click', function() {
-		$('#fixedstack').stackView({url: www_root + '/tag.php', query: $('span', this).text(), search_type: 'tag', ribbon: $('span', this).text()});
+		$('#fixedstack').stackView({url: www_root + '/translators/tag.php', query: $('span', this).text(), search_type: 'tag', ribbon: $('span', this).text()});
 	});
 
     //
