@@ -40,6 +40,8 @@ var util = (function () {
 		field_assoc['language'] = 'Language';
 		field_assoc['lcsh'] = 'Subject';
 		field_assoc['holding_libs'] = 'Holding Library';
+		field_assoc['creator'] = 'Creator';
+		field_assoc['pub_date'] = 'Publication Date';
 		return field_assoc[field_name];
 	}
 	
@@ -175,7 +177,7 @@ var config = (function () {
     
     // The list of facets we want to get from LibraryCloud and display
 	my.facets = [
-                     'format', 'lcsh', 'holding_libs', 'language'];
+                     'format', 'holding_libs','lcsh', 'creator', 'pub_date', 'language'];
 	
 	// The list of facet queries we want to display
 	/*
@@ -187,18 +189,18 @@ var config = (function () {
 	// The list of facets we want to display in list form (the missing 
 	// facets are used by a jQuery UI widget or ...)
 	my.facets_to_display = [
-                     'format', 'lcsh', 'holding_libs', 'language'];
+                     'format', 'holding_libs','lcsh', 'creator', 'pub_date', 'language'];
 	
 	// Facets to be opened (clamshelled open)
-	my.facets_open_by_default = ['format',  'holding_libs', 'language'];
+	my.facets_open_by_default = ['format',  'holding_libs'];
 	
 	// Get stats (we'll use them for min and max values in our jQuery UI sliders)
 	my.stats = [my.get_scaled_field()];
 	
 	// The number of facet results we want to display for each category
 	my.facet_limits = {
-                           'format' : 10,
-                           'language' : 10, 'lcsh' : 10, 'holding_libs' : 10};
+                           'format' : 10, 'holding_libs' : 10, 'lcsh' : 10,
+                           'creator' : 10, 'pub_date' : 10, 'language' : 10 };
 	
 	// A method to combine all of the above params into a query string
 	// we can send to LibraryCloud
@@ -349,7 +351,7 @@ var view = (function () {
 				}
 				
 				rows += '</a></td><td class=\"author-column\">' +
-				'<a href=\"author/' + item.creator + '\">' + item.creator + '</a></td><td class=\"year-column\">' + item.pub_date + '</td><td><span class=\"results-score heat' + util.get_heat(item[config.get_scaled_field()]) + '\">' + util.left_pad(item[config.get_scaled_field()]) + '</span></td></tr>';
+				'<a href=\"author/' + item.creator + '\">' + item.creator + '</a></td><td class=\"year-column\">' + item.pub_date + '</td><td><span class=\"results-score color' + util.get_heat(item[config.get_scaled_field()]) + '\">' + util.left_pad(item[config.get_scaled_field()]) + '</span></td></tr>';
 			});
 		} else {
 			rows = '<span class=\"apology\">Sorry, no results. Perhaps try <a id=\"inline\" href=\"#advanced\" class=\"button advanced-search\">advanced search</a>?</span>';
