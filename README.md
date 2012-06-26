@@ -12,13 +12,13 @@ ShelLife is the frontend to LibraryCloud's backend. Install LibraryCloud.
 
 ShelfLife is written in PHP. PHP 5.3 or later is recommended.
 
-It's probably easiest to get ShelfLife up and running using the Apache web server. We rely on rewrite rules in .htaccess. Be sure you're allowing for .htaccess in your httpd config file and that you have mod_php and mod_rewrite installed.
+Serving up ShelfLife [Apache](http://httpd.apache.org/) is probably the easiest way to get started. ShelfLife relies on rewrite rules in .htaccess. Be sure you're allowing for .htaccess in your httpd configuration and that you have mod_php and mod_rewrite installed.
 
 ### Installation
 
 Use the git clone command to get the latest version of ShelfLife:
 
-    git clone  git://github.com/harvard-lil/shelflife.git
+    git clone git://github.com/harvard-lil/shelflife.git
 
 ### ShelfLife Configuration
 
