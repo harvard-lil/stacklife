@@ -1,7 +1,8 @@
 <?php
 
-// The path that can be used when linking (to js, css, ...)
-$www_root = "http://" . $_SERVER['SERVER_NAME'] . str_replace(str_replace(dirname(__FILE__), "", $_SERVER['SCRIPT_FILENAME']), "", $_SERVER['SCRIPT_NAME']);
+// The web root. The path that can be used when linking (to js, css, ...)
+// This should probably be something like http://localhost/shelflife
+$www_root = "http://example.com/shelflife";
 
 // Build version
 $version = "alpha 2.3";
@@ -33,6 +34,5 @@ $LIBRARYTHING_KEY = 'yourlibrarythangkey';
 $enable_memcached_caching = true;
 $memcached_host_name = 'localhost';
 $memcached_port = 11211;
-
 
 ?>

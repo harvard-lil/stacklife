@@ -1,7 +1,7 @@
 <?php
     error_reporting(E_ALL ^ E_NOTICE);
 
-  require_once ('../../../sl_ini.php');
+  require_once ('../../../etc/sl_ini.php');
 
   $q = $_GET['query'];
   $q = urlencode($q);
