@@ -2,32 +2,32 @@
 
 Shelflife is a community-based wayfinding tool for navigating the vast resources of the combined Harvard Library System. It enables researchers, teachers, scholars, and students to find what they need and help others learn from them and their paths.
 
-# Installation
+## Installation
 
-## LibraryCloud
+### LibraryCloud
 
 ShelLife is the frontend to LibraryCloud's backend. Install LibraryCloud.
 
-## PHP and the web server
+### PHP and the web server
 
 ShelfLife is written in PHP. PHP 5.3 or later is recommended.
 
 It's probably easiest to get ShelfLife up and running using the Apache web server. We rely on rewrite rules in .htaccess. Be sure you're allowing for .htaccess in your httpd config file and that you have mod_php and mod_rewrite installed.
 
-## Installation
+### Installation
 
 Use the git clone command to get the latest version of ShelfLife:
 
     git clone  git://github.com/harvard-lil/shelflife.git
 
-## ShelfLife Configuration
+### ShelfLife Configuration
 
 Configuration takes place in etc/sl_ini.php. Copy the example and edit the values:
 
     cd shelflife/etc
     cp sl_ini.example.php sl_ini.php
 
-# License
+## License
 
 Dual licensed under the MIT license (below) and [GPL license](http://www.gnu.org/licenses/gpl-3.0.html).
 
