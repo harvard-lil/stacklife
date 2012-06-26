@@ -170,8 +170,21 @@ $(document).ready(function() {
       <a id="hrvbs" href="http://site.booksite.com/1624/showdetail/?isbn={{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/harvardBookStore.png" alt="Harvard Book Store"/></a>
     </div>  <!--end buy-->	
     
-    <span class="button-availability available-button slide-more" style="display:none;"><span class="icon"></span>Availability<span class="arrow"></span></span>
-		<div id="availability" class="slide-content" style="display:none;"></div>
+    {{#availability}}
+    <span class="button-availability {{#if any_available}}available-button{{else}}not-available-button{{/if}} slide-more"><span class="icon"></span>Availability<span class="arrow"></span></span>
+		<div id="availability" class="slide-content" style="display:none;">
+		  <ul>
+		  {{#items}}
+		    <li class="{{#if available}}available{{else}}not-available{{/if}}">
+		      <span class="callno">{{library}} [{{call_num}}]</span>
+		      {{#if available}}<span class="small-button sms">SMS</span>{{else}}
+		      {{#if request}}<a class="small-button" href="{{request}}">REQUEST</a>{{/if}}{{/if}}<br />
+		      {{status}}
+		    </li>
+		  {{/items}}
+		  </ul>
+		{{/availability}}
+		</div>
 		
 		<h3 class="imprint">{{#if pub_location}}{{pub_location}}{{/if}}{{#if publisher}}, {{publisher}}{{/if}}{{#if pub_date}}, {{pub_date}}{{/if}}</h3>
 		

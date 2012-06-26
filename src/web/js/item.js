@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+	
 	History.Adapter.bind(window,'statechange',function(){
 		var State = History.getState(); 
 		draw_item_panel(State.data.data);
@@ -57,82 +57,6 @@ $(document).ready(function() {
 		$('#callview').text('No call number stack').removeClass('button').removeClass('stack-button').addClass('button-disabled');
 	}
 
-   	// load availability details
-	function loadAvailability (page, div) {
-		var location = '',
-		callno = '',
-		availableresult = '',
-		notresult = '',
-		isavailable = '',
-		isdepository = '';
-		
-		div.empty();
-		$(page).find('p.location').each(function() {				
-			location = $(this).text();
-			var availabilities = $(this).nextUntil('p');
-			$(availabilities).find('td.call').each(function() {
-				if($(this).text() != 'Call #') {
-					callno = $(this).html().replace('<br>', ' ');
-					callno = callno.replace(new RegExp("\<br\>", "gi"), ' ');
-					callno = jQuery.trim(callno);
-					if(callno.length > 0)
-						callno = ' [' + callno + ']';
-				}
-				$(this).prev().each(function() {
-					if($(this).text() == 'RESERVE' || $(this).text() == 'Reserve') {
-						callno = ' [Reserve]';
-					}
-				});
-				$(this).next().children('#availtable_status_text').each(function() {
-					isdepository = '';
-					if($(this).prev().prev('td.col').text() == 'Harvard Depository')
-						isdepository = 'yes';
-					if($(this).text() != 'Status') {
-						var availability = $(this).html().replace('<br>', ': ');
-						availability = availability.replace(new RegExp("\<br\>", "gi"), ': ');
-						if((availability == 'Regular loan: Not checked out' || availability == '28-day loan: Not checked out'|| availability == '7-day loan: Not checked out' || availability == 'Regular loan: Not checked out: Widener copy') && isdepository == '') {
-							availableresult += '<li class="available"><span class="callno">' + location + '' + callno + '</span> <span class="small-button sms">SMS</span><br />' + availability + '</li>';
-							isavailable = 'yes';
-						}
-						else if(availability == 'Regular loan (depository): Not checked out' || isdepository == 'yes') { 
-							var requestlink = $(this).parent().next().children('a[href^="http://hollisservices"]').attr('href'); 
-							if(requestlink != undefined) {
-								isavailable = 'yes';
-								availableresult += '<li class="available availability"><span class="callno">Depository' + callno + '</span> <a class="small-button" href="' + requestlink + '">REQUEST</a></li>';
-							}
-							else
-								notresult += '<li class="not-available"><span class="callno">Depository' + callno + '</span><br />' + availability + '</li>';
-							}
-							else {
-						notresult += '<li class="not-available"><span class="callno">' + location + '' + callno + '</span><br />' + availability + '</li>';
-						}
-					}
-				});				
-			});
-			$(availabilities).next('.noitems').each(function() {
-				var findingaid = $(this).prev().find('.collection').text();
-				
-				var explanation = $(this).html();
-				notresult += '<li class="not-available"><span class="callno">' + location + ' [' + findingaid + ']</span><br />' + explanation + '</li>';
-			});
-			});
-			div.html(availableresult);
-			div.append(notresult);
-			
-			if(availableresult != '' || notresult != '') {
-				$('.button-availability').show();
-			} else {
-				$('.button-availability').hide();
-			}
-				
-			if(isavailable != 'yes') {				
-				$('.button-availability').removeClass('available-button').addClass('not-available-button');
-			} else {
-				$('.button-availability').addClass('available-button').removeClass('not-available-button');
-			}
-			div.wrapInner('<ul>');
-		}
-
 	$('.slide-more').live('click', function() {
 		$(this).next('.slide-content').slideToggle();
 		$(this).find('.arrow').toggleClass('arrow-down');
@@ -168,7 +92,6 @@ $(document).ready(function() {
 	function draw_item_panel(item_details) {
 
 		// set our global var
-		hollis = item_details.id_inst;
 		loc_call_num_sort_order = item_details.loc_call_num_sort_order;
 		title = item_details.title;
 		uid = item_details.id;
@@ -284,6 +207,15 @@ $(document).ready(function() {
 		// Redraw our tags
 		drawTagNeighborhood();
 		
+		$.ajax({
+      url: www_root + '/availability.php?id=' + item_details.id_inst,
+      async: false,
+      dataType: 'json',
+      success: function (data) {
+        item_details.availability = data;
+      }
+    });
+
 		var source = $("#item-template").html();
 		var template = Handlebars.compile(source);
     $('#item-panel').html(template(item_details));
@@ -314,13 +246,6 @@ $(document).ready(function() {
 		} else {
 			$('.buy').hide();
 		}
-		
-		// load availability data
-		$.ajax({
-			url: slurl + "?hollis=" + hollis + "&function=fetch_availability",
-			method: 'GET',
-			success: function(page){loadAvailability(page, $('#availability'));}
-		});
 
 	} //end draw item panel
 

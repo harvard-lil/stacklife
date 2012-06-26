@@ -2,7 +2,7 @@
 <?php
 echo <<<EOF
   <link rel="author" href="$www_root/humans.txt" />
-  <link rel="icon" href="$www_root/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="$www_root/images/favicon.ico" type="image/x-icon" />
   
   <link rel="stylesheet" href="$www_root/css/start/jquery-ui-1.8.2.custom.css" type="text/css" />
   <link rel="stylesheet" href="$www_root/css/jquery.fancybox-1.3.4.css" type="text/css" />
