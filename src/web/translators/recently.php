@@ -1,14 +1,18 @@
 <?php
     
+  require_once('../../../etc/sl_ini.php');
+    
   $user_books = array_unique($_GET['recently']);
 	$limit = $_GET['limit'];
 	$start = $_GET['start'];
 	$json = array();
 	$hits = count($user_books);
+
+    global $LIBRARYCLOUD_URL
 	
 	foreach($user_books as $id) {
   
-    $url = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=id:$id&limit=$limit&start=$offset";
+    $url = "$LIBRARYCLOUD_URL?filter=id:$id&limit=$limit&start=$offset";
       
     $contents = fetch_page($url);
       

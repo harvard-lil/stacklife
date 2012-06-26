@@ -1,6 +1,7 @@
 <?php
     error_reporting(E_ALL ^ E_NOTICE);
 
+  require_once ('../../../sl_ini.php');
 
   $q = $_GET['query'];
   $q = urlencode($q);
@@ -8,7 +9,9 @@
   $limit = $_GET['limit']; 
   $search_type = $_GET['search_type'];
 
-  $url = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q&limit=$limit&start=$offset";
+  global $LIBRARYCLOUD_URL;
+
+  $url = "$LIBRARYCLOUD_URL?filter=$search_type:$q&limit=$limit&start=$offset";
 
   // Get facets and filters
   // TODO: This is ugly. Clean this stuff up.
@@ -72,12 +75,11 @@
     
   $last = $offset + 10;
     
-  if(count($json) == 0 || $offset == -1) {
     header('Content-type: application/json');
+  if(count($json) == 0 || $offset == -1) {
     echo '{"start": "-1", "num_found": ' . $hits . ', "limit": "0", "docs": ""}'; 
   }
   else {
-    header('Content-type: application/json');
     echo '{"start": ' . $last. ', "limit": "' . $limit . '", "num_found": ' . $hits . ', "docs": ' . json_encode($json) . ', "facets": ' . json_encode($facets) . '}'; 
   }
 

@@ -30,9 +30,10 @@
     $uid = $row[0];
     array_push($user_books, $uid);
   }
+	global $LIBRARYCLOUD_URL;
 	
 	foreach($user_books as $id) {
-    $url = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=id:$id&limit=$limit&start=$start";
+    $url = "$LIBRARYCLOUD_URL?filter=id:$id&limit=$limit&start=$start";
  
     $contents = fetch_page($url);
       
