@@ -338,11 +338,11 @@ function set_also_viewed()
 	$also        = trim($_REQUEST['also']);
 	$id        = trim($_REQUEST['id']);
 
-  $addClient  = "INSERT INTO book_also_views (book_one,book_two) VALUES ('$id','$also')";
+  $addClient  = "INSERT INTO sl_also_viewed (book_one,book_two) VALUES ('$id','$also')";
 
   mysql_query($addClient) or die(mysql_error());
     
-  $addClientReverse  = "INSERT INTO book_also_views (book_one,book_two) VALUES ('$also','$id')";
+  $addClientReverse  = "INSERT INTO sl_also_viewed (book_one,book_two) VALUES ('$also','$id')";
 
   mysql_query($addClientReverse) or die(mysql_error());
   mysql_close();
