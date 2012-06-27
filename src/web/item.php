@@ -110,6 +110,9 @@ $(document).ready(function() {
       <a class="button-google-disabled" href="#viewerCanvas"><img src="<?php echo $www_root ?>/images/gbs_preview_disabled.png" /></a>
       <a id="gviewer" class="button-google" href="#viewerCanvas" style="display:none;"><img src="<?php echo $www_root ?>/images/gbs_preview.png" border="0" /></a>
     </div>
+    {{#if url}}
+    <a class="button" href="{{url}}">ONLINE</a>
+    {{/if}}
     {{#if wp_url}}
     <div class="wikipedia-icon"> 
 			<div class="wikipedia_link">
@@ -176,7 +179,7 @@ $(document).ready(function() {
     <span class="heading">Library Shelves</span>
     <ul>
       {{#if ut_count}}
-			<li id="uniform" class="button stack-button"><span class="reload">All Editions</span></li>
+			<li id="uniform" class="button stack-button"><span class="reload">All editions</span></li>
 			{{/if}}
 			{{#if loc_call_num_sort_order}}
 			<li id="callview" class="button stack-button"><span class="reload">Infinite bookshelf</span></li>

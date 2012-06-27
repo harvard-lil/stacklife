@@ -342,3 +342,7 @@ ShelfLife DropDown Theme, thanks to jQuery
   -o-transform: translate(15px, 0);
   transform: translate(15px, 0); 
 }
+
+.stackview .ribbon {
+  font-family: "futura-pt",sans-serif;
+}

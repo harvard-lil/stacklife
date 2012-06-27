@@ -499,21 +499,6 @@ hr {
 	color:#666;
 }
 
-.read-author {
-	font-size: 12px;
-}
-
-.read-added {
-	color:#ff9600;
-}
-
-.shortdesc, .longdesc, .longtoc { 
-	color:#222;
-	line-height:1.3em;
-  	padding-bottom: .5em;
-  	margin-top:-6px /*negating the bottom padding that the .heading class gives*/
-}
-
 .buy {
 	display:inline-block;
 	border-radius: 2px;
@@ -618,14 +603,6 @@ h2.signature {
 	font-size:1.2em;
 }
 
-.feedback {
-	font-size:.725em; 
-	position:relative;
-	top:29px;
-	color: #777;
-	margin:0px 0 0 -30px;
-}
-
 .navigation a {
 	float:left;
 	color:#232323;
@@ -662,10 +639,6 @@ h2.signature {
 	margin-right:30px;
 }
 
-.institution {
-	color:#666;
-}
-
 .clear {
 	clear:both;
 }
@@ -673,9 +646,6 @@ h2.signature {
 .divider {
 	color: #FF6300;
 	margin:-2px 2px;
-}
-
-strong {
 }
 
 .clickable {
@@ -727,7 +697,7 @@ strong {
 	line-height:1.6em;
 }
 
-.button a, .button a:visited, .button-disabled a, .button-shelfRank a, .button-shelfRank a:visited, .tag-button a, .tag-button a:visited, .button-availability a, .button-availability a:visited, .subject-button a, .subject-button a:visited, .wp_category-button a, .wp_category-button a:visited, .stack-button a, .stack-button a:visited, .button-google, .button-google-disabled, .small-button a  {
+.button a, .button a:visited, .button-disabled a, .button-google, .button-google-disabled, .small-button a  {
    	text-decoration: none;
    	text-align: left;
    	color: #444;
@@ -737,17 +707,6 @@ strong {
    	text-decoration:none;
 }
 
-.button-shelfrank {
-   	padding: 0px 0px 0px 0px;
-   	text-decoration: none;
-   	text-align: left;
-   	color: #444;
-   	font-weight:normal;
-   	cursor:pointer;   
-   	margin:0px 0px 0  0px;
-   	text-decoration:none;
-   	line-height:1.4em;
-}
 .subject-button, .stack-button, #callview {
 	height:auto;
 }
@@ -760,20 +719,20 @@ strong {
    	padding: 1px 2px 0px;
 }
 
-.button:hover a, .tag-button:hover a, .small-button:hover a, button-shelfRank:hover a, .subject-button:hover a, .stack-button:hover a, .button-google:hover a, button-availability:hover a, #shelfRankCalc:hover a, #shelfRankCalc:active a, .button-availability:hover a {
+.button:hover a, .small-button:hover a, .button-google:hover a {
 	color: #000;
     border-color: #5bf #09f #007acc;
 }
 
-.button:active a, .button-selected a, .button-selected:hover a, .tag-button:active a, .small-button:active a, #callview:active a, .subject-button:active a, .stack-button:active a{  
+.button:active a, .button-selected a, .button-selected:hover a, .small-button:active a {  
 	color: #f00;
 }
 
 .button-disabled {
 	color:#999;
 	text-shadow: 0px 1px 0px #fff;
-  	cursor: default;
-  	padding:0 0 12px 12px;
+  cursor: default;
+  padding:0 0 12px 12px;
 	background-image:url('../images/reload.png');
 	background-repeat:no-repeat;
 	background-position: 0 -50px;
@@ -786,21 +745,12 @@ strong {
 	height:21px;
 }
 
-.button-google img, .button-google-disabled img {
-}
-
 .button-google-disabled {
     cursor:default; 
 }
 
 .button-google-disabled img {
 	cursor:default;
-}
-
-p.button.collectionsubmit, p.button-disabled.collectionsubmit {
-	font-size: .65em;
-	text-align:center;
-	margin:60px 0 20px;
 }
 
 .button-disabled img {
@@ -822,7 +772,7 @@ p.button.collectionsubmit, p.button-disabled.collectionsubmit {
 	display:block;
 }
 
-.subject-button, .wp_category-button, #callview, #uniform, #searchview, .subject-shelves .button, .neighborhoods .button, .subject-shelves .button-disabled, .neighborhoods .button-disabled, .tag-button, .stack-button {
+.subject-button, .wp_category-button, #callview, #uniform, #searchview, .subject-shelves .button, .subject-shelves .button-disabled, .tag-button, .stack-button {
 	margin:0 0 0px 10px;
 }
 
@@ -1105,9 +1055,6 @@ td a:hover {
 	 color:#090;
 	 
 }
-tr td a {}
-
-#arrows {}
 
 #facet_bread_crumb_container {
 	min-height:1.5em;
@@ -1226,21 +1173,6 @@ select {
  .advanced-inputs p {
  	font-size:1em;
  }
- 
-.slide-out-div {
-	position:relative;
-    padding: 20px;
-    width: 150px;
-    height: 300px;
-    margin-top:40px;
-    background: #f9f9f9;
-    cursor:pointer;
-    border:1px solid #38b3d2;
-	border-radius: 2px;
-   -moz-border-radius: 0 5px 5px 0;
-   -webkit-border-radius: 2px;
-	z-index:9999;
-} 
 
 #overlay-buttons {
 	clear:both;

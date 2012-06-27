@@ -40,7 +40,7 @@ $(document).ready(function() {
 		$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
 	});
 
-	if(uniform_count > 1) {
+	if(uniform_count > 0) {
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'ut_id', query: uniform_id, ribbon: $('#uniform').text()});
 	}
 	else if (loc_call_num_sort_order) {
@@ -191,7 +191,7 @@ $(document).ready(function() {
 		var template = Handlebars.compile(source);
     $('#shelves-panel').html(template(item_details));
     
-    $.getJSON(www_root + '/availability.php?id=' + item_details.id_inst, function(data) {
+    $.getJSON(www_root + '/translators/availability.php?id=' + item_details.id_inst, function(data) {
       var source = $("#availability-template").html();
 		  var template = Handlebars.compile(source);
       $('#availability-panel').html(template(data));
@@ -248,7 +248,7 @@ $(document).ready(function() {
 			$('#fixedstack').stackView({url: www_root + '/translators/also.php', query: uid, search_type: 'also', ribbon: 'People who viewed this also viewed these'});
 		}
 		else if(compare === 'uniform') {
-			$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'ut_id', query: uniform_id, ribbon: ulabel});
+			$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'ut_id', query: uniform_id, ribbon: 'All editions'});
 		}
 	});
 
