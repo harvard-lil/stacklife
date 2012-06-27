@@ -29,7 +29,7 @@ EOF;
 <body>
 <div id="wrapper">
 
-<?php require_once('header.php');?>
+<?php require_once('includes/header.php');?>
 
     <div class="container group">
 		<div class="container-content">

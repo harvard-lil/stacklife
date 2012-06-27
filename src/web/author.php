@@ -14,7 +14,7 @@ $display_author=stripslashes($author);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php
-include_once('includes.php');
+include_once('includes/includes.php');
 echo "<title>$display_author | ShelfLife</title>";
 echo "<script type='text/javascript' src='$www_root/js/author.js'></script>";
 ?>
@@ -43,7 +43,7 @@ $(document).ready(function() {
 </head>
     <body>
     <div id="wrapper">
-      <?php require_once('header.php');?>
+      <?php require_once('includes/header.php');?>
       <div class="container group"> 
       	<div class="container-content">
 				  <div class="main">

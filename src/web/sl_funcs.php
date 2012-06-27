@@ -321,7 +321,7 @@ function text_call_num()
   $title_max = 140 - strlen($msg);
   $msg .= " ";
   $msg .= substr($title, 0, $title_max);
-  require '../../etc/class.phpmailer.php';
+  require 'includes/class.phpmailer.php';
   
   $mail = new PHPMailer(true);
   $mail->SetFrom("shelflife@law.harvard.edu", 'ShelfLife');
