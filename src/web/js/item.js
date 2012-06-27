@@ -52,10 +52,6 @@ $(document).ready(function() {
 	else if(anchor_subject === '') {
 		$('#fixedstack').text('Sorry, no Library of Congress call number or subject neighborhood found.');
 	}
-	
-	if(!loc_call_num_sort_order) {
-		$('#callview').text('No call number stack').removeClass('button').removeClass('stack-button').addClass('button-disabled');
-	}
 
 	$('.slide-more').live('click', function() {
 		$(this).next('.slide-content').slideToggle();
@@ -130,6 +126,13 @@ $(document).ready(function() {
 
 			item_details.creators = creator_markup_list.join('<span class="divider"> | </span>');
 		}
+		
+	  if(item_details.rsrc_key && item_details.rsrc_key.length > 0) {
+			$.each(item_details.rsrc_key, function(i, item){
+				if(item == 'wikipedia_org')
+				  item_details.wp_url = item_details.rsrc_value[i];
+			});
+		}
 
 		item_details.shelfrank = left_pad(item_details.shelfrank);
 
@@ -162,72 +165,37 @@ $(document).ready(function() {
 		GBSArray = ['ISBN:' + isbn, 'OCLC:' + oclc];
 		$.getScript($("#gbscript").attr('src'));
 
-		// replace subject buttons
-		var subject_markup = '<span class="heading">Library Shelves</span><ul>';
-
-		if(item_details.ut_count > 0)
-			subject_markup += '<li id="uniform" class="button stack-button"><span class="reload">All Editions</span></li>';
-
-		subject_markup += '<li id="callview" class="button stack-button"><span class="reload">Infinite bookshelf</span></li>';
-
 		if (item_details.lcsh != undefined) {
 			$.each(item_details.lcsh, function(i, item) {
-				item = item.replace(/\.\s*$/, '');
-				subject_markup += '<li class="subject-button" id=" ' + item.replace(/[\W]/g, '_') + '"><span class="reload">' + item + '</span></li>';
+				item_details.lcsh[i] = item.replace(/\.\s*$/, '');
 			});
-		}
-
-		subject_markup += '</ul>';
-		$('.subjects').html(subject_markup);
-		
-		if(!loc_call_num_sort_order) {
-			$('#callview').text('No call number stack').removeClass('button-selected').removeClass('button').removeClass('stack-button').addClass('button-disabled');
-		}
-
-		// replace wikipedia buttons
-		$('.wikipedia').html('');
-		if (item_details.wp_categories != undefined) {
-			var wikipedia_markup = '<span class="heading">Wikipedia Shelves</span><ul>';
-			$.each(item_details.wp_categories, function(i, item) {
-				wikipedia_markup += '<li class="wp_category-button"><span class="reload">' + item + '</span></li>';
-			});
-			wikipedia_markup += '</ul>';
-			$('.wikipedia').html(wikipedia_markup);
 		}
 
 		$("#toc").html('');
 		if(item_details.toc) {
-		var toc = item_details.toc[0];
-		toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
-		if(toc) {
-		  $("#toc").html('<span class="heading">Table of Contents</span><p class="longtoc>' + toc + '</p>');
-		}
+      var toc = item_details.toc[0];
+      toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
+      if(toc) {
+        $("#toc").html('<span class="heading">Table of Contents</span><p>' + toc + '</p>');
+      }
 		}
 
 		// Redraw our tags
 		drawTagNeighborhood();
-		
-		$.ajax({
-      url: www_root + '/availability.php?id=' + item_details.id_inst,
-      async: false,
-      dataType: 'json',
-      success: function (data) {
-        item_details.availability = data;
-      }
-    });
 
 		var source = $("#item-template").html();
 		var template = Handlebars.compile(source);
     $('#item-panel').html(template(item_details));
     
-    // wikipedia link
-		if (item_details.wp_url != undefined) {
-			$('.wikipedia_link a').attr('href', item_details.wp_url);
-			$('.wikipedia_link').show();
-		}
-		else {
-			$('.wikipedia_link').hide();
-		}
+    var source = $("#shelves-template").html();
+		var template = Handlebars.compile(source);
+    $('#shelves-panel').html(template(item_details));
+    
+    $.getJSON(www_root + '/availability.php?id=' + item_details.id_inst, function(data) {
+      var source = $("#availability-template").html();
+		  var template = Handlebars.compile(source);
+      $('#availability-panel').html(template(data));
+    });
 		
 		// If we have our first isbn, get affiliate info. if not, hide the DOM element
 		if (isbn) {
@@ -325,40 +293,36 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+	
+		$(window).scroll(function (event) {
+		// what the y position of the scroll is
+		var y = $(this).scrollTop();
+		// whether that's below the form
+		// HEIGHT OF HEADER
+		if (y >= $('.header').height()) {
+		// if so, ad the fixed class
+			$('#fixedstack').addClass('fixed');
+			$('#overlaynav').addClass('fixed');
+			stackheight = $(window).height();
+			$('.container').css('height', stackheight);
+			$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
+			$('#fixedclear').css('clear', 'both');
+		} else {
+			// otherwise remove it
+			$('#fixedstack').removeClass('fixed');
+			$('#overlaynav').removeClass('fixed');
+			stackheight = $(window).height() - $('.header').height();
+			$('.container').css('height', stackheight);
+			$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
+			$('#fixedclear').css('clear', '');
+		}
+
+	});
 }); //end document ready
 
 // We heatmap our shelfrank fields based on the scaled value
 function get_heat(scaled_value) {
-	if (scaled_value >= 0 && scaled_value < 10) {
-		return 1;
-	}
-	if (scaled_value >= 10 && scaled_value < 20) {
-		return 2;
-	}
-	if (scaled_value >= 20 && scaled_value < 30) {
-		return 3;
-	}
-	if (scaled_value >= 30 && scaled_value < 40) {
-		return 4;
-	}
-	if (scaled_value >= 40 && scaled_value < 50) {
-		return 5;
-	}
-	if (scaled_value >= 50 && scaled_value < 60) {
-		return 6;
-	}
-	if (scaled_value >= 60 && scaled_value < 70) {
-		return 7;
-	}
-	if (scaled_value >= 70 && scaled_value < 80) {
-		return 8;
-	}
-	if (scaled_value >= 80 && scaled_value < 90) {
-		return 9;
-	}
-	if (scaled_value >= 90 && scaled_value <= 100) {
-		return 10;
-	}
+  return scaled_value === 100 ? 10 : Math.floor(scaled_value / 10) + 1;
 }
 
 function drawTagNeighborhood(){
@@ -400,8 +364,8 @@ function alertNotFound() {
 }
 
 function initialize() {
-    var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
-    viewer.load(GBSArray, alertNotFound);
+  var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+  viewer.load(GBSArray, alertNotFound);
 }
 
 function launchDialog(html){ 

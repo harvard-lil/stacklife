@@ -21,12 +21,14 @@ echo <<<EOF
 
 
   <script type="text/javascript" src="$www_root/js/selectToUISlider.jQuery.js"></script> 
-  <script charset="utf-8" type="text/javascript" src="$www_root/js/search_results.js"></script>
+  <script charset="utf-8" type="text/javascript" src="$www_root/js/search.js"></script>
 
   <title> $q | ShelfLife Search</title>
 EOF;
 ?>
 <script type="text/javascript">
+
+var www_root = '<?php echo $www_root ?>';
 
 $(function(){				
 	$('select#weight_select').selectmenu({

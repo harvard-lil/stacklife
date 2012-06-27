@@ -5,13 +5,13 @@
   		</div><!--end logo-->
   		<!--<span class="alpha">Beta Sprint</span>-->
 		<div class="search right">
-			<form id="search" method="get" action="<?php echo $www_root?>/search_results.php">
+			<form id="search" method="get" action="<?php echo $www_root?>/search.php">
             	<input type="hidden" style="display:none" name="search_type" value="keyword"/>
             	<input type="text" name="q" placeholder="Search"/>
             	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
 			</form>
 			<a id="inline" href="#advanced" style="display:none">Advanced Search</a>
-			<a href="<?php echo $www_root?>/search_results.php?search_type=advanced&q" class="button advanced-search">Advanced Search</a>
+			<a href="<?php echo $www_root?>/search.php?search_type=advanced&q" class="button advanced-search">Advanced Search</a>
     	</div><!--end search-->
 	</div><!--end header-content-->
 </div><!--end header-->
@@ -19,7 +19,7 @@
 <!-- Advanced search fancybox, start -->
 <div style="display:none">
 	<div id="advanced">
-		<form method="get" action="<?php echo $www_root?>/search_results.php">
+		<form method="get" action="<?php echo $www_root?>/search.php">
 		<div class="left advanced-facets">
 		<div class="facet_set">
 		<div class="heading">Show only</div>

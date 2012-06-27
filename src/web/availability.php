@@ -1,11 +1,51 @@
 <?php
+/*  Connector to an availability API 
+    Out put should be in the following formatOutput
+    {
+      any_available: true,
+      items: 
+      [
+        {
+          available: true,
+          library: "Grossman",
+          call_num: "HB74 .P8 L479 2005",
+          status: "In-library use | Not checked out",
+          request: ""
+        },
+        {
+          available: true,
+          library: "Kennedy Sch of Gov",
+          call_num: "HB74.P8 L479 2005",
+          status: "3-hour loan | Not checked out",
+          request: ""
+        },
+        {
+          available: true,
+          library: "Lamont",
+          call_num: "HB74.P8 L479 2005",
+          status: "28-day loan | Not checked out",
+          request: ""
+        },
+        {
+          available: false,
+          library: "Lamont",
+          call_num: "HB74.P8 L479 2005",
+          status: "28-day loan | Checked out: Due: 07/23/12",
+          request: "http://hollisservices.lib.harvard.edu/hollisservices/itemrequest?bibid=HVD01012809860&itemid=HVD50009610180000040"
+        }
+      ]
+    }
+*/
+require_once ('../../etc/sl_ini.php');
 
 $id = $_GET['id'];
 
 $avail_fields = array('available', 'library', 'call_num', 'status', 'request');
 $json = array();
 
-$url = "http://webservices.lib.harvard.edu/rest/hollis/avail/$id";
+global $AVAILABILITY_URL;
+
+$url = "$AVAILABILITY_URL$id";
 	
 $ch = curl_init();
 
@@ -37,7 +77,6 @@ foreach($avail->branch as $branch) {
 		  else
 		    $isavail = false;
 		  $request = (string) $itemrecord->req->attributes()->href;
-		  //echo "$library $call $status $isavail $request<br />";
 		  $avail_data   = array($isavail, $library, $call, $status, $request);
       $temp_array  = array_combine($avail_fields, $avail_data);
       array_push($json, $temp_array);

@@ -139,7 +139,7 @@ var config = (function () {
 	}
 	
     // LibraryCloud location:
-    my.lc_url = '/shelflife/translators/cloud.php';
+    my.lc_url = www_root + '/translators/cloud.php';
 	
     uri_params = util.get_uri_params();
 
@@ -171,9 +171,6 @@ var config = (function () {
 	// The container for our filters (when someone clicks a facet, that becomes
 	// a fliter
 	my.filter_facet_queries = new Array();
-	
-    // Our librarycloud API key
-    my.key = 'BUILD-LC-KEY';
     
     // The list of facets we want to get from LibraryCloud and display
 	my.facets = [
@@ -209,8 +206,7 @@ var config = (function () {
 		
 		var std_params = ['search_type=' + my.search_type, 'query=' + my.query,
 		                  'start=' + my.start, 'limit=' + my.limit, 
-		                  'sort=' + my.sort_field + ' ' + my.sort_direction,
-		                  'key=' + my.key];
+		                  'sort=' + my.sort_field + ' ' + my.sort_direction];
 				
 		$.each(my.facets, function(i, item) {
 			std_params.push('facet=' + item);
@@ -457,7 +453,7 @@ var view = (function () {
 						'<option value="100" selected="selected">100</option>' +  
 					'</select>' + 
 				'</fieldset> ' +
-				'<div id="total_score_slider"><div id="legend"><ul class="legend-box"><li class="one"></li><li class="two"></li><li class="three"></li><li class="four"></li><li class="five"></li><li class="six"></li><li class="seven"></li><li class="eight"></li><li class="nine"></li><li class="ten"></li></div></div></div>';
+				'<div id="total_score_slider"><div id="legend"><ul class="legend-box"><li class="color1"></li><li class="color2"></li><li class="color3"></li><li class="color4"></li><li class="color5"></li><li class="color6"></li><li class="color7"></li><li class="color8"></li><li class="color9"></li><li class="color10"></li></div></div></div>';
 			
 			$('#persistent_controls').html(slider_container_markup);
 			

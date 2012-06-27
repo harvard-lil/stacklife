@@ -328,6 +328,13 @@ ShelfLife DropDown Theme, thanks to jQuery
 	border-width:1px;
 }
 
+#legend li {
+    display: inline-block;
+    height: 18px;
+    width: 10%;
+    border: 0;
+}
+
 .active-item {
   -webkit-transform: translate(15px, 0);
   -moz-transform: translate(15px, 0);

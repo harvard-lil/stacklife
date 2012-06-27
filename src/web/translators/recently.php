@@ -8,7 +8,7 @@
 	$json = array();
 	$hits = count($user_books);
 
-    global $LIBRARYCLOUD_URL
+  global $LIBRARYCLOUD_URL;
 	
 	foreach($user_books as $id) {
   
