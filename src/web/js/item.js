@@ -11,7 +11,7 @@ $(document).ready(function() {
 	
 	// Fetch data about the item
 	$.ajax({
-  		url: '/platform/v0.03/api/item/',
+  		url: '../../translators/cloud.php',
   		dataType: 'json',
   		data: {query : uid, search_type : 'id', start : '0', limit : '1'},
   		async: false,
@@ -92,7 +92,7 @@ $(document).ready(function() {
 	function draw_item_panel(item_details) {
 
 		// set our global var
-		loc_call_num_sort_order = item_details.loc_call_num_sort_order;
+		loc_call_num_sort_order = item_details.loc_sort_order;
 		title = item_details.title;
 		uid = item_details.id;
 		
