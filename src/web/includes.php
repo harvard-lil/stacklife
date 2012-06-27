@@ -8,10 +8,6 @@ echo <<<EOF
   <link rel="stylesheet" href="$www_root/css/jquery.fancybox-1.3.4.css" type="text/css" />
   <link rel="stylesheet" href="$www_root/css/shelflife.theme.css" type="text/css" />
 
-  <!--[if IE]>
-        <link rel="stylesheet" href="$www_root/css/ie.css" type="text/css" />
-  <![endif]-->
-
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>

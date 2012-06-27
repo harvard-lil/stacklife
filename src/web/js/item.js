@@ -1,5 +1,9 @@
 $(document).ready(function() {
-	
+	if ( !History.enabled ) {
+         // History.js is disabled for this browser.
+         // This is because we can optionally choose to support HTML4 browsers or not.
+        return false;
+    }
 	History.Adapter.bind(window,'statechange',function(){
 		var State = History.getState(); 
 		draw_item_panel(State.data.data);

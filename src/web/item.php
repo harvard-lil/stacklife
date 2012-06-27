@@ -8,12 +8,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title>
 <?php
 include_once('includes.php');
 echo <<<EOF
-
-	<title></title>
-
 	<script type="text/javascript" src="$www_root/js/item.js"></script>
 	<script type="text/javascript" src="$www_root/js/jquery.history.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
@@ -21,9 +19,7 @@ EOF;
 ?>
 
 <script type="text/javascript">
-
-var 
-worldcatnum = '',
+var worldcatnum = '',
 loc_sort_order = '';
 anchor_subject = '',
 uniform_id = '',
@@ -41,7 +37,9 @@ var GBSArray = ['ISBN:<?php echo $isbn_trim ?>', 'OCLC:<?php echo $oclcnum ?>'];
 
 google.load("books", "0");
 
-var History = window.History;
+(function(window,undefined){
+  var History = window.History;
+})(window);
 
 $(document).ready(function() {
 	<?php
@@ -122,7 +120,6 @@ $(document).ready(function() {
 			</div>
 		</div><!--end wikipedia-icon-->	
 		{{/if}}
-		
 		<div id="availability-panel"></div>
 		
 		<div class="buy" style="display:none;">	 
@@ -130,12 +127,12 @@ $(document).ready(function() {
       <a id="abes" href="http://www.abebooks.com/products/isbn/{{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/abeBooks.png" alt="AbeBooks"/> </a><span class="author-divider">|</span>
       <a id="bandn" href="http://search.barnesandnoble.com/booksearch/ISBNInquiry.asp?EAN={{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/barnesAndNoble.png" alt="Barnes&amp;Noble"/></a><span class="author-divider">|</span>
       <a id="hrvbs" href="http://site.booksite.com/1624/showdetail/?isbn={{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/harvardBookStore.png" alt="Harvard Book Store"/></a>
-    </div>  <!--end buy-->	
-		
-		<h3 class="imprint">{{#if pub_location}}{{pub_location}}{{/if}}{{#if publisher}}, {{publisher}}{{/if}}{{#if pub_date}}, {{pub_date}}{{/if}}</h3>
-		
-		<h3 class="clickable advanced-data slide-more">Advanced Bibliographic Data<span class="arrow"></span></h3>
-        	
+    </div>  <!--end buy-->
+    
+    <h3 class="imprint">{{#if pub_location}}{{pub_location}}{{/if}}{{#if publisher}}, {{publisher}}{{/if}}{{#if pub_date}}, {{pub_date}}{{/if}}</h3>
+    
+    <h3 class="clickable advanced-data slide-more">Advanced Bibliographic Data<span class="arrow"></span></h3>
+    
     <div class="advanced-data-box slide-content" style="display:none;">
       <ul>
         <li class="advanced-isbn"><p>ISBN: {{isbn}}</p></li>
@@ -143,8 +140,8 @@ $(document).ready(function() {
         <li class="advanced-language"><p>Language: {{language}}</p></li>
       </ul>
     </div>
-  </div>
-  <div id="all-rank" class="slide-more">	            
+    </div>
+    <div id="all-rank" class="slide-more">	            
     <div id="shelfRankCalc" class="button-shelfRank">
       <span class="unpack">ShelfRank</span>
       <span class="shelfRank">{{shelfrank}}</span>
@@ -158,7 +155,7 @@ $(document).ready(function() {
       <li><p>Holding libraries: {{score_holding_libs}}</p></li>
     </ul>
   </div><!--end rank-math-->
-</div>
+
   </script> 
   <script id="availability-template" type="text/x-handlebars-template">
     <span class="button-availability {{#if any_available}}available-button{{else}}not-available-button{{/if}} slide-more"><span class="icon"></span>Availability<span class="arrow"></span></span>
@@ -186,9 +183,9 @@ $(document).ready(function() {
 			{{else}}
 			<li id="callview" class="button-disabled">No call number stack</li>
 			{{/if}}
-			{{#each lcsh}}
+			{{#lcsh}}
 			<li class="subject-button"><span class="reload">{{this}}</span></li>
-			{{/each}}
+			{{/lcsh}}
     </ul>
     <span class="heading">Community Shelves</span>
     <ul>
@@ -198,9 +195,9 @@ $(document).ready(function() {
     {{#if wp_categories}}
     <span class="heading">Wikipedia Shelves</span>
       <ul>
-        {{#each wp_categories}}
+        {{#wp_categories}}
         <li class="wp_category-button"><span class="reload">{{this}}</span></li>
-        {{/each}}
+        {{/wp_categories}}
       </ul>
     {{/if}}
 	</script>
