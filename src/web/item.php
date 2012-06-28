@@ -2,7 +2,7 @@
 
 <?php
   require_once ('../../etc/sl_ini.php');
-  include_once('item.inc.php');
+  include_once('includes/item.inc.php');
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title></title>
 <?php
-include_once('includes.php');
+include_once('includes/includes.php');
 echo <<<EOF
   <link rel="stylesheet" href="$www_root/css/jquery-ui-1.7.1.custom.css" type="text/css" />
 	<script type="text/javascript" src="$www_root/js/item.js"></script>
@@ -61,7 +61,7 @@ $(document).ready(function() {
     <div id="viewerCanvas" style="width: 610px; height: 725px"></div>
   </div>
     
-  <?php require_once('header.php');?>
+  <?php require_once('includes/header.php');?>
 
   <div class="container group">
     <div class="container-content">

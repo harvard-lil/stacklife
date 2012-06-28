@@ -12,7 +12,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   
   <?php
-  include_once ('includes.php');
+  include_once ('includes/includes.php');
 
 echo <<<EOF 
   <link rel="stylesheet" href="$www_root/css/ui.slider.extras.css" type="text/css" />
@@ -55,7 +55,7 @@ var addressFormatting = function(text){
 </head>
 <body>
 <div id="wrapper">
-	 <?php require_once('header.php');?>
+	 <?php require_once('includes/header.php');?>
     <div class="search-container group">
 		<div class="search-container-content group"> 
 			<div id="navigation">
