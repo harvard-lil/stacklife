@@ -9,7 +9,7 @@
 <title>ShelfLife</title>
 
 <?php
-global $TYPEKIT_KEY;
+global $TYPEKIT_CODE;
 echo <<<EOF
   <link rel="author" href="$www_root/humans.txt" />
   <link rel="icon" href="$www_root/images/favicon.ico" type="image/x-icon" />
@@ -20,8 +20,7 @@ echo <<<EOF
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
   <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
   <script type="text/javascript" src="$www_root/js/landing_page.js"></script>
-  <script type="text/javascript" src="http://use.typekit.com/$TYPEKIT_KEY.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  $TYPEKIT_CODE
 EOF;
 ?>
 

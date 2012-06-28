@@ -31,17 +31,15 @@ The connection details for this database should be put into the configuration fi
 
 ### Typekit
 
-ShelfLife uses fonts from TypeKit.  The key should be put into the configuration file.  From the embed code provided, take the key out.
-
-  <script type="text/javascript" src="http://use.typekit.com/*TYPEKIT_KEY*.js"></script>
+ShelfLife uses fonts from TypeKit.  The TypeKit embed code should be put into the configuration file.
 
 The font FF Tisa Web Pro should be assigned to the following selectors.
 
-  #overlaynav, #results, #search_results_body, .button, .creator, .footer-content, .navigation, .tk-ff-tisa-web-pro, h1, h2, input, p 
+    #overlaynav, #results, #search_results_body, .button, .creator, .footer-content, .navigation, .tk-ff-tisa-web-pro, h1, h2, input, p 
 
 The font Futura PT should be assigned to the following selectors.
 
-  #all-rank, #recentlyviewed, #search_results_header, #welcome, #wrap, .addfield, .facet_heading, .facet_set, .hdr, .heading, .hits, .reload, .rem_filter, .removefield, .tk-futura-pt
+    #all-rank, #recentlyviewed, #search_results_header, #welcome, #wrap, .addfield, .facet_heading, .facet_set, .hdr, .heading, .hits, .reload, .rem_filter, .removefield, .tk-futura-pt
 
 ### ShelfLife Configuration
 
