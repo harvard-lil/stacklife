@@ -14,11 +14,8 @@
   <?php
   include_once ('includes.php');
 
-echo <<<EOF
- 
-  <link rel="stylesheet" href="$www_root/css/jquery-ui-1.7.1.custom.css" type="text/css" /> 
+echo <<<EOF 
   <link rel="stylesheet" href="$www_root/css/ui.slider.extras.css" type="text/css" />
-
 
   <script type="text/javascript" src="$www_root/js/selectToUISlider.jQuery.js"></script> 
   <script charset="utf-8" type="text/javascript" src="$www_root/js/search.js"></script>

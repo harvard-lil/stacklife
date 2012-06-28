@@ -12,6 +12,7 @@
 <?php
 include_once('includes.php');
 echo <<<EOF
+  <link rel="stylesheet" href="$www_root/css/jquery-ui-1.7.1.custom.css" type="text/css" />
 	<script type="text/javascript" src="$www_root/js/item.js"></script>
 	<script type="text/javascript" src="$www_root/js/jquery.history.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
