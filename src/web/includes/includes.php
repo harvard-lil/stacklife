@@ -13,7 +13,6 @@ echo <<<EOF
 
   <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
   <script type="text/javascript" src="$www_root/js/handlebars.js"></script>
-  <script type="text/javascript" src="$www_root/js/selectmenu.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.fancybox-1.3.4.pack.js"></script>
   <script type="text/javascript" src="http://use.typekit.com/gre3ysx.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>

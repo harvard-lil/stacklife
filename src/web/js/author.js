@@ -4,7 +4,7 @@ $(document).ready(function() {
 	// stackview link workaround
 	$('body').on('stackview.pageload', function(e) {
     $('.stack-item a').each(function() {
-      this.href = this.href.replace("shelflife/item", "item");
+      this.href = this.href.replace('shelflife/shelflife/item', 'shelflife/item');
     });
 	});
        			       			

@@ -697,7 +697,7 @@ h2.signature {
 	line-height:1.6em;
 }
 
-.button a, .button a:visited, .button-disabled a, .button-google, .button-google-disabled, .small-button a  {
+.button a, .button a:visited, .button-disabled a, .button-google, .button-google-disabled, .small-button a, .subject-button a, .subject-button a:visited  {
    	text-decoration: none;
    	text-align: left;
    	color: #444;
