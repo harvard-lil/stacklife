@@ -6,9 +6,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>ShelfLife / Digital Public Library of America</title>
+<title>ShelfLife</title>
 
 <?php
+global $TYPEKIT_KEY;
 echo <<<EOF
   <link rel="author" href="$www_root/humans.txt" />
   <link rel="icon" href="$www_root/images/favicon.ico" type="image/x-icon" />
@@ -19,7 +20,7 @@ echo <<<EOF
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
   <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
   <script type="text/javascript" src="$www_root/js/landing_page.js"></script>
-  <script type="text/javascript" src="http://use.typekit.com/gre3ysx.js"></script>
+  <script type="text/javascript" src="http://use.typekit.com/$TYPEKIT_KEY.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 EOF;
 ?>

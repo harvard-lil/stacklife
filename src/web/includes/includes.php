@@ -1,5 +1,6 @@
 
 <?php
+global $TYPEKIT_KEY;
 echo <<<EOF
   <link rel="author" href="$www_root/humans.txt" />
   <link rel="icon" href="$www_root/images/favicon.ico" type="image/x-icon" />
@@ -14,7 +15,7 @@ echo <<<EOF
   <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
   <script type="text/javascript" src="$www_root/js/handlebars.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.fancybox-1.3.4.pack.js"></script>
-  <script type="text/javascript" src="http://use.typekit.com/gre3ysx.js"></script>
+  <script type="text/javascript" src="http://use.typekit.com/$TYPEKIT_KEY.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
   <link rel="stylesheet" href="$www_root/css/template.css" type="text/css" />
