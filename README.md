@@ -20,6 +20,16 @@ Use the git clone command to get the latest version of ShelfLife:
 
     git clone git://github.com/harvard-lil/shelflife.git
 
+### Supporting MySQL database
+
+ShelfLife requires a supporting database called 'sl' that has two tables.
+
+    CREATE TABLE sl_test (id mediumint(11) NOT NULL AUTO_INCREMENT, item_id varchar(255) NOT NULL, tag varchar(255) NOT NULL, PRIMARY KEY (id))
+    
+    CREATE TABLE sl_also_viewed (id mediumint(11) NOT NULL AUTO_INCREMENT, book_one varchar(256) NOT NULL, book_two varchar(256) NOT NULL, PRIMARY KEY (id));
+    
+The connection details for this database should be put into the configuration file.
+
 ### ShelfLife Configuration
 
 Configuration takes place in etc/sl_ini.php. Copy the example and edit the values:
