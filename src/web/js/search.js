@@ -315,7 +315,24 @@ var view = (function () {
 	
 	// Draw our LibraryCloud results (the table containg the title, creator...)
 	my.draw_results = function () {
-		$('.result-hits-container, #search_results_header tr th').show();
+	    
+	    // Draw search results count and paging with Handlebars template
+        var source = $("#result-hits-container-template").html();
+        var template = Handlebars.compile(source);
+        var context = {'start': config.start, 
+            'showing': config.start + config.limit,
+            'num_found': library_cloud.lc_results.num_found,
+            'query': config.query};
+        $('#result-hits-container').html(template(context));
+	    
+	    // Draw search results Handlebars template
+        var source = $("#search-results-template").html();
+        var template = Handlebars.compile(source);
+        $('#results').html(template(library_cloud.lc_results));
+	    
+	    
+	    
+/*		$('.result-hits-container, #search_results_header tr th').show();
 		$('.apology').remove();
 		var rows = '';
 		if (library_cloud.lc_results.num_found > 0) {
@@ -325,6 +342,10 @@ var view = (function () {
 			}
 			$(".result-hits-container").html('<p class="hits">Showing <span class="orange">' + (config.start + 1) + '</span> to <span class="orange">' + showing_num_results + '</span> of <span class="orange">' + library_cloud.lc_results.num_found + '</span> results for &ldquo;' + config.query + '&rdquo;</p>');
 //			rows += '<thead><tr><th id="title_sort" class="sort_heading">Title</th><th id="creator" class="sort_heading">Author</th><th id="pub_date" class="sort_heading">Year</th><th id="' + config.sort_field + '" class="sort_heading sortable score">ShelfRank<span class="arrow"></span></th><th><img src="images/info-icon.gif" help="hsort" /></th></tr></thead>';
+            
+
+
+
 			$.each(library_cloud.lc_results.docs, function(i, item) {
 				if (item.creator == null || item.creator[0] == null) {
 					item.creator = '';
@@ -342,7 +363,6 @@ var view = (function () {
 					
 				rows += '<tr class="result_row"><td class=\"title-column\"><a href="item/' + item.title_link_friendly + '/' + item.id + '">' + item.title; 
 				if (item.ut_score != null && item.ut_score > 0) {
-//					rows += ' (' + item.ut_score + ')';
 					rows += ' <span class="ut-count">(All Editions)</span>';
 				}
 				
@@ -355,7 +375,7 @@ var view = (function () {
 		}
 		$('.result_row').remove();
 		$('#search_results_body').append(rows);
-		$('#searchresults tr:odd').addClass('odd');
+		$('#searchresults tr:odd').addClass('odd');*/
 	}
 
 	// Draw our LibraryCloud facets (the list of facetswe defined in the config)
@@ -728,4 +748,32 @@ else {
 	util.populate_form();
 }
 
+});
+
+//  return the first item of a list only
+// usage: {{#first items}}{{name}}{{/first}}
+// directly from https://gist.github.com/1468937
+Handlebars.registerHelper('first', function(context, block) {
+  return block(context[0]);
+});
+
+Handlebars.registerHelper("stripes", function(array, even, odd, fn, elseFn) {
+  if (array && array.length > 0) {
+    var buffer = "";
+    for (var i = 0, j = array.length; i < j; i++) {
+      var item = array[i];
+ 
+      // we'll just put the appropriate stripe class name onto the item for now
+      item.stripeClass = (i % 2 == 0 ? even : odd);
+ 
+      // show the inside of the block
+      buffer += fn(item);
+    }
+ 
+    // return the finished buffer
+    return buffer;
+  }
+  else {
+    return elseFn();
+  }
 });
