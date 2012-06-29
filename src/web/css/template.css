@@ -344,7 +344,7 @@ hr {
 .itemData-container {
 	margin: 15px 0 0 0;
 	padding:5px 5px 5px;
-	width:31%;
+	width:32%;
 	background-image:none;
 	float:left;
 }
@@ -505,6 +505,33 @@ hr {
   	-moz-border-radius: 2px;
   	-webkit-border-radius: 2px; 
   	padding: 3px 3px 3px;
+}
+
+ul.access {
+  float:left;
+}
+
+ul.access li {
+  display:block;
+  margin:0 0 8px 20px;
+  color: #007ACC;
+  cursor: pointer;
+}
+
+ul.access li a {
+  font-family: "futura-pt",sans-serif;
+  font-size:15px;
+  color: #007ACC;
+}
+
+ul.access li:hover {
+  border-color: #0099FF;
+  color: #005288;
+}
+
+#availability-panel {
+  clear:both;
+  margin-bottom:10px;
 }
 
 #viewerCanvas {
@@ -680,7 +707,7 @@ h2.signature {
 	color:#f60;
 }
 
-.button, .button-disabled, .tag-button, .button-availability, .subject-button, .wp_category-button, .stack-button, .button-google, .button-google-disabled, .small-button, .toggle {
+.button, .button-disabled, .tag-button, .button-availability, .subject-button, .wp_category-button, .stack-button,.small-button, .toggle {
    	font-size: 15px; 
    	padding: 0px 0px 8px 0px;
    	text-decoration: none;
@@ -697,7 +724,7 @@ h2.signature {
 	line-height:1.6em;
 }
 
-.button a, .button a:visited, .button-disabled a, .button-google, .button-google-disabled, .small-button a  {
+.button a, .button a:visited, .button-disabled a, .button-google, .button-google-disabled, .small-button a, .subject-button a, .subject-button a:visited  {
    	text-decoration: none;
    	text-align: left;
    	color: #444;
@@ -783,18 +810,6 @@ h2.signature {
 #tagGraph { 
 	float:left;
 	margin:15px 0 0 0;
-}
-
-.wikipedia-icon {
-	margin:5px 0 0 0;
-	float:left;
-   -moz-border-radius: 2px;
-   -ms-border-radius: 2px;
-   -moz-border-radius: 2px;
-   -webkit-border-radius: 2px; 
-   border-radius: 2px;
-   padding:1px 2px 1px 1px;
-
 }
 
 .toggle {

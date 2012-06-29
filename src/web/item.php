@@ -12,6 +12,7 @@
 <?php
 include_once('includes/includes.php');
 echo <<<EOF
+  <link rel="stylesheet" href="$www_root/css/jquery-ui-1.7.1.custom.css" type="text/css" />
 	<script type="text/javascript" src="$www_root/js/item.js"></script>
 	<script type="text/javascript" src="$www_root/js/jquery.history.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
@@ -20,7 +21,7 @@ EOF;
 
 <script type="text/javascript">
 var worldcatnum = '',
-loc_sort_order = '';
+loc_call_num_sort_order = '';
 anchor_subject = '',
 uniform_id = '',
 uniform_count = '',
@@ -102,24 +103,18 @@ $(document).ready(function() {
     <div id="creator_container">
     {{{creators}}}
     </div>
-    <img class="cover-image ol-cover-image" src="http://covers.openlibrary.org/b/isbn/{{isbn}}-M.jpg" />
-    <a href="http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|{{id_inst}}" target="_blank" class="button" id="hollis_button">HOLLIS</a>
-    <div id="online">
-      <a class="button-google-disabled" href="#viewerCanvas"><img src="<?php echo $www_root ?>/images/gbs_preview_disabled.png" /></a>
-      <a id="gviewer" class="button-google" href="#viewerCanvas" style="display:none;"><img src="<?php echo $www_root ?>/images/gbs_preview.png" border="0" /></a>
-    </div>
-    {{#if url}}
-    <a class="button" href="{{url}}">ONLINE</a>
-    {{/if}}
-    {{#if wp_url}}
-    <div class="wikipedia-icon"> 
-			<div class="wikipedia_link">
-				<a href="{{wp_url}}" target="_blank" >
-					<img src="<?php echo $www_root ?>/images/wikipedia.png" />
-				</a>
-			</div>
-		</div><!--end wikipedia-icon-->	
-		{{/if}}
+    <img class="cover-image" src="http://covers.openlibrary.org/b/isbn/{{isbn}}-M.jpg" />
+    <ul class="access">
+      <li><a href="http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|{{id_inst}}" target="_blank">HOLLIS</a></li>
+      {{#if url}}
+      <li><a href="{{url}}">ONLINE</a></li>
+      {{/if}}
+      <li class="button-google-disabled"><a class="button-google-disabled" href="#viewerCanvas"><img src="<?php echo $www_root ?>/images/gbs_preview_disabled.png" /></a></li>
+      <li class="button-google"><a id="gviewer" class="button-google" href="#viewerCanvas" style="display:none;"><img src="<?php echo $www_root ?>/images/gbs_preview.png" border="0" /></a></li>
+      {{#if wp_url}}
+      <li><a href="{{wp_url}}" target="_blank" ><img src="<?php echo $www_root ?>/images/wikipedia.png" /></a></li>
+      {{/if}}
+    </ul>
 		<div id="availability-panel"></div>
 		
 		<div class="buy" style="display:none;">	 

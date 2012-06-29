@@ -45,7 +45,7 @@
  
   $facets = $book_data["facets"];
     
-  $books_fields = array('id', 'title','creator','measurement_page_numeric','measurement_height_numeric', 'shelfrank', 'pub_date', 'title_link_friendly', 'format', 'loc_sort_order');
+  $books_fields = array('id', 'title','creator','measurement_page_numeric','measurement_height_numeric', 'shelfrank', 'pub_date', 'title_link_friendly', 'format', 'loc_call_num_sort_order');
     
   foreach($items as $item) {
     $title = '';

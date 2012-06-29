@@ -10,55 +10,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  
-  <?php
+<?php
   include_once ('includes/includes.php');
-
-echo <<<EOF
- 
-  <link rel="stylesheet" href="$www_root/css/jquery-ui-1.7.1.custom.css" type="text/css" /> 
+  echo <<<EOF
   <link rel="stylesheet" href="$www_root/css/ui.slider.extras.css" type="text/css" />
-
 
   <script type="text/javascript" src="$www_root/js/selectToUISlider.jQuery.js"></script> 
   <script charset="utf-8" type="text/javascript" src="$www_root/js/search.js"></script>
 
-  <title> $q | ShelfLife Search</title>
+  <title></title>
 EOF;
-?>
+?>  
 <script type="text/javascript">
 
 var www_root = '<?php echo $www_root ?>';
+ 
+</script>  
 
-$(function(){				
-	$('select#weight_select').selectmenu({
-		style:'dropdown', 
-		menuWidth: 300,
-		format: addressFormatting
-	});		
-});	
-//a custom format option callback
-var addressFormatting = function(text){
-	var newText = text;
-	//array of find replaces
-	var findreps = [
-		{find:/^([^\-]+) \- /g, rep: '<span class="ui-selectmenu-item-header">$1</span>'},
-		{find:/([^\|><]+) \| /g, rep: '<span class="ui-selectmenu-item-content">$1</span>'},
-		{find:/([^\|><\(\)]+) (\()/g, rep: '<span class="ui-selectmenu-item-content">$1</span>$2'},
-		{find:/([^\|><\(\)]+)$/g, rep: '<span class="ui-selectmenu-item-content">$1</span>'},
-		{find:/(\([^\|><]+\))$/g, rep: '<span class="ui-selectmenu-item-footer">$1</span>'}
-	];
-			
-	for(var i in findreps){
-		newText = newText.replace(findreps[i].find, findreps[i].rep);
-	}
-	return newText;
-}	 
-</script>
 </head>
 <body>
 <div id="wrapper">
-	 <?php require_once('includes/header.php');?>
+    <?php require_once('includes/header.php');?>
     <div class="search-container group">
 		<div class="search-container-content group"> 
 			<div id="navigation">
@@ -135,8 +107,6 @@ var addressFormatting = function(text){
     	{{/if}}
     	
 	</script>
-
-    
     
     <script type="text/javascript">
       var _gaq = _gaq || [];

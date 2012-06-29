@@ -11,13 +11,13 @@ $(document).ready(function() {
 	
 	// Fetch data about the item
 	$.ajax({
-  		url: '../../translators/cloud.php',
+  		url: www_root + '/translators/item.php',
   		dataType: 'json',
   		data: {query : uid, search_type : 'id', start : '0', limit : '1'},
   		async: false,
   		success: function(data){
   			if(data.docs[0].loc_call_num_sort_order && data.docs[0].loc_call_num_sort_order != undefined)
-  				loc_call_num_sort_order = data.docs[0].loc_call_num_sort_order;
+  				loc_call_num_sort_order = data.docs[0].loc_call_num_sort_order[0];
   			uniform_count = data.docs[0].ut_count;
   			uniform_id = data.docs[0].ut_id;
   			if (data.docs[0].lcsh != undefined) { 
@@ -92,7 +92,7 @@ $(document).ready(function() {
 	function draw_item_panel(item_details) {
 
 		// set our global var
-		loc_call_num_sort_order = item_details.loc_sort_order;
+		loc_call_num_sort_order = item_details.loc_call_num_sort_order;
 		title = item_details.title;
 		uid = item_details.id;
 		
@@ -196,9 +196,11 @@ $(document).ready(function() {
     $('#shelves-panel').html(template(item_details));
     
     $.getJSON(www_root + '/translators/availability.php?id=' + item_details.id_inst, function(data) {
-      var source = $("#availability-template").html();
-		  var template = Handlebars.compile(source);
-      $('#availability-panel').html(template(data));
+      if(data) {
+        var source = $("#availability-template").html();
+        var template = Handlebars.compile(source);
+        $('#availability-panel').html(template(data));
+      }
     });
 		
 		// If we have our first isbn, get affiliate info. if not, hide the DOM element
@@ -225,7 +227,7 @@ $(document).ready(function() {
 	$('.stack-item a').live('click', function(e){
 	  var this_details = $(this).parent().data('stackviewItem');
 		$.ajax({
-  		url: '/platform/v0.03/api/item/',
+  		url: www_root + '/translators/item.php',
   		dataType: 'json',
   		data: {query : this_details.id, search_type : 'id', start : '0', limit : '1'},
   		async: false,

@@ -22,6 +22,8 @@ $WORLDCAT_KEY = 'yourworldcatkey';
 // Probably someting like http://example.com/platform/v0.03/api/item/
 $LIBRARYCLOUD_URL = 'http://example.com/platform/v0.03/api/item/';
 
+$TYPEKIT_CODE = 'yourtypkitcode';
+
 // Amazon
 $AMAZON_KEY = 'youramazonkey';
 $AMAZON_SECRET_KEY = 'youramazonsecretkey';
