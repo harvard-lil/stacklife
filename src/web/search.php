@@ -44,14 +44,10 @@ var www_root = '<?php echo $www_root ?>';
     		<div class="search-results rounded-corners">
     			<div id="facet_bread_crumb_container"></div>
         		
-        		<div class="result-hits-container"></div>	
+        		<div id="result-hits-container"></div>
         		
-        		<div id="results">
-            		<table width="100%" cellspacing="0" id="searchresults">
-            			<thead id="search_results_header"><tr><th id="title_sort" class="sort_heading">Title</th><th id="creator" class="sort_heading">Author</th><th id="pub_date" class="sort_heading">Year</th><th id="shelfrank" class="sort_heading sortable score">ShelfRank<span class="search-arrow-down"></span></th><th></th></tr></thead>
-            			<tbody id="search_results_body"></tbody>
-            		</table> 
-				</div><!-- end results div -->
+        		<div id="results"></div> <!-- end results div -->
+        		
 			</div><!-- end search-results div -->
 			<div class="facet-box-container">
 				<!-- Persistent controls (slider, query facets) -->
@@ -72,5 +68,59 @@ var www_root = '<?php echo $www_root ?>';
 	
 	
     </div><!--end wrapper-->
+    
+    <script id="result-hits-container-template" type="text/x-handlebars-template">
+            {{#if num_found}}
+    	        <p class="hits">Showing <span class="orange">{{start}}</span> to <span class="orange">{{showing}}</span> of <span class="orange">{{num_found}}</span> results for &ldquo;{{query}}&rdquo;</p>
+    	    {{else}}
+    	        <span class="apology">Sorry, no results. Perhaps try <a id="inline" href="#advanced" class="button advanced-search">advanced search</a>?</span>
+    	    {{/if}}
+	</script>
+    
+    <script id="search-results-template" type="text/x-handlebars-template">
+        {{#if num_found}}
+    	<table width="100%" cellspacing="0" id="searchresults">
+    		<thead id="search_results_header">
+    		    <tr>
+    		        <th id="title_sort" class="sort_heading">Title</th>
+    		        <th id="creator" class="sort_heading">Author</th>
+    		        <th id="pub_date" class="sort_heading">Year</th>
+    		        <th id="shelfrank" class="sort_heading sortable score">ShelfRank<span class="search-arrow-down"></span></th>
+    		        <th></th>
+    		    </tr>
+    		</thead>
+    		<tbody id="search_results_body">
+            {{#stripes docs "even" "odd"}}
+    	        <tr class="result_row {{stripeClass}}">
+    	            <td class="title-column"><a href="item/{{title_link_friendly}}/{{id}}">{{title}}</a></td>
+    	            <td class="author-column">
+    	            {{#first creator}}
+    	                <a href="author/{{this}}">{{this}}</a>
+    	            {{/first}}
+    	            </td>
+                    <td class="year-column">{{pub_date}}</td>
+                    <td><span class="results-score color{{shelfrank}}">{{shelfrank}}</span></td>
+    	        </tr>
+    	    {{/stripes}}
+    		</tbody>
+    	</table>
+    	{{/if}}
+    	
+	</script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'BUILD-GA-KEY']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 
+    'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+    'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; 
+    s.parentNode.insertBefore(ga, s);
+      })();
+ </script>
 </body>
 </html>
