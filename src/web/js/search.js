@@ -45,24 +45,6 @@ var util = (function () {
 		return field_assoc[field_name];
 	}
 	
-	// Clean up source
-	my.massage_source_name = function(source_name) {
-		var source_assoc = new Object;
-		source_assoc['harvard_edu'] = 'Harvard University';
-		source_assoc['sfpl_org'] = 'San Francisco Public Library';
-		source_assoc['ted_com'] = 'TED';
-		source_assoc['sjlibrary_org'] = 'San Jose Public Library';
-		source_assoc['darienlibrary_org'] = 'Darien Public Library';
-		source_assoc['northeastern_edu'] = 'Northeastern University';
-		source_assoc['wikipedia_org'] = 'Wikipedia';
-		source_assoc['youtube_com'] = 'YouTube';
-		source_assoc['npr_org'] = 'NPR';
-		source_assoc['openlibrary_org'] = 'Open Library';
-		source_assoc['1'] = 'Online Only';
-		
-		return source_assoc[source_name];
-	}
-	
 	// On initial load, populate search field and page title 
 	// with http params
 	my.populate_form = function() {
@@ -70,50 +52,7 @@ var util = (function () {
 		$('form > select').val(config.search_type);
 		document.title = config.query + ' | ShelfLife Search';
 	}
-	
-	// We heatmap our shelfrank fields based on the scaled value
-	my.get_heat = function(scaled_value) {
-		if (scaled_value >= 0 && scaled_value < 10) {
-			return 1;
-		}
-		if (scaled_value >= 10 && scaled_value < 20) {
-			return 2;
-		}
-		if (scaled_value >= 20 && scaled_value < 30) {
-			return 3;
-		}
-		if (scaled_value >= 30 && scaled_value < 40) {
-			return 4;
-		}
-		if (scaled_value >= 40 && scaled_value < 50) {
-			return 5;
-		}
-		if (scaled_value >= 50 && scaled_value < 60) {
-			return 6;
-		}
-		if (scaled_value >= 60 && scaled_value < 70) {
-			return 7;
-		}
-		if (scaled_value >= 70 && scaled_value < 80) {
-			return 8;
-		}
-		if (scaled_value >= 80 && scaled_value < 90) {
-			return 9;
-		}
-		if (scaled_value >= 90 && scaled_value <= 100) {
-			return 10;
-		}
-	}
-	
-	// Here we pad any values less than 10 with a 0
-	my.left_pad = function(value) {
-		if (value < 10) {
-			return '0' + value;
-		}
-		
-		return value;
-	}
-	
+
     return my; 
 }());
 
@@ -121,22 +60,8 @@ var util = (function () {
 var config = (function () { 
 	var my = {};
 	
-	// A method to get our sort field name (translate between total score and
-	// the related scaled)
-	my.get_scaled_field = function() {
-                return 'shelfrank';
-                /*
-		if (my.sort_field === 'university_total_score') {
-			return 'university_scaled';
-		}
-		if (my.sort_field === 'undergrad_total_score') {
-			return 'undergrad_scaled';
-		}
-		if (my.sort_field === 'library_total_score') {
-			return 'library_scaled';
-		}
-                */
-	}
+	// The numeric value the slider operates on
+	my.scaled_field = 'shelfrank';
 	
     // LibraryCloud location:
     my.lc_url = www_root + '/translators/cloud.php';
@@ -168,20 +93,8 @@ var config = (function () {
     	my.filters = my.filters.concat(uri_params['filter']);
     }
 	
-	// The container for our filters (when someone clicks a facet, that becomes
-	// a fliter
-	my.filter_facet_queries = new Array();
-    
     // The list of facets we want to get from LibraryCloud and display
-	my.facets = [
-                     'format', 'holding_libs','lcsh', 'creator', 'pub_date', 'language'];
-	
-	// The list of facet queries we want to display
-	/*
-	my.facet_query = ['university_checkouts_undergrad_score:[1 TO *]',
-	                  'university_checkouts_grad_score:[1 TO *]',
-	                  'university_checkouts_fac_score:[1 TO *]'];
-        */
+	my.facets = ['format', 'holding_libs','lcsh', 'creator', 'pub_date', 'language'];
 	
 	// The list of facets we want to display in list form (the missing 
 	// facets are used by a jQuery UI widget or ...)
@@ -191,12 +104,8 @@ var config = (function () {
 	// Facets to be opened (clamshelled open)
 	my.facets_open_by_default = ['format',  'holding_libs'];
 	
-	// Get stats (we'll use them for min and max values in our jQuery UI sliders)
-	my.stats = [my.get_scaled_field()];
-	
 	// The number of facet results we want to display for each category
-	my.facet_limits = {
-                           'format' : 10, 'holding_libs' : 10, 'lcsh' : 10,
+	my.facet_limits = {'format' : 10, 'holding_libs' : 10, 'lcsh' : 10,
                            'creator' : 10, 'pub_date' : 10, 'language' : 10 };
 	
 	// A method to combine all of the above params into a query string
@@ -212,22 +121,10 @@ var config = (function () {
 			std_params.push('facet=' + item);
 		});
 		
-		//$.each(my.facet_query, function(i, item) {
-		//	std_params.push('facet_query=' + item);
-		//});
-		
-		$.each(my.stats, function(i, item) {
-			std_params.push('stats=' + item);
-		});
-		
 		$.each(my.filters, function(i, item) {
 			std_params.push('filter='+ item);
 		});
-		
-		//$.each(my.filter_facet_queries, function(i, item) {
-		//	std_params.push('filter='+ item);
-		//});
-		
+
 		return std_params.join('&');
 	}
 	
@@ -266,7 +163,6 @@ var filter = (function () {
 		view.draw_filters();
 		view.draw_results();
 		view.draw_facets();
-		drawHelp();
 	}
 
     // When we remove a facet...
@@ -281,7 +177,6 @@ var filter = (function () {
 		view.draw_results();
 		view.draw_persistent_controls();
 		view.draw_facets();
-		drawHelp();
 	}
 	
     return my; 
@@ -315,78 +210,27 @@ var view = (function () {
 	
 	// Draw our LibraryCloud results (the table containg the title, creator...)
 	my.draw_results = function () {
-		$('.result-hits-container, #search_results_header tr th').show();
-		$('.apology').remove();
-		var rows = '';
-		if (library_cloud.lc_results.num_found > 0) {
-			var showing_num_results = config.start + config.limit;
-			if (config.start + config.limit >= library_cloud.lc_results.num_found) {
-				showing_num_results = library_cloud.lc_results.num_found;
-			}
-			$(".result-hits-container").html('<p class="hits">Showing <span class="orange">' + (config.start + 1) + '</span> to <span class="orange">' + showing_num_results + '</span> of <span class="orange">' + library_cloud.lc_results.num_found + '</span> results for &ldquo;' + config.query + '&rdquo;</p>');
-//			rows += '<thead><tr><th id="title_sort" class="sort_heading">Title</th><th id="creator" class="sort_heading">Author</th><th id="pub_date" class="sort_heading">Year</th><th id="' + config.sort_field + '" class="sort_heading sortable score">ShelfRank<span class="arrow"></span></th><th><img src="images/info-icon.gif" help="hsort" /></th></tr></thead>';
-			$.each(library_cloud.lc_results.docs, function(i, item) {
-				if (item.creator == null || item.creator[0] == null) {
-					item.creator = '';
-				} else {
-					if (item.creator instanceof Array) { 
-					item.creator = item.creator[0];
-					
-					if(item.creator === 'NULL')
-						item.creator = '';
-					}
-				}
-				
-				if(!item.pub_date)
-					item.pub_date = '';
-					
-				rows += '<tr class="result_row"><td class=\"title-column\"><a href="item/' + item.title_link_friendly + '/' + item.id + '">' + item.title; 
-				if (item.ut_score != null && item.ut_score > 0) {
-//					rows += ' (' + item.ut_score + ')';
-					rows += ' <span class="ut-count">(All Editions)</span>';
-				}
-				
-				rows += '</a></td><td class=\"author-column\">' +
-				'<a href=\"author/' + item.creator + '\">' + item.creator + '</a></td><td class=\"year-column\">' + item.pub_date + '</td><td><span class=\"results-score color' + util.get_heat(item[config.get_scaled_field()]) + '\">' + util.left_pad(item[config.get_scaled_field()]) + '</span></td></tr>';
-			});
-		} else {
-			rows = '<span class=\"apology\">Sorry, no results. Perhaps try <a id=\"inline\" href=\"#advanced\" class=\"button advanced-search\">advanced search</a>?</span>';
-			$('.result-hits-container, #search_results_header tr th').hide();
-		}
-		$('.result_row').remove();
-		$('#search_results_body').append(rows);
-		$('#searchresults tr:odd').addClass('odd');
+	    
+	    // Draw search results count and paging with Handlebars template
+        var source = $("#result-hits-container-template").html();
+        var template = Handlebars.compile(source);
+        var context = {'start': config.start, 
+            'showing': config.start + config.limit,
+            'num_found': library_cloud.lc_results.num_found,
+            'query': config.query};
+        $('#result-hits-container').html(template(context));
+	    
+	    // Draw search results Handlebars template
+        var source = $("#search-results-template").html();
+        var template = Handlebars.compile(source);
+        var context = {'results': library_cloud.lc_results,
+            'sort_direction': config.sort_direction};
+        $('#results').html(template(context));
 	}
 
-	// Draw our LibraryCloud facets (the list of facetswe defined in the config)
+	// Draw our LibraryCloud facets (the list of facets we defined in the config)
 	my.draw_facets = function () {
-		// Did LibraryCloud supply us with any facet query results?
-		// TODO: clean up this count business, it seems a kludgish
-		//var facet_query_count = 0;
-		//$.each(library_cloud.lc_results.facet_queries, function(i, item) {
-		//	if (item > facet_query_count) {
-		//		facet_query_count = item;
-		//	}
 
-		//});
-		
-		//var query_facets = '';
-		// Community relevance is a facet query and is a corner case. Draw it here.
-		//if (facet_query_count > 0) {
-		//	query_facets += '<div class="facet_set"><p class="facet_set" id="community_rel">Filter by Group<img src="images/info-icon.gif" help="hrelevance" /></p><ul class="facet_pairs">';
-		//	$.each(library_cloud.lc_results.facet_queries, function(i, item) {
-		//		if (item > 0){
-		//			query_facets += '<li id="' + i + '" class="add_filter">' + util.massage_field_name(i) + '<span class="facet-count"> (' + item + ')</span></li>';
-		//		}
-		//	});
-		//	query_facets += '</ul></div>';
-		//}
-		//if (query_facets != ''){
-		//	$('#query_facets').html(query_facets);
-		//} else {
-		//	$('#query_facets').html('');
-		//}
-		
 		// This will hold our facet markup string
 		var facets = '';
 		// Did LibraryCloud supply us with any facet results?
@@ -407,7 +251,7 @@ var view = (function () {
 					var count = 1;
 					$.each(item, function(facet_key, facet_value) {
 						var facet_key_display = facet_key;
-						if(i === 'source' || i === 'online_avail') facet_key_display = util.massage_source_name(facet_key);
+
 						facets += '<li id="' + i + ':' + facet_key + '" class="add_filter">' + facet_key_display + '<span class="facet-count"> (' + facet_value + ')</span></li>';
 						// This business of getting the length by turning the 
 						// object into a string and then getting the length is a total kludge
@@ -429,8 +273,7 @@ var view = (function () {
 	// Some controls we only want to draw once, let's do that here
 	my.draw_persistent_controls = function () {
 		if (library_cloud.lc_results.docs.length > 0) {
-//			$( "#total_score_slider" ).slider('destroy');
-			
+
 			// Setup our DOM done so that we can attach a slider to it
 			var slider_container_markup = '<div class="facet_heading">Refine by ShelfRank' +
 				'<fieldset>' + 
@@ -462,59 +305,21 @@ var view = (function () {
 				labels: 5,
 				sliderOptions: {
 					stop: function(event) { 
-						filter.add_filter(config.get_scaled_field() + ':[' + $('select#valueA').attr('value') + ' TO ' + $('select#valueB').attr('value') + ']');
+						filter.add_filter(config.scaled_field + ':[' + $('select#valueA').attr('value') + ' TO ' + $('select#valueB').attr('value') + ']');
 					} 
 				}
 			});
-			
-//			$( "#total_score_slider" ).slider({
-//				range: true,
-//				min: library_cloud.lc_results.stats[config.get_scaled_field()].min,
-//				max: library_cloud.lc_results.stats[config.get_scaled_field()].max,
-//				values: [library_cloud.lc_results.stats[config.get_scaled_field()].min, library_cloud.lc_results.stats[config.get_scaled_field()].max],
-//				stop: function(event, ui) {
-//					$( "#total_score_label" ).val($( "#total_score_slider" ).slider( "values", 0 ) +
-//							" - " + $( "#total_score_slider" ).slider( "values", 1 ) );
-//					filter.add_filter('total_score:[' + ui.values[ 0 ] + ' TO ' + ui.values[ 1 ] + ']');
-//				},
-//				create: function(event, ui) {
-//					$( "#total_score_label" ).val($( "#total_score_slider" ).slider( "values", 0 ) +
-//							" - " + $( "#total_score_slider" ).slider( "values", 1 ) );
-//				}
-//			});			
 		}
-	}
-	
-	// A helper method. Here we'll clean up our filter labels (they go in the
-	// breadcrumbs)
-	massage_filter_labels = function(label) {
-		if (/^university_checkouts_undergrad_score.+/.test(label)) {
-			return 'Checked out by undergraduates';
-		}
-		if (/^university_checkouts_grad_score.+/.test(label)) {
-			return 'Checked out by graduates';
-		}
-		if (/^university_checkouts_fac_score.+/.test(label)) {
-			return 'Checked out by faculty';
-		}
-
-		return label.replace(/^[^:]*:/, '');		
 	}
 	
 	// Draw the list of filters that are applied to the result set 
 	my.draw_filters = function () {
 		var filter_text = '<ul id="facet_bread_crumb">';
 		$.each(config.filters, function(i, item){
-			// We don't want to display filters controlled by our range sliders
-			if (!/_scaled/.test(item)) {
-				filter_text += '<li id="' + item + '" class="rem_filter">' + massage_filter_labels(item) + '<span class="refine-arrow"></span></li>';
-			}
+				filter_text += '<li id="' + item + '" class="rem_filter">' + item + '<span class="refine-arrow"></span></li>';
 		});
 		filter_text += '</ul>';
 		$('#facet_bread_crumb_container').html(filter_text);
-		
-		// Draw help buttons
-			drawHelp()
 	}
 	
 	// Draw the paging controls (the next and prev arrows)
@@ -528,51 +333,11 @@ var view = (function () {
 		
 		if (config.start - config.limit >= 0) {
 			$('.prev-page').show();
-		} else {
-			//$('.prev-page').hide();
 		}
-
 	}
 	
 	return my; 
 }());
-
-function drawHelp(){
-	// Info boxes
-	$("img[src$='info-icon.gif']").each(function() {
-		var helptype = $(this).attr('help');
-		
-		$(this).qtip({
-   		style: {
-      		classes: 'ui-tooltip-green'
-   		},
-   		content: {
-      		text: 'Loading...', // Loading text...
-      		ajax: {
-         		url: 'js/help.json', // URL to the JSON script
-         		type: 'GET', // POST or GET
-         		dataType: 'json', // Tell it we're retrieving JSON
-         		success: function(data, status) {
-            		var content = data[helptype];
-            		this.set('content.text', content);
-         		}
-      		}
-      	},
-      	position: {
-				viewport: $(window),
-				my: 'bottom right',
-				at: 'left top',
-				target: $(this) // my target
-			},
-		show: {
-      		event: 'click'
-   		},
-   		hide: {
-   			event: 'click unfocus'
-   		}
-	});
-	});
-}
 	
 // DOM event controls, start
 // A filter is applied...
@@ -626,14 +391,11 @@ $('.more_facets').live('click', function() {
 	$.fancybox({
 		'content' : facet_markup
 	});
-//	config.facet_limits[this.id] += 10;
-//	view.draw_facets();
 });
 
 // Toggle our facet lists
 $('.facet_heading').live('click', function() {
 	// Assume that the next node is our ul (list)
-//	$('.facet_set p').not(this).not('#community_rel').next('ul').slideUp();
     $(this).next().slideToggle();
     $(this).find('.arrow').toggleClass('arrow-down');
 });
@@ -641,7 +403,6 @@ $('.facet_heading').live('click', function() {
 // If a user clicks a heading to sort (Year, ShelfRank score, ...)
 // set the sort params in the config object and reload the results
 $('.sortable').live('click', function() {
-	$(this).find('.search-arrow-down').toggleClass('search-arrow-up');
 	if (config.sort_direction == 'asc') {
 		config.sort_direction = 'desc';
 	} else {
@@ -650,18 +411,6 @@ $('.sortable').live('click', function() {
 	
 	library_cloud.get_results();
 	view.draw_results();
-});
-
-// If a user changes shelf rank view
-$('#weight_select').change(function() {
-	config.sort_field = $('#weight_select option:selected').attr('value');
-	$('.score_sortable').attr('id', config.get_scaled_field());
-	
-	library_cloud.get_results(); 
-	view.draw_filters();
-	view.draw_results();
-	view.draw_persistent_controls();
-	view.draw_facets();
 });
 
 // Advanced search box controls, start
@@ -729,3 +478,65 @@ else {
 }
 
 });
+
+
+// Handlebars helpers, start
+
+
+//  return the first item of a list only
+// usage: {{#first items}}{{name}}{{/first}}
+// directly from https://gist.github.com/1468937
+Handlebars.registerHelper('first', function(context, block) {
+    if (context == null || context[0] == null) {
+        return block('');
+    } else {
+        return block(context[0]);
+    }
+});
+
+//  return the a scaled value for the number (this helps us map a color)
+// directly from https://gist.github.com/1468937
+Handlebars.registerHelper('left_pad', function(value) {
+    if (value < 10) {
+    	return '0' + value;
+    }
+    
+    return value;
+});
+
+// Get the class of the arrow direction based on the direction parameter's value
+Handlebars.registerHelper('get_sort_direction', function(direction) {
+    if (direction === 'asc') {
+    	return 'search-arrow-up';
+    }
+    
+    return 'search-arrow-down';
+});
+
+//  return the a scaled value for the number (this helps us map a color)
+Handlebars.registerHelper('heat', function(scaled_value) {
+    return scaled_value === 100 ? 10 : Math.floor(scaled_value / 10) + 1;
+});
+
+Handlebars.registerHelper("stripes", function(array, even, odd, fn, elseFn) {
+  if (array && array.length > 0) {
+    var buffer = "";
+    for (var i = 0, j = array.length; i < j; i++) {
+      var item = array[i];
+ 
+      // we'll just put the appropriate stripe class name onto the item for now
+      item.stripeClass = (i % 2 == 0 ? odd : even);
+ 
+      // show the inside of the block
+      buffer += fn(item);
+    }
+ 
+    // return the finished buffer
+    return buffer;
+  }
+  else {
+    return elseFn();
+  }
+});
+
+// Handlebars helpers, end

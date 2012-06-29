@@ -84,221 +84,86 @@ function fetch_tag_cloud()
 
 function fetch_author_neighborhood()
 {
-	ini_set('display_errors',1);
-	error_reporting(E_ALL ^ E_NOTICE);
-	//error_reporting(0);
-	
-	connect_db();
-	mysql_select_db("sl");
-     
-	$count = 0;
-	$FIELDS = array('title','author','isbn','callnum','pages','heightCm', 'url', 'circ');
-	$JSON = array();
-
+	$related_authors_global = array();
 	$author = addslashes($_GET['author']);
-	//$author = "palfrey, john g.";
-	// This is a kluje till we can get all author fetching coming from the local data instead of sru.ashx
-	//$author = preg_replace("/([a-z\d])$/", "$1.", $author);
-	//echo "author: [$author]<br />";
-
-	// Fetch Hollis ID's of all titles authored/edited by this author
-	$author_select_query = "
-	SELECT Marc001
-	FROM sl_bib_data
-	WHERE (Marc100 = '$author'
-	OR Marc700 = '$author'
-	OR Marc110 = '$author'
-	OR Marc710 = '$author'
-	OR Marc111 = '$author'
-	OR Marc711 = '$author')
-	";
-	//print "author_select_query: [$author_select_query]\n";
-	$result = mysql_query($author_select_query);
-	if (!$result) 
+	$search_type = "creator";
+	$q = urlencode($author);
+	$url = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q";	
+	$contents = fetch_page($url);
+	$json = json_decode($contents);
+	// Fetch sort numbers for each book authored by current author
+	foreach($json->docs as $doc)
 	{
- 		echo 'Could not run author_select_query: ' . mysql_error();
-	} 
-	$other_titles_by_author = array();
-	$other_titles_by_author_adjacencies = array();
-	$related_authors = array();
-	while ($row = mysql_fetch_row($result))
-	{
-		$hollis_id = $row[0];
-		array_push($other_titles_by_author, $hollis_id);
-		
-		// Check sl_stackview to see if this Hollis ID is a member (requires that this Hollis ID have
-		// an LC call number)
-		/*
-		$sl_stackview_membership_select_query = "
-		SELECT RecordID
-		FROM sl_stackview
-		WHERE HollisID = '$hollis_id'
-		";
-		*/
-		$sl_stackview_membership_select_query = "
-		SELECT RecordID
-		FROM sl.sl_lc_call_num
-		WHERE HollisID = '$hollis_id'
-		";
-		//print "sl_stackview_membership_select_query: [$sl_stackview_membership_select_query]\n";
-		$result_inner = mysql_query($sl_stackview_membership_select_query);
-		if (!$result_inner) 
+		$sort_nums = $doc->loc_call_num_sort_order;
+		foreach($sort_nums as $sort_num)
 		{
-	 		echo 'Could not run sl_stackview_membership_select_query: ' . mysql_error();
-		} 
-	
-		// Now fetch upstream and downstream adjacent Hollis ID's and push them out to collection array
-		if ($row_inner = mysql_fetch_row($result_inner))
-		{
-			$reference_record_id = $row_inner[0];
-			$record_id_adjacent_upstream = $reference_record_id - 1;
-			$record_id_adjacent_downstream = $reference_record_id + 1;
-			//echo "record_id_adjacent_upstream: [$record_id_adjacent_upstream]\n";
-			//echo "record_id_adjacent_downstream: [$record_id_adjacent_downstream]\n";
-			// Now fetch from sl_stackview the 2 adjacent Hollis ID's
-			/*
-			$sl_stackview_adjacency_select_query = "
-			SELECT HollisID
-			FROM sl_stackview
-			WHERE (RecordID = $record_id_adjacent_upstream
-			OR RecordID = $record_id_adjacent_downstream)
-			";
-			*/
-			$sl_stackview_adjacency_select_query = "
-			SELECT HollisID
-			FROM sl.sl_lc_call_num
-			WHERE (RecordID = $record_id_adjacent_upstream
-			OR RecordID = $record_id_adjacent_downstream)
-			";
-			//print "sl_stackview_adjacency_select_query: [$sl_stackview_adjacency_select_query]\n";
-			$result_inner_2 = mysql_query($sl_stackview_adjacency_select_query);
-			if (!$result_inner_2) 
+			// Fetch authors for each book by this author as well as books whose sort numbers lie adjacent to the sort number for each book by this author
+			$search_type = "loc_call_num_sort_order";
+			$q = $sort_num;
+			$url_sort_num = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q";	
+			$contents_sort_num = fetch_page($url_sort_num);
+			$json_sort_num = json_decode($contents_sort_num);	
+			$related_authors = array();		
+			foreach($json_sort_num->docs as $doc)
 			{
-		 		echo 'Could not run sl_stackview_adjacency_select_query: ' . mysql_error();
-			} 	
-			while ($row_inner_2 = mysql_fetch_row($result_inner_2))
-			{
-				$hollis_id_adjacent = $row_inner_2[0];
-				array_push($other_titles_by_author_adjacencies, $hollis_id_adjacent);
-				
-				$adjacent_authors_select_query = "
-				SELECT Marc100, Marc700, Marc110, Marc710, Marc111, Marc711
-				FROM sl_bib_data
-				WHERE Marc001 = '$hollis_id_adjacent'
-				";
-				//print "adjacent_authors_select_query: [$adjacent_authors_select_query]\n";
-				$result_inner_3 = mysql_query($adjacent_authors_select_query);
-				if (!$result_inner_3) 
+				$related_authors = $doc->creator;
+				foreach($related_authors as $related_author)
 				{
-			 		echo 'Could not run adjacent_authors_select_query: ' . mysql_error();
-				} 	
-				while ($row_inner_3 = mysql_fetch_row($result_inner_3))
-				{ 
-					if ($marc_100 = $row_inner_3[0]) array_push($related_authors, $marc_100);
-					if ($marc_700 = $row_inner_3[1])
-					{
-						// Authors are separated by commas because of series format => need to remove these
-						$temp = explode("%%", $marc_700);
-						foreach($temp as $item)
-						{
-							$item = trim(preg_replace("/([^-]),\s*$/", "$1.", $item));
-							$item = trim(preg_replace("/-,\s*$/", "-", $item));
-							array_push($related_authors, $item);	
-						}	
-					}	
-					if ($marc_710 = $row_inner_3[3])
-					{
-						// Authors are separated by commas because of series format => need to remove these
-						$temp = explode("%%", $marc_710);
-						foreach($temp as $item)
-						{
-							$item = trim(preg_replace("/([^-]),\s*$/", "$1.", $item));
-							$item = trim(preg_replace("/-,\s*$/", "-", $item));
-							array_push($related_authors, $item);	
-						}	
-					}	
-					if ($marc_110 = $row_inner_3[2]) array_push($related_authors, $marc_110);
-					//if ($marc_710 = $row_inner_3[3]) array_push($related_authors, $marc_710);
-					if ($marc_111 = $row_inner_3[4]) array_push($related_authors, $marc_111);
-					if ($marc_711 = $row_inner_3[5]) array_push($related_authors, $marc_711);	
-				}				
+					array_push($related_authors_global, $related_author);
+				}
 			}
-		}	
-	}	
-
-	//print_r($other_titles_by_author);
-	//print_r($other_titles_by_author_adjacencies);
-	//print_r($related_authors);
-	
-	$related_authors = array_unique($related_authors);
-	sort($related_authors);
-	//print_r($related_authors);
-	echo json_encode($related_authors);
-	mysql_close();
+			$sort_num_upstream = $sort_num - 1;
+			$search_type = "loc_call_num_sort_order";
+			$q = $sort_num_upstream;
+			$url_sort_num = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q";	
+			$contents_sort_num = fetch_page($url_sort_num);
+			$json_sort_num = json_decode($contents_sort_num);	
+			$related_authors = array();		
+			foreach($json_sort_num->docs as $doc)
+			{
+				$related_authors = $doc->creator;
+				foreach($related_authors as $related_author)
+				{
+					array_push($related_authors_global, $related_author);
+				}
+			}
+			$sort_num_downstream = $sort_num + 1;
+			$search_type = "loc_call_num_sort_order";
+			$q = $sort_num_downstream;
+			$url_sort_num = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q";	
+			$contents_sort_num = fetch_page($url_sort_num);
+			$json_sort_num = json_decode($contents_sort_num);	
+			$related_authors = array();		
+			foreach($json_sort_num->docs as $doc)
+			{
+				$related_authors = $doc->creator;
+				foreach($related_authors as $related_author)
+				{
+					array_push($related_authors_global, $related_author);
+				}
+			}			
+		}
+	}
+	$related_authors_global = array_unique($related_authors_global);
+	sort($related_authors_global);		
+	echo json_encode($related_authors_global);
 }
 
 function fetch_author_subjects()
 {
 	$author = addslashes($_GET['author']);
-	$q = "'" . $author . "%'";
-
-	connect_db();
-	mysql_select_db("sl");
-	
-	//$hollis_id = preg_replace("/^0+/", "", $hollis_id);
-
-    $authorList  = "SELECT Marc001
-    				FROM sl_bib_data
-    				WHERE Marc100 LIKE $q OR Marc700 LIKE $q OR Marc110 LIKE $q OR Marc710 LIKE $q OR Marc111 LIKE $q OR Marc711 LIKE $q";
-    
-    //echo $authorList;
-    $author_result = mysql_query($authorList);
-    $author_books = array();
-    while($row = mysql_fetch_row($author_result)) {
-    	$hollis = $row[0];
-    	$hollis_length = strlen($hollis);
-    	if($hollis_length != 9) {
-			$loop = 9 - $hollis_length;
-			for($j=0; $j<$loop; $j++){
-				$hollis = '0'.$hollis;
-			}
-		}
-    	array_push($author_books, $hollis);
-    }
-    $number_books = count($author_books);
-    if($number_books == 0)
-    	$where = "WHERE 1 = 2";
-    else
-	    $where = "WHERE ";
-    $count_books = 1;
-    foreach($author_books as $hollis_id) {
-    	$where .= "Marc001 = '$hollis_id' ";
-    	if($count_books < $number_books)
-    		$where .= " OR ";
-    	$count_books++;
-    }
-	
-	$query = "SELECT DISTINCT Subject
-	FROM sl_bib_data_subject_search
-	$where
-	";
-	//print "sl_stackview_select_query: [$sl_stackview_select_query]<br />";
-	$result = mysql_query($query);
-	if (!$result) 
+	$search_type = "creator";
+	$q = urlencode($author);
+	$url = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q&facet=lcsh";	
+	$contents = fetch_page($url);
+	$json = json_decode($contents);
+	$count = 0;
+	$facets = array();
+	foreach($json->facets->lcsh as $facet_name => $facet_freq)
 	{
-		echo 'Could not run sl_stackview_select_query: ' . mysql_error();
-	} 	
-
-	$json = array();
-	while($row = mysql_fetch_row($result))
-	{
-		$subject = $row[0];
-		$subject = preg_replace("/\.\s*$/", "", $subject);
-		
-		array_push($json, $subject);
+		array_push($facets, $facet_name);
 	}
-	
-	if(count($json) == 0) {
+	if(count($facets) == 0) {
 		$nocallnum = array();
 		$FIELDSX = array('callno', 'nope');
 	    $DATAX = array('none', 'nope');
@@ -307,9 +172,8 @@ function fetch_author_subjects()
 		echo json_encode($nocallnum);
 	}
 	else {
-		echo json_encode($json);
-	}
-	mysql_close();
+		echo json_encode($facets);
+	}	
 }
 
 function text_call_num() 
@@ -439,49 +303,6 @@ function connect_db() {
 		//exit;
 	}
 }
-
-// Check the memcached instance for our data
-// if we have it, return it, else, return false
-function get_memcached($key) {
-    global $enable_memcached_caching;
-    global $memcached_host_name;
-    global $memcached_port;
-
-    if ($enable_memcached_caching) {
-        $m = new Memcached();
-        $m->addServer($memcached_host_name , $memcached_port);
-
-        //  if (!$m->get('fetch_latest_views')){
-        // If we have they key in memcached, return it, otherwise, return false
-        if (!$m->get($key)) {
-            return $m->get($key);
-        }
-    } else {
-      return false;
-    }
-}
-
-// Set data in our memcahced instance
-//function set_memcached($key, $data) {
-//    global $enable_memcached_caching;
-//    global $memcached_host_name;
-//    global $memcached_port;
-//  
-//    $m = new Memcached();
-//    $m->addServer($memcached_host_name , $memcached_port);
-
-//  if (!$m->get('fetch_latest_views')){
-//    if (!$m->get($key)){
-  
-  	//$hollis_id = $_GET['hollis'];
-
-	
-//  $m->set('fetch_latest_views', $json);
-//
-//} else {
-//  echo  $_GET['callback'] . '({"start": ' . 100 . ', "limit": "' . 100 . '", "num_found": "' . 3897 . '", "docs": ' . json_encode($m->get('fetch_latest_views')) . '})';
-//}
-//}
 
 function convertFromIsbn13ToIsbn10($isbn13OrEAN)
 {

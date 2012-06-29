@@ -15,9 +15,6 @@ $pw = "yourdbpassword";
 // Availability
 $AVAILABILITY_URL = "youravailurl";
 
-// WorldCat
-$WORLDCAT_KEY = 'yourworldcatkey';
-
 // LibraryCloud
 // Probably someting like http://example.com/platform/v0.03/api/item/
 $LIBRARYCLOUD_URL = 'http://example.com/platform/v0.03/api/item/';
@@ -28,13 +25,5 @@ $TYPEKIT_CODE = 'yourtypekitcode';
 $AMAZON_KEY = 'youramazonkey';
 $AMAZON_SECRET_KEY = 'youramazonsecretkey';
 $AMAZON_ASSOC_TAG = 'youramazonassoctag';
-
-// LibraryThang
-$LIBRARYTHING_KEY = 'yourlibrarythangkey';
-
-// Memcached business
-$enable_memcached_caching = true;
-$memcached_host_name = 'localhost';
-$memcached_port = 11211;
 
 ?>

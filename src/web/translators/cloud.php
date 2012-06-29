@@ -8,10 +8,11 @@
   $offset = $_GET['start'];
   $limit = $_GET['limit']; 
   $search_type = $_GET['search_type'];
+  $sort = urlencode($_GET['sort']);
 
   global $LIBRARYCLOUD_URL;
 
-  $url = "$LIBRARYCLOUD_URL?filter=$search_type:$q&limit=$limit&start=$offset";
+  $url = "$LIBRARYCLOUD_URL?filter=$search_type:$q&limit=$limit&start=$offset&sort=$sort";
 
   // Get facets and filters
   // TODO: This is ugly. Clean this stuff up.
