@@ -440,49 +440,6 @@ function connect_db() {
 	}
 }
 
-// Check the memcached instance for our data
-// if we have it, return it, else, return false
-function get_memcached($key) {
-    global $enable_memcached_caching;
-    global $memcached_host_name;
-    global $memcached_port;
-
-    if ($enable_memcached_caching) {
-        $m = new Memcached();
-        $m->addServer($memcached_host_name , $memcached_port);
-
-        //  if (!$m->get('fetch_latest_views')){
-        // If we have they key in memcached, return it, otherwise, return false
-        if (!$m->get($key)) {
-            return $m->get($key);
-        }
-    } else {
-      return false;
-    }
-}
-
-// Set data in our memcahced instance
-//function set_memcached($key, $data) {
-//    global $enable_memcached_caching;
-//    global $memcached_host_name;
-//    global $memcached_port;
-//  
-//    $m = new Memcached();
-//    $m->addServer($memcached_host_name , $memcached_port);
-
-//  if (!$m->get('fetch_latest_views')){
-//    if (!$m->get($key)){
-  
-  	//$hollis_id = $_GET['hollis'];
-
-	
-//  $m->set('fetch_latest_views', $json);
-//
-//} else {
-//  echo  $_GET['callback'] . '({"start": ' . 100 . ', "limit": "' . 100 . '", "num_found": "' . 3897 . '", "docs": ' . json_encode($m->get('fetch_latest_views')) . '})';
-//}
-//}
-
 function convertFromIsbn13ToIsbn10($isbn13OrEAN)
 {
     $isbn10 = "";

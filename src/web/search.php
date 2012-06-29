@@ -78,19 +78,19 @@ var www_root = '<?php echo $www_root ?>';
 	</script>
     
     <script id="search-results-template" type="text/x-handlebars-template">
-        {{#if num_found}}
+        {{#if results.num_found}}
     	<table width="100%" cellspacing="0" id="searchresults">
     		<thead id="search_results_header">
     		    <tr>
     		        <th id="title_sort" class="sort_heading">Title</th>
     		        <th id="creator" class="sort_heading">Author</th>
     		        <th id="pub_date" class="sort_heading">Year</th>
-    		        <th id="shelfrank" class="sort_heading sortable score">ShelfRank<span class="search-arrow-down"></span></th>
+    		        <th id="shelfrank" class="sort_heading sortable score">ShelfRank<span class="{{#get_sort_direction sort_direction}}{{this}}{{/get_sort_direction}}"></span></th>
     		        <th></th>
     		    </tr>
     		</thead>
     		<tbody id="search_results_body">
-            {{#stripes docs "even" "odd"}}
+            {{#stripes results.docs "even" "odd"}}
     	        <tr class="result_row {{stripeClass}}">
     	            <td class="title-column"><a href="item/{{title_link_friendly}}/{{id}}">{{title}}</a></td>
     	            <td class="author-column">
@@ -99,7 +99,7 @@ var www_root = '<?php echo $www_root ?>';
     	            {{/first}}
     	            </td>
                     <td class="year-column">{{pub_date}}</td>
-                    <td><span class="results-score color{{shelfrank}}">{{shelfrank}}</span></td>
+                    <td><span class="results-score color{{#heat shelfrank}}{{this}}{{/heat}}">{{#left_pad shelfrank}}{{this}}{{/left_pad}}</span></td>
     	        </tr>
     	    {{/stripes}}
     		</tbody>
