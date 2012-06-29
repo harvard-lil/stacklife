@@ -275,31 +275,12 @@ var view = (function () {
 		if (library_cloud.lc_results.docs.length > 0) {
 
 			// Setup our DOM done so that we can attach a slider to it
-			var slider_container_markup = '<div class="facet_heading">Refine by ShelfRank' +
-				'<fieldset>' + 
-//					'<label for="valueA">From:</label>' + 
-					'<select name="valueA" id="valueA" style="display:none">' +
-						'<option value="1" selected="selected">1</option><option value="10">10</option>' +
-						'<option value="20">20</option><option value="30">30</option>' + 
-						'<option value="40">40</option><option value="50">50</option>' + 
-						'<option value="60">60</option><option value="70">70</option>' + 
-						'<option value="80">80</option><option value="90">90</option>' +
-						'<option value="100">100</option>' +
-					'</select>' + 
-//					'<label for="valueB">To:</label>' + 
-					'<select name="valueB" id="valueB" style="display:none">' +
-						'<option value="1">1</option><option value="10">10</option>' +
-						'<option value="20">20</option><option value="30">30</option>' + 
-						'<option value="40">40</option><option value="50">50</option>' + 
-						'<option value="60">60</option><option value="70">70</option>' + 
-						'<option value="80">80</option><option value="90">90</option>' +
-						'<option value="100" selected="selected">100</option>' +  
-					'</select>' + 
-				'</fieldset> ' +
-				'<div id="total_score_slider"><div id="legend"><ul class="legend-box"><li class="color1"></li><li class="color2"></li><li class="color3"></li><li class="color4"></li><li class="color5"></li><li class="color6"></li><li class="color7"></li><li class="color8"></li><li class="color9"></li><li class="color10"></li></div></div></div>';
-			
-			$('#persistent_controls').html(slider_container_markup);
-			
+            // Draw slider with Handlebars template
+            var source = $("#slider-container-template").html();
+            var template = Handlebars.compile(source);
+            var context = {};
+            $('#persistent_controls').html(template(context));
+
 			// Draw our range slider for total_score
 			$('select#valueA, select#valueB').selectToUISlider({
 				labels: 5,
@@ -312,11 +293,17 @@ var view = (function () {
 		}
 	}
 	
+	// A helper method. Here we'll clean up our filter labels (they go in the
+    	// breadcrumbs)
+    	massage_filter_labels = function(label) {
+    		return label.replace(/^[^:]*:/, '');
+    	}
+	
 	// Draw the list of filters that are applied to the result set 
 	my.draw_filters = function () {
 		var filter_text = '<ul id="facet_bread_crumb">';
 		$.each(config.filters, function(i, item){
-				filter_text += '<li id="' + item + '" class="rem_filter">' + item + '<span class="refine-arrow"></span></li>';
+				filter_text += '<li id="' + item + '" class="rem_filter">' + massage_filter_labels(item) + '<span class="refine-arrow"></span></li>';
 		});
 		filter_text += '</ul>';
 		$('#facet_bread_crumb_container').html(filter_text);
@@ -398,6 +385,7 @@ $('.facet_heading').live('click', function() {
 	// Assume that the next node is our ul (list)
     $(this).next().slideToggle();
     $(this).find('.arrow').toggleClass('arrow-down');
+    console.log(this);
 });
 
 // If a user clicks a heading to sort (Year, ShelfRank score, ...)

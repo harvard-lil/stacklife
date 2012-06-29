@@ -105,7 +105,46 @@ var www_root = '<?php echo $www_root ?>';
     		</tbody>
     	</table>
     	{{/if}}
-    	
+	</script>
+	
+    <script id="slider-container-template" type="text/x-handlebars-template">
+		<div class="facet_heading">
+		    Refine by ShelfRank
+		    <fieldset>
+		        <select name="valueA" id="valueA" style="display:none">
+		            <option value="1" selected="selected">1</option>
+		            <option value="10">10</option>
+		            <option value="20">20</option>
+		            <option value="30">30</option>
+		            <option value="40">40</option>
+		            <option value="50">50</option>
+		            <option value="60">60</option>
+		            <option value="70">70</option>
+		            <option value="80">80</option>
+		            <option value="90">90</option>
+		            <option value="100">100</option>
+		        </select>
+		        <select name="valueB" id="valueB" style="display:none">
+    		        <option value="1">1</option>
+    		        <option value="10">10</option>
+    		        <option value="20">20</option>
+    		        <option value="30">30</option>
+    		        <option value="40">40</option>
+    		        <option value="50">50</option>
+    		        <option value="60">60</option>
+    		        <option value="70">70</option>
+    		        <option value="80">80</option>
+    		        <option value="90">90</option>
+    		        <option value="100" selected="selected">100</option>
+		        </select>
+		    </fieldset>
+    		<div id="total_score_slider">
+    		    <div id="legend">
+    		        <ul class="legend-box"><li class="color1"></li><li class="color2"></li><li class="color3"></li><li class="color4"></li><li class="color5"></li><li class="color6"></li><li class="color7"></li><li class="color8"></li><li class="color9"></li><li class="color10"></li>
+    		        </ul>
+    		    </div>
+    		</div>
+		</div>
 	</script>
     
     <script type="text/javascript">
