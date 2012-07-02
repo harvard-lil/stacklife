@@ -27,7 +27,7 @@ var util = (function () {
     
     my.is_advanced = function() {
     	var uri_params = util.get_uri_params();
-    	if(uri_params['search_type'][0] === 'advanced')
+    	if(uri_params[config.search_type] === 'advanced')
     		return true;
     	else
     		return false;
@@ -68,8 +68,13 @@ var config = (function () {
 	
     uri_params = util.get_uri_params();
 
-    my.search_type = uri_params['search_type'][0];
-    my.query = uri_params['q'][0];
+    if (uri_params['search_type'] && uri_params['search_type'][0]) {
+	    my.search_type = uri_params['search_type'][0];
+    }
+
+    if (uri_params['q'] && uri_params['q'][0]) {
+	    my.query = uri_params['q'][0];
+    }
 
     // If we don't get a complete search request, let's
     // set a keyword search with an empty string (LC will give us all docs)
@@ -189,16 +194,23 @@ var library_cloud = (function () {
     // Holds the JSON we get back from LibraryCloud
     my.lc_results;
 
+//console.log(config.lc_url + '?' + config.get_query_string());
     // The AJAX call to get the results from LibraryCloud
 	my.get_results = function() {
 		$.ajax({
-			  url: config.lc_url + '?' + config.get_query_string(),
+			  url: config.lc_url + '?' + encodeURIComponent(config.get_query_string()),
 			  async: false,
+                          dataType: "JSON",
+			  cache: false,
 			  success:
 				function (results) {
 					my.lc_results = results;
-				}}
-		);
+				},
+			  error:
+				 function(obj,status,error) {
+                			alert('Search could not be performed.' + error);
+            			 }
+		});
 	}
      
     return my; 
@@ -385,7 +397,7 @@ $('.facet_heading').live('click', function() {
 	// Assume that the next node is our ul (list)
     $(this).next().slideToggle();
     $(this).find('.arrow').toggleClass('arrow-down');
-    console.log(this);
+    //console.log(this);
 });
 
 // If a user clicks a heading to sort (Year, ShelfRank score, ...)
