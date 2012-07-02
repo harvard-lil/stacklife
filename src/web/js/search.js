@@ -3,12 +3,27 @@ $(document).ready(function() {
 // Utilities class (dumping ground for common methods)
 var util = (function () {
     var my = {};
+
+    // An IE8 friendly method for the indexOf method
+    my.inArray = function( elem, array ) {
+        if ( array.indexOf ) {
+            return array.indexOf( elem );
+        }
+
+        for ( var i = 0, length = array.length; i < length; i++ ) {
+            if ( array[ i ] === elem ) {
+                return i;
+            }
+        }
+        return -1;
+    }
     
     // Returns an array of http params
 	my.get_uri_params = function() {
 	    var vars = [], hash;
-	    var hashes = window.location.href.slice(jQuery.inArray('?', window.location.href) + 1).split('&');
-	    
+
+        var hashes = window.location.href.slice(util.inArray('?', window.location.href) + 1).split('&');
+
 	    // create array for each key
 	    for(var i = 0; i < hashes.length; i++) {
 	    	hash = hashes[i].split('=');
