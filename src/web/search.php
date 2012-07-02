@@ -105,22 +105,45 @@ var www_root = '<?php echo $www_root ?>';
     		</tbody>
     	</table>
     	{{/if}}
-    	
 	</script>
-    
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'BUILD-GA-KEY']);
-      _gaq.push(['_trackPageview']);
-    
-      (function() {
-        var ga = document.createElement('script'); ga.type = 
-    'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
-    'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; 
-    s.parentNode.insertBefore(ga, s);
-      })();
- </script>
+	
+    <script id="slider-container-template" type="text/x-handlebars-template">
+		<div class="facet_heading">
+		    Refine by ShelfRank
+		    <fieldset>
+		        <select name="valueA" id="valueA" style="display:none">
+		            <option value="1" selected="selected">1</option>
+		            <option value="10">10</option>
+		            <option value="20">20</option>
+		            <option value="30">30</option>
+		            <option value="40">40</option>
+		            <option value="50">50</option>
+		            <option value="60">60</option>
+		            <option value="70">70</option>
+		            <option value="80">80</option>
+		            <option value="90">90</option>
+		            <option value="100">100</option>
+		        </select>
+		        <select name="valueB" id="valueB" style="display:none">
+    		        <option value="1">1</option>
+    		        <option value="10">10</option>
+    		        <option value="20">20</option>
+    		        <option value="30">30</option>
+    		        <option value="40">40</option>
+    		        <option value="50">50</option>
+    		        <option value="60">60</option>
+    		        <option value="70">70</option>
+    		        <option value="80">80</option>
+    		        <option value="90">90</option>
+    		        <option value="100" selected="selected">100</option>
+		        </select>
+		    </fieldset>
+    		<div id="total_score_slider">
+    		    <div id="legend">
+    		        <ul class="legend-box"><li class="color1"></li><li class="color2"></li><li class="color3"></li><li class="color4"></li><li class="color5"></li><li class="color6"></li><li class="color7"></li><li class="color8"></li><li class="color9"></li><li class="color10"></li>
+    		        </ul>
+    		    </div>
+    		</div>
+		</div>
 </body>
 </html>

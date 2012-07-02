@@ -3,12 +3,27 @@ $(document).ready(function() {
 // Utilities class (dumping ground for common methods)
 var util = (function () {
     var my = {};
+
+    // An IE8 friendly method for the indexOf method
+    my.inArray = function( elem, array ) {
+        if ( array.indexOf ) {
+            return array.indexOf( elem );
+        }
+
+        for ( var i = 0, length = array.length; i < length; i++ ) {
+            if ( array[ i ] === elem ) {
+                return i;
+            }
+        }
+        return -1;
+    }
     
     // Returns an array of http params
 	my.get_uri_params = function() {
 	    var vars = [], hash;
-	    var hashes = window.location.href.slice(jQuery.inArray('?', window.location.href) + 1).split('&');
-	    
+
+        var hashes = window.location.href.slice(util.inArray('?', window.location.href) + 1).split('&');
+
 	    // create array for each key
 	    for(var i = 0; i < hashes.length; i++) {
 	    	hash = hashes[i].split('=');
@@ -22,15 +37,18 @@ var util = (function () {
 	        	vars[hash[0]].push(decodeURIComponent(hash[1].replace(/\+/g, '%20')));
 	        }
 	    }
+
 	    return vars;
 	}
     
     my.is_advanced = function() {
     	var uri_params = util.get_uri_params();
-    	if(uri_params['search_type'][0] === 'advanced')
+
+    	if(config.search_type === 'advanced') {
     		return true;
-    	else
+    	} else {
     		return false;
+		}
     }
 	
 	// Clean up field names
@@ -68,13 +86,15 @@ var config = (function () {
 	
     uri_params = util.get_uri_params();
 
-    my.search_type = uri_params['search_type'][0];
-    my.query = uri_params['q'][0];
+    if (uri_params['search_type'] && uri_params['search_type'][0]) {
+	    my.search_type = uri_params['search_type'][0];
+    } else {
+        my.search_type = 'keyword';
+    }
 
-    // If we don't get a complete search request, let's
-    // set a keyword search with an empty string (LC will give us all docs)
-    if (!my.search_type || !my.query) {
-    	my.search_type = 'keyword';
+    if (uri_params['q'] && uri_params['q'][0]) {
+	    my.query = uri_params['q'][0];
+    } else {
         my.query = '';
     }
     
@@ -194,11 +214,13 @@ var library_cloud = (function () {
 		$.ajax({
 			  url: config.lc_url + '?' + config.get_query_string(),
 			  async: false,
+                          dataType: "JSON",
+			  cache: false,
 			  success:
 				function (results) {
 					my.lc_results = results;
-				}}
-		);
+				}
+		});
 	}
      
     return my; 
@@ -233,6 +255,7 @@ var view = (function () {
 
 		// This will hold our facet markup string
 		var facets = '';
+
 		// Did LibraryCloud supply us with any facet results?
 		if (library_cloud.lc_results.facets) {
 			$.each(library_cloud.lc_results.facets, function(i, item) {
@@ -275,31 +298,12 @@ var view = (function () {
 		if (library_cloud.lc_results.docs.length > 0) {
 
 			// Setup our DOM done so that we can attach a slider to it
-			var slider_container_markup = '<div class="facet_heading">Refine by ShelfRank' +
-				'<fieldset>' + 
-//					'<label for="valueA">From:</label>' + 
-					'<select name="valueA" id="valueA" style="display:none">' +
-						'<option value="1" selected="selected">1</option><option value="10">10</option>' +
-						'<option value="20">20</option><option value="30">30</option>' + 
-						'<option value="40">40</option><option value="50">50</option>' + 
-						'<option value="60">60</option><option value="70">70</option>' + 
-						'<option value="80">80</option><option value="90">90</option>' +
-						'<option value="100">100</option>' +
-					'</select>' + 
-//					'<label for="valueB">To:</label>' + 
-					'<select name="valueB" id="valueB" style="display:none">' +
-						'<option value="1">1</option><option value="10">10</option>' +
-						'<option value="20">20</option><option value="30">30</option>' + 
-						'<option value="40">40</option><option value="50">50</option>' + 
-						'<option value="60">60</option><option value="70">70</option>' + 
-						'<option value="80">80</option><option value="90">90</option>' +
-						'<option value="100" selected="selected">100</option>' +  
-					'</select>' + 
-				'</fieldset> ' +
-				'<div id="total_score_slider"><div id="legend"><ul class="legend-box"><li class="color1"></li><li class="color2"></li><li class="color3"></li><li class="color4"></li><li class="color5"></li><li class="color6"></li><li class="color7"></li><li class="color8"></li><li class="color9"></li><li class="color10"></li></div></div></div>';
-			
-			$('#persistent_controls').html(slider_container_markup);
-			
+            // Draw slider with Handlebars template
+            var source = $("#slider-container-template").html();
+            var template = Handlebars.compile(source);
+            var context = {};
+            $('#persistent_controls').html(template(context));
+
 			// Draw our range slider for total_score
 			$('select#valueA, select#valueB').selectToUISlider({
 				labels: 5,
@@ -312,11 +316,17 @@ var view = (function () {
 		}
 	}
 	
+	// A helper method. Here we'll clean up our filter labels (they go in the
+    	// breadcrumbs)
+    	massage_filter_labels = function(label) {
+    		return label.replace(/^[^:]*:/, '');
+    	}
+	
 	// Draw the list of filters that are applied to the result set 
 	my.draw_filters = function () {
 		var filter_text = '<ul id="facet_bread_crumb">';
 		$.each(config.filters, function(i, item){
-				filter_text += '<li id="' + item + '" class="rem_filter">' + item + '<span class="refine-arrow"></span></li>';
+				filter_text += '<li id="' + item + '" class="rem_filter">' + massage_filter_labels(item) + '<span class="refine-arrow"></span></li>';
 		});
 		filter_text += '</ul>';
 		$('#facet_bread_crumb_container').html(filter_text);
@@ -455,27 +465,27 @@ $('.sortable').live('click', function() {
 
 //DOM event controls, end
 
-// When the page is first loaded, let's set things up here
-if(util.is_advanced()) {
-	document.title = 'Advanced Search | ShelfLife Search';
-	$('.search-container').hide();
-	$("a#inline").fancybox({
-    	'overlayShow': true,
-    	'autoDimensions' : false,
-    	'width' : 700,
-    	'height' : 400
-    });
-	$("a#inline").trigger('click');
-}
-else {
-	library_cloud.get_results();
-	view.draw_persistent_controls();
-	view.draw_facets();
-	view.draw_results();
-	view.draw_filters();
-	view.draw_paging_controls();
-	util.populate_form();
-}
+    // When the page is first loaded, let's set things up here
+    if(util.is_advanced()) {
+    	document.title = 'Advanced Search | ShelfLife Search';
+    	$('.search-container').hide();
+    	$("a#inline").fancybox({
+        	'overlayShow': true,
+        	'autoDimensions' : false,
+        	'width' : 700,
+        	'height' : 400
+        });
+    	$("a#inline").trigger('click');
+    }
+    else {
+    	library_cloud.get_results();
+    	view.draw_persistent_controls();
+    	view.draw_facets();
+    	view.draw_results();
+    	view.draw_filters();
+    	view.draw_paging_controls();
+    	util.populate_form();
+    }
 
 });
 
