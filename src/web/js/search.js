@@ -37,15 +37,18 @@ var util = (function () {
 	        	vars[hash[0]].push(decodeURIComponent(hash[1].replace(/\+/g, '%20')));
 	        }
 	    }
+
 	    return vars;
 	}
     
     my.is_advanced = function() {
     	var uri_params = util.get_uri_params();
-    	if(uri_params[config.search_type] === 'advanced')
+
+    	if(config.search_type === 'advanced') {
     		return true;
-    	else
+    	} else {
     		return false;
+		}
     }
 	
 	// Clean up field names
@@ -85,16 +88,13 @@ var config = (function () {
 
     if (uri_params['search_type'] && uri_params['search_type'][0]) {
 	    my.search_type = uri_params['search_type'][0];
+    } else {
+        my.search_type = 'keyword';
     }
 
     if (uri_params['q'] && uri_params['q'][0]) {
 	    my.query = uri_params['q'][0];
-    }
-
-    // If we don't get a complete search request, let's
-    // set a keyword search with an empty string (LC will give us all docs)
-    if (!my.search_type || !my.query) {
-    	my.search_type = 'keyword';
+    } else {
         my.query = '';
     }
     
@@ -219,11 +219,7 @@ var library_cloud = (function () {
 			  success:
 				function (results) {
 					my.lc_results = results;
-				},
-			  error:
-				 function(obj,status,error) {
-                			alert('Search could not be performed.' + error);
-            			 }
+				}
 		});
 	}
      
@@ -259,7 +255,7 @@ var view = (function () {
 
 		// This will hold our facet markup string
 		var facets = '';
-		console.log(library_cloud.lc_results);
+
 		// Did LibraryCloud supply us with any facet results?
 		if (library_cloud.lc_results.facets) {
 			$.each(library_cloud.lc_results.facets, function(i, item) {
@@ -412,7 +408,6 @@ $('.facet_heading').live('click', function() {
 	// Assume that the next node is our ul (list)
     $(this).next().slideToggle();
     $(this).find('.arrow').toggleClass('arrow-down');
-    //console.log(this);
 });
 
 // If a user clicks a heading to sort (Year, ShelfRank score, ...)
