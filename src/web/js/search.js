@@ -194,11 +194,10 @@ var library_cloud = (function () {
     // Holds the JSON we get back from LibraryCloud
     my.lc_results;
 
-//console.log(config.lc_url + '?' + config.get_query_string());
     // The AJAX call to get the results from LibraryCloud
 	my.get_results = function() {
 		$.ajax({
-			  url: config.lc_url + '?' + encodeURIComponent(config.get_query_string()),
+			  url: config.lc_url + '?' + config.get_query_string(),
 			  async: false,
                           dataType: "JSON",
 			  cache: false,
@@ -245,6 +244,7 @@ var view = (function () {
 
 		// This will hold our facet markup string
 		var facets = '';
+		console.log(library_cloud.lc_results);
 		// Did LibraryCloud supply us with any facet results?
 		if (library_cloud.lc_results.facets) {
 			$.each(library_cloud.lc_results.facets, function(i, item) {
@@ -455,27 +455,27 @@ $('.sortable').live('click', function() {
 
 //DOM event controls, end
 
-// When the page is first loaded, let's set things up here
-if(util.is_advanced()) {
-	document.title = 'Advanced Search | ShelfLife Search';
-	$('.search-container').hide();
-	$("a#inline").fancybox({
-    	'overlayShow': true,
-    	'autoDimensions' : false,
-    	'width' : 700,
-    	'height' : 400
-    });
-	$("a#inline").trigger('click');
-}
-else {
-	library_cloud.get_results();
-	view.draw_persistent_controls();
-	view.draw_facets();
-	view.draw_results();
-	view.draw_filters();
-	view.draw_paging_controls();
-	util.populate_form();
-}
+    // When the page is first loaded, let's set things up here
+    if(util.is_advanced()) {
+    	document.title = 'Advanced Search | ShelfLife Search';
+    	$('.search-container').hide();
+    	$("a#inline").fancybox({
+        	'overlayShow': true,
+        	'autoDimensions' : false,
+        	'width' : 700,
+        	'height' : 400
+        });
+    	$("a#inline").trigger('click');
+    }
+    else {
+    	library_cloud.get_results();
+    	view.draw_persistent_controls();
+    	view.draw_facets();
+    	view.draw_results();
+    	view.draw_filters();
+    	view.draw_paging_controls();
+    	util.populate_form();
+    }
 
 });
 
