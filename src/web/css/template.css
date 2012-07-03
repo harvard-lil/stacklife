@@ -1180,9 +1180,12 @@ select {
  	height:300px;
  }
  
+#advanced {
+  background: none repeat scroll 0 0 #FAF5F0;
+}
+ 
  .advanced-inputs {
  	margin-left:15px;
- 
  }
  
  .advanced-inputs p {

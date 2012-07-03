@@ -19,7 +19,7 @@ $AVAILABILITY_URL = "youravailurl";
 // Probably someting like http://example.com/platform/v0.03/api/item/
 $LIBRARYCLOUD_URL = 'http://example.com/platform/v0.03/api/item/';
 
-$TYPEKIT_CODE = 'yourtypkitcode';
+$TYPEKIT_CODE = 'yourtypekitcode';
 
 // Amazon
 $AMAZON_KEY = 'youramazonkey';

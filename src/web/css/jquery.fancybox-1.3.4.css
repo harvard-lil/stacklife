@@ -73,6 +73,7 @@
 }
 
 #fancybox-content {
+  background: none repeat scroll 0 0 #FAF5F0;
 	width: 0;
 	height: 0;
 	padding: 0;
