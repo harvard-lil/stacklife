@@ -40,7 +40,7 @@ require_once('../../../etc/sl_ini.php');
 
 $id = $_GET['id'];
 
-$avail_fields = array('available', 'library', 'call_num', 'status', 'request');
+$avail_fields = array('available', 'library', 'call_num', 'status', 'request', 'depository');
 $json = array();
 
 global $AVAILABILITY_URL;
@@ -60,11 +60,15 @@ curl_close ($ch);
 $avail = new SimpleXMLElement($libraries);
 
 $any_available = 'false';
+$depository = false;
 
 foreach($avail->branch as $branch) {
 	$library = (string) $branch->repository->name;
 	foreach($branch->collection as $collection) {
 	  $call = (string) $collection->callnumber;
+	  $coll = (string) $collection->collectionname;
+	  if($coll == 'Harvard Depository')
+	    $depository = true;
 		foreach($collection->items->itemrecord as $itemrecord) {
 		  if($itemrecord->call != '')
 		    $call = (string) $itemrecord->call;
@@ -77,12 +81,12 @@ foreach($avail->branch as $branch) {
 		  else
 		    $isavail = false;
 		  $request = (string) $itemrecord->req->attributes()->href;
-		  $avail_data   = array($isavail, $library, $call, $status, $request);
+		  $avail_data   = array($isavail, $library, $call, $status, $request, $depository);
       $temp_array  = array_combine($avail_fields, $avail_data);
       array_push($json, $temp_array);
 		}
 	}
 }
-
+header('Content-type: application/json');
 echo '{"any_available": ' . $any_available. ', "items": ' . json_encode($json) . '}'; 
 ?>

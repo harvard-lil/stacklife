@@ -159,8 +159,9 @@ $(document).ready(function() {
 		  {{#items}}
 		    <li class="{{#if available}}available{{else}}not-available{{/if}}">
 		      <span class="callno">{{library}} [{{call_num}}]</span>
+		      {{#if depository}}<a class="small-button" href="{{request}}">REQUEST</a>{{else}}
 		      {{#if available}}<span class="small-button sms">SMS</span>{{else}}
-		      {{#if request}}<a class="small-button" href="{{request}}">REQUEST</a>{{/if}}{{/if}}<br />
+		      {{#if request}}<a class="small-button" href="{{request}}">REQUEST</a>{{/if}}{{/if}}{{/if}}<br />
 		      {{status}}
 		    </li>
 		  {{/items}}
