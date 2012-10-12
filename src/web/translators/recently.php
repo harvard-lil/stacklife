@@ -20,7 +20,7 @@
     
     $items = $book_data['docs'];
       
-    $books_fields = array('id', 'title','creator','measurement_page_numeric','measurement_height_numeric', 'shelfrank', 'pub_date', 'title_link_friendly', 'format', 'loc_sort_order');
+    $books_fields = array('id', 'title','creator','measurement_page_numeric','measurement_height_numeric', 'shelfrank', 'pub_date', 'title_link_friendly', 'format', 'loc_sort_order', 'link');
       
     foreach($items as $item) {
       $title = '';
@@ -42,8 +42,9 @@
       $format = $item['format'];
       //$format = str_replace(" ", "", $format);
       $loc_sort_order = $item['loc_call_num_sort_order'];
+      $link = "$www_root/item/$title_link_friendly/$id";
       
-      $books_data   = array($id, $title, $creator, $pages, $height_cm, $shelfrank, $year, $title_link_friendly, $format, $loc_sort_order);
+      $books_data   = array($id, $title, $creator, $pages, $height_cm, $shelfrank, $year, $title_link_friendly, $format, $loc_sort_order, $link);
       $temp_array  = array_combine($books_fields, $books_data);
       array_push($json, $temp_array);
     }
