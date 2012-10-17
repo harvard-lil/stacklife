@@ -30,7 +30,8 @@ var www_root = '<?php echo $www_root ?>';
 </head>
 <body>
 <div id="wrapper">
-    <?php require_once('includes/header.php');?>
+    <?php require_once('includes/logo.php');?>
+    <?php require_once('includes/searchbox.php');?>
     <div class="search-container group">
 		<div class="search-container-content group"> 
 			<div id="navigation">

@@ -61,7 +61,8 @@ $(document).ready(function() {
     <div id="viewerCanvas" style="width: 610px; height: 725px"></div>
   </div>
     
-  <?php require_once('includes/header.php');?>
+  <?php require_once('includes/logo.php');?>
+  <?php require_once('includes/searchbox.php');?>
 
   <div class="container group">
     <div class="container-content">

@@ -29,7 +29,8 @@ EOF;
 <body>
 <div id="wrapper">
 
-<?php require_once('includes/header.php');?>
+  <?php require_once('includes/logo.php');?>
+  <?php require_once('includes/searchbox.php');?>
 
     <div class="container group">
 		<div class="container-content">
