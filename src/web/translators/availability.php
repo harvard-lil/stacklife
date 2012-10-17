@@ -60,11 +60,11 @@ curl_close ($ch);
 $avail = new SimpleXMLElement($libraries);
 
 $any_available = 'false';
-$depository = false;
 
 foreach($avail->branch as $branch) {
 	$library = (string) $branch->repository->name;
 	foreach($branch->collection as $collection) {
+	  $depository = false;
 	  $call = (string) $collection->callnumber;
 	  $coll = (string) $collection->collectionname;
 	  if($coll == 'Harvard Depository')
@@ -76,12 +76,12 @@ foreach($avail->branch as $branch) {
 		  $isavail = (string) $itemrecord->isavail;
 		  if($isavail == 'Y') {
 		    $any_available = 'true';
-		    $isavail = true;
+		    $thisavail = true;
 		  }
 		  else
-		    $isavail = false;
+		    $thisavail = false;
 		  $request = (string) $itemrecord->req->attributes()->href;
-		  $avail_data   = array($isavail, $library, $call, $status, $request, $depository);
+		  $avail_data   = array($thisavail, $library, $call, $status, $request, $depository);
       $temp_array  = array_combine($avail_fields, $avail_data);
       array_push($json, $temp_array);
 		}

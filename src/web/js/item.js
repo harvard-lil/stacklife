@@ -108,8 +108,8 @@ $(document).ready(function() {
         success: function(){
         }
       });
-      alsoviewed.push(item_details.id);
     });
+    alsoviewed.push(item_details.id);
 
 		// add to recently viewed
 		$.ajax({

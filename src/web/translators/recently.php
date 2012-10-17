@@ -12,7 +12,7 @@
 	
 	foreach($user_books as $id) {
   
-    $url = "$LIBRARYCLOUD_URL?filter=id:$id&limit=$limit&start=$offset";
+    $url = "$LIBRARYCLOUD_URL?filter=id:$id&limit=$limit&start=$start";
       
     $contents = fetch_page($url);
       
@@ -31,7 +31,10 @@
       $title_link_friendly = $item['title_link_friendly'];
       $shelfrank = (int) $item['shelfrank'];
     
-      $creator = $item['creator'];
+      if(!$item['creator'])
+        unset($creator);
+      else
+        $creator = $item['creator'];
       $title = $item['title'];
       $height_cm = $item['height'];
       if(!$height_cm || $height_cm > 33 || $height_cm < 20) $height_cm = 27;
@@ -41,7 +44,10 @@
       $year = substr($year, 0, 4);
       $format = $item['format'];
       //$format = str_replace(" ", "", $format);
-      $loc_sort_order = $item['loc_call_num_sort_order'];
+      if(!$item['loc_call_num_sort_order'])
+        unset($loc_sort_order);
+      else
+        $loc_sort_order = $item['loc_call_num_sort_order'];
       $link = "$www_root/item/$title_link_friendly/$id";
       
       $books_data   = array($id, $title, $creator, $pages, $height_cm, $shelfrank, $year, $title_link_friendly, $format, $loc_sort_order, $link);
