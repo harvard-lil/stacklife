@@ -26,7 +26,8 @@ anchor_subject = '',
 uniform_id = '',
 uniform_count = '',
 uid = '<?php echo $uid ?>',
-title = '';
+title = '',
+stackheight = $(window).height();
 
 var slurl = '<?php echo $www_root ?>/src/web/sl_funcs.php';
 var www_root = '<?php echo $www_root ?>';

@@ -33,14 +33,11 @@ $(document).ready(function() {
     }
 	});
 
-	var stackheight = $(window).height() - $('.header').height();
-
-	$('.container').css('height', stackheight);
 	$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
 
 	$(window).resize(function() {
 		stackheight = $(window).height() - $('.header').height();
-		$('.container').css('height', stackheight);
+		$('.stackview').css('height', stackheight);
 		$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
 	});
 
@@ -56,6 +53,8 @@ $(document).ready(function() {
 	else if(anchor_subject === '') {
 		$('#fixedstack').text('Sorry, no Library of Congress call number or subject neighborhood found.');
 	}
+	
+	$('.stackview').css('height', stackheight);
 
 	$('.slide-more').live('click', function() {
 		$(this).next('.slide-content').slideToggle();
@@ -310,7 +309,7 @@ $(document).ready(function() {
 			$('#fixedstack').addClass('fixed');
 			$('#overlaynav').addClass('fixed');
 			stackheight = $(window).height();
-			$('.container').css('height', stackheight);
+			$('.stackview').css('height', stackheight);
 			$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
 			$('#fixedclear').css('clear', 'both');
 		} else {
@@ -318,7 +317,7 @@ $(document).ready(function() {
 			$('#fixedstack').removeClass('fixed');
 			$('#overlaynav').removeClass('fixed');
 			stackheight = $(window).height() - $('.header').height();
-			$('.container').css('height', stackheight);
+			$('.stackview').css('height', stackheight);
 			$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
 			$('#fixedclear').css('clear', '');
 		}
