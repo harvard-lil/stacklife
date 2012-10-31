@@ -36,7 +36,7 @@ $(document).ready(function() {
 	$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
 
 	$(window).resize(function() {
-		stackheight = $(window).height() - $('.header').height();
+		stackheight = $(window).height();
 		$('.stackview').css('height', stackheight);
 		$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
 	});
