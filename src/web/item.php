@@ -58,41 +58,54 @@ $(document).ready(function() {
 
 <!-- /////////////////// BODY ////////////////////////// -->
 <body>
-  <div style="display:none;">
-    <div id="viewerCanvas" style="width: 610px; height: 725px"></div>
-  </div>
-    
-  <?php require_once('includes/logo.php');?>
-  <?php require_once('includes/searchbox.php');?>
+  	<div class="container group row">
+		
+		
+		<div style="display:none;">
+			<div id="viewerCanvas" style="width: 610px; height: 725px"></div>
+		</div> <!--end hidden viewerCanvas-->
 
-  <div class="container group">
-    <div class="container-content">
-      <div class="main">
-				<div id="fixedstack"></div>
-      </div><!-- end main-->
-		  <div id="item-panel" class="itemData-container scrollmarg"></div>   
+
+		<div id="contextData" class="group span2">
+		
+			<?php require_once('includes/logo.php');?>
+		
+        	<div id="overlay-buttons">
+          		<div id="shelves-panel"></div>
+          		<div id="tagGraph"></div>
+    		</div><!--end overlay-buttons-->
+    		
+        	<form id="book-tags-form" method="post">
+      			<input type="text" id="bookTags" name="bookTags" class="required" onfocus="if (this.value=='tag it') this.value = ''" type="text" value="tag it"/>
+            	
+            	<input type="submit" name="submit_tags"  id="submit_tags" value="Go!"/>
+        	</form>
+        		
+        	<div class="book-tag-success"><p><span style="display:none;"></span></p></div>
+      	</div><!-- end contextData -->
+
+
+      	<div class="main span8">
+			<div id="fixedstack"></div>
+      	</div><!-- end main-->
+		
+		<div class="span4-negative">
+			<?php require_once('includes/searchbox.php');?>
+			<div id="item-panel" class="itemData-container"></div>   
+		</div> 
                 
-      <div id="contextData" class="group">
-        <div id="overlay-buttons">
-          <div id="shelves-panel"></div>
-  
-          <div id="tagGraph"></div>
-        </div><!--end overlay-buttons-->
-          
-        <form id="book-tags-form" method="post">
-          <input type="text" id="bookTags" name="bookTags" class="required" onfocus="if (this.value=='tag it') this.value = ''" type="text" value="tag it"/>
-            <input type="submit" name="submit_tags"  id="submit_tags" value="Go!"/>
-        </form>
-        <div class="book-tag-success"><p><span style="display:none;"></span></p></div>
-      </div> <!-- end contextData -->
+    
         
       <div id="fixedclear"></div>
         
-      <div class="text-description group"> 
-        <div id="toc"></div>
-      </div> <!-- end text-description -->
-    </div> <!--end container-content-->
-  </div><!--end container-->
+      	<div class="text-description group"> 
+        	<div id="toc"></div>
+      	</div> <!-- end text-description -->
+      	
+  	</div><!--end container-->
+
+	<!-- //////////begin templates//////////////////// -->
+	
 
   <script id="gbscript" type="text/javascript" src="http://books.google.com/books?jscmd=viewapi&bibkeys=OCLC:<?php echo $oclcnum ?>,ISBN:<?php echo $isbn_trim ?>&callback=ProcessGBSBookInfo"></script>
   </div> <!--end wrapper-->

@@ -16,7 +16,8 @@ echo <<<EOF
   <script type="text/javascript" src="$www_root/js/handlebars.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.fancybox-1.3.4.pack.js"></script>
   $TYPEKIT_CODE
-  <link rel="stylesheet" href="$www_root/css/bootstrap.css" type="text/css" />	
+    <link rel="stylesheet" href="$www_root/css/bootstrap.css" type="text/css" />	
+
   <link rel="stylesheet" href="$www_root/css/template.css" type="text/css" />
   <link rel="stylesheet" href="$www_root/stackview/jquery.stackview.css" type="text/css" />
 EOF;
