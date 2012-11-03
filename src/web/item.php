@@ -96,9 +96,7 @@ $(document).ready(function() {
                 
     
         
-      <div id="fixedclear"></div>
-        
-      	<div class="text-description group"> 
+      	<div class="text-description"> 
         	<div id="toc"></div>
       	</div> <!-- end text-description -->
       	
