@@ -347,7 +347,6 @@ hr {
 	background-image:none;
 	float:right;
 	position:relative;
-	z-index: 1000;
 }
 
 #itemData {   
@@ -392,7 +391,8 @@ hr {
 }
   
 .main {
-
+	position:relative;
+	z-index: 0;
 }
 
 #fixedstack.fixed {
