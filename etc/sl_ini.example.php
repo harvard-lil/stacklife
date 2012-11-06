@@ -26,4 +26,7 @@ $AMAZON_KEY = 'youramazonkey';
 $AMAZON_SECRET_KEY = 'youramazonsecretkey';
 $AMAZON_ASSOC_TAG = 'youramazonassoctag';
 
+// One or more Google Analytics accounts
+$GOOGLE_ANALYTICS = array("UA-XXXXXX-X");
+
 ?>
