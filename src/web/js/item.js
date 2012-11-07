@@ -174,15 +174,6 @@ $(document).ready(function() {
 			});
 		}
 
-		$("#toc").html('');
-		if(item_details.toc) {
-      var toc = item_details.toc[0];
-      toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
-      if(toc) {
-        $("#toc").html('<span class="heading">Table of Contents</span><p>' + toc + '</p>');
-      }
-		}
-
 		// Redraw our tags
 		drawTagNeighborhood();
 
@@ -201,6 +192,15 @@ $(document).ready(function() {
         $('#availability-panel').html(template(data));
       }
     });
+    
+    $("#toc").html('');
+		if(item_details.toc) {
+      var toc = item_details.toc[0];
+      toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
+      if(toc) {
+        $("#toc").html('<p>' + toc + '</p>');
+      }
+		}
 		
 		// If we have our first isbn, get affiliate info. if not, hide the DOM element
 		if (isbn) {

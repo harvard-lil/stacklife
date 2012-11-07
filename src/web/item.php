@@ -87,10 +87,6 @@ $(document).ready(function() {
       </div> <!-- end contextData -->
         
       <div id="fixedclear"></div>
-        
-      <div class="text-description group"> 
-        <div id="toc"></div>
-      </div> <!-- end text-description -->
     </div> <!--end container-content-->
   </div><!--end container-->
 
@@ -136,6 +132,11 @@ $(document).ready(function() {
         <li class="advanced-oclc"><p>OCLC: {{oclc}}</p></li>
         <li class="advanced-language"><p>Language: {{language}}</p></li>
       </ul>
+    </div>
+    
+    <h3 class="clickable slide-more">Table of Contents<span class="arrow"></span></h3>
+    <div class="slide-content" style="display:none;">
+      <div id="toc"></div>
     </div>
     </div>
     <div id="all-rank" class="slide-more">	            
