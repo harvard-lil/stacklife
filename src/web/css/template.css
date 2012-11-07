@@ -36,6 +36,10 @@ ol, ul {
    styling begins
 -------------------------------------------------------------- */
 
+
+.stackview .ribbon {
+	max-width:350px;
+}
 html, body {
 	height: 100%;/*managing the sticky footer*/
 }
@@ -46,7 +50,7 @@ img:hover {
 
 body {
 	font-family:'Helvetica Neue', sans-serif;
-	background:#faf5f0;
+	background:#fff;
 	min-width:845px;
 	max-width:1145px;
 	font-size: 1.1em;
@@ -104,27 +108,7 @@ p{
 .heading {
 	font-size:1.1em;
   	display:block;
-  	margin:6px 0;
   	color:#035;
-  	/*/font-variant: small-caps; text-transform: none; font-weight: 100; margin-bottom: 0;/*/
-
-}
-
-.header {
-	position:relative;
-	padding: 0 0px;
-	cursor:default;
-	font-size:100%;
-	border-bottom:0px solid #fff;
-   -webkit-user-select: text;
-   -moz-user-select:text;
-	user-select:auto;
-}
-.header:after {
-	position:absolute;
-	display: block;
-	content:"";
-	border-bottom:1px solid #f00;
 }
 
 .alert {
@@ -176,7 +160,6 @@ p{
 	color:#444;
 	font-weight:normal;
 	text-decoration:none;
-	float:left;
 	margin-top:0px;
 	border:0;
 	text-shadow: 0px 1px #fff;
@@ -195,21 +178,19 @@ p{
 .search-container {
 	padding:0 0 -29px 0; /*managing the sticky footer*/
     overflow:auto;
+    Background:red;
 }
 
-.header-content, .container-content, .footer-content, .search-container-content, .navigation-frame {
-	margin:0 auto;
-	padding:0 20px;
-}
-.header-content {
-	padding:6px 20px;
-}
 .container-content {
 	z-index:0;
 	position:relative;
-	padding:0 0 0 20px;
+	padding:0 0 0 0px;
 }
 
+.container {
+	min-width:940px;
+	margin:auto;
+}
 .search-container-content {
 	overflow: hidden;
 	padding: 0 20px 50px 20px;
@@ -248,18 +229,18 @@ ol {
 
 
 .search-results {
-	float:left;
+	/*/float:left;
 	padding: 0 5px;
 	margin:10px 0 10px 20px;
 	background:#fff;
-	width:68%;
+	width:68%;/*/
 	min-height:500px;
-	border:1px solid #f2e4d7;
+	/*/border:1px solid #f2e4d7;
    -moz-border-radius: 3px;
    -webkit-border-radius: 3px;
    -o-border-radius: 3px;
    -ms-border-radius: 3px;
-   	border-radius: 3px;
+   	border-radius: 3px;/*/
 }
 
 .upstream, .prev-page {
@@ -302,11 +283,13 @@ ol {
 	background-position: 0 -216px;
 }
 
+/*/
 .facet-box-container {
 	float:right;
 	margin:10px 0 0 10px;
 	width:22%;
 }
+/*/
 
 .facet-box {
 	float:left;
@@ -332,21 +315,27 @@ hr {
 }
 
 #navigation {
-	float:left;
+	float:right;
+	clear:both;
     position:relative;
-	margin:10px 0 0 0;
+	margin:10px 40px 0 0;
 	width:35px;
    -webkit-user-select: none;
    -moz-user-select:none;
 	user-select:none;
+	transform:rotate(-90deg);
+   -ms-transform:rotate(-90deg); /* IE 9 */
+   -moz-transform:rotate(-90deg); /* Firefox */
+   -webkit-transform:rotate(-90deg); /* Safari and Chrome */
+   -o-transform:rotate(-90deg); /* Opera */
 }
 
 .itemData-container {
-	margin: 15px 0 0 0;
+	margin-top: 15px;
 	padding:5px 5px 5px;
-	width:32%;
 	background-image:none;
-	float:left;
+	float:right;
+	position:relative;
 }
 
 #itemData {   
@@ -368,8 +357,7 @@ hr {
 
 #contextData {
 	float:left;
-	width:18%;
-	margin-left:15px;
+	/*/margin-left:-10px;/*/
 }
 
 .text-description {
@@ -380,7 +368,7 @@ hr {
 }
 
 .scrollmarg{
-	margin:10px 0 0 0;
+	margin:0px 0 0 0;
 }
 
 .shadow {
@@ -392,12 +380,12 @@ hr {
 }
   
 .main {
-	float:right;
-	width:46%; /*widening stackview to encompass all remaining real-estate*/
+	position:relative;
+	z-index: 0;
+
 }
 
-#fixedstack.fixed {
-	/* altered to stop books from jumping when scrolling them to fixed positioning*/
+#fixedstack {
 	position:fixed;
 	width:100%;
 	top:0px;
@@ -479,6 +467,9 @@ hr {
 
 .unpack {
 	font-weight:normal;
+	   -webkit-user-select: none;
+   -moz-user-select:none;
+	user-select:none;
 }
 #bookTags {
 	width:68%;
@@ -1037,7 +1028,6 @@ table {
 	padding:20px 2px;
 	color:#333;  /*/colors the column headers/*/
 	font-size:.875em;
-	float:left;
 	width:100%;
 }
 
@@ -1204,6 +1194,7 @@ select {
 
 .search {
 	margin:17px 0 0 0;
+	float:right;
 }
 
 

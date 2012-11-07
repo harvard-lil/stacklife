@@ -29,11 +29,28 @@ var www_root = '<?php echo $www_root ?>';
 
 </head>
 <body>
-<div id="wrapper">
-    <?php require_once('includes/logo.php');?>
-    <?php require_once('includes/searchbox.php');?>
-    <div class="search-container group">
-		<div class="search-container-content group"> 
+<div class="container group row">
+ 
+    <div class="span2">
+		<!-- Persistent controls (slider, query facets) -->
+		<?php require_once('includes/logo.php');?>
+		<div class="facet-box highlight-border group">
+			<div class="heading"></div><!--Community Relevance-->
+      		<div id="persistent_controls"></div><!--end persistent_controls-->
+      		<div id="query_facets"></div><!--end query_facets-->
+      	</div><!--facet-box -->
+    	<!-- Dynamic controls (facets) -->
+		<div class="facet-box group">
+			<div class="heading"></div><!--Refk e-->
+			<div class="facets"></div><!--end facets-->
+    	</div><!-- end Dynamic controls -->
+    </div><!-- end facet-box-container -->
+    		
+    		
+    		
+    <div class="span10">
+    	<?php require_once('includes/searchbox.php');?>
+		<div class="search-container-content"> 
 			<div id="navigation">
              	 <span id="arrows">
             		<div class="prev-page" alt="previous books button"></div>
@@ -42,30 +59,14 @@ var www_root = '<?php echo $www_root ?>';
             	 </span>	
         	</div> <!-- end navigation -->  
         	
-    		<div class="search-results rounded-corners">
-    			<div id="facet_bread_crumb_container"></div>
-        		
+    		<div class="search-results">
+    			
         		<div id="result-hits-container"></div>
-        		
+        		<div id="facet_bread_crumb_container"></div>
         		<div id="results"></div> <!-- end results div -->
-        		
 			</div><!-- end search-results div -->
-			<div class="facet-box-container">
-				<!-- Persistent controls (slider, query facets) -->
-				<div class="facet-box highlight-border group">
-					<div class="heading">Community Relevance</div>
-            		<div id="persistent_controls"></div><!--end persistent_controls-->
-            		
-            		<div id="query_facets"></div><!--end query_facets-->
-    			</div>
-    			<!-- Dynamic controls (facets) -->
-				<div class="facet-box group">
-				<div class="heading">Refine</div>
-          			<div class="facets"></div><!--end facets-->
-    			</div><!-- end Dynamic controls -->
-    		</div><!-- end facet-box-container -->
-        </div><!--end container-content--> 
-	</div><!-- end search-container -->
+        </div><!--end search-container-content--> 
+	</div><!-- end search-contatiner -->
 	
 	
     </div><!--end wrapper-->
@@ -110,7 +111,7 @@ var www_root = '<?php echo $www_root ?>';
 	
     <script id="slider-container-template" type="text/x-handlebars-template">
 		<div class="facet_heading">
-		    Refine by ShelfRank
+		    Refine by StackRank
 		    <fieldset>
 		        <select name="valueA" id="valueA" style="display:none">
 		            <option value="1" selected="selected">1</option>

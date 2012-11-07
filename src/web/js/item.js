@@ -298,31 +298,6 @@ $(document).ready(function() {
 			return false;
 		}
 	});
-	
-		$(window).scroll(function (event) {
-		// what the y position of the scroll is
-		var y = $(this).scrollTop();
-		// whether that's below the form
-		// HEIGHT OF HEADER
-		if (y >= $('.header').height()) {
-		// if so, ad the fixed class
-			$('#fixedstack').addClass('fixed');
-			$('#overlaynav').addClass('fixed');
-			stackheight = $(window).height();
-			$('.stackview').css('height', stackheight);
-			$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
-			$('#fixedclear').css('clear', 'both');
-		} else {
-			// otherwise remove it
-			$('#fixedstack').removeClass('fixed');
-			$('#overlaynav').removeClass('fixed');
-			stackheight = $(window).height() - $('.header').height();
-			$('.stackview').css('height', stackheight);
-			$('#viewerCanvas').css('height', stackheight*.9).css('width', stackheight*.75);
-			$('#fixedclear').css('clear', '');
-		}
-
-	});
 }); //end document ready
 
 // We heatmap our shelfrank fields based on the scaled value

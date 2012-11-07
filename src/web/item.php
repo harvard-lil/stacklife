@@ -58,19 +58,41 @@ $(document).ready(function() {
 
 <!-- /////////////////// BODY ////////////////////////// -->
 <body>
-  <div style="display:none;">
-    <div id="viewerCanvas" style="width: 610px; height: 725px"></div>
-  </div>
-    
-  <?php require_once('includes/logo.php');?>
-  <?php require_once('includes/searchbox.php');?>
+  	<div class="container group row">
+		
+		
+		<div style="display:none;">
+			<div id="viewerCanvas" style="width: 610px; height: 725px"></div>
+		</div> <!--end hidden viewerCanvas-->
 
-  <div class="container group">
-    <div class="container-content">
-      <div class="main">
-				<div id="fixedstack"></div>
-      </div><!-- end main-->
-		  <div id="item-panel" class="itemData-container scrollmarg"></div>   
+
+		<div id="contextData" class="group span2">
+		
+			<?php require_once('includes/logo.php');?>
+		
+        	<div id="overlay-buttons">
+          		<div id="shelves-panel"></div>
+          		<div id="tagGraph"></div>
+    		</div><!--end overlay-buttons-->
+    		
+        	<form id="book-tags-form" method="post">
+      			<input type="text" id="bookTags" name="bookTags" class="required" onfocus="if (this.value=='tag it') this.value = ''" type="text" value="tag it"/>
+            	
+            	<input type="submit" name="submit_tags"  id="submit_tags" value="Go!"/>
+        	</form>
+        		
+        	<div class="book-tag-success"><p><span style="display:none;"></span></p></div>
+      	</div><!-- end contextData -->
+
+
+      	<div class="main span8">
+			<div id="fixedstack"></div>
+      	</div><!-- end main-->
+		
+		<div class="span4-negative offset6">
+			<?php require_once('includes/searchbox.php');?>
+			<div id="item-panel" class="itemData-container"></div>   
+		</div> 
                 
       <div id="contextData" class="group">
         <div id="overlay-buttons">
@@ -89,6 +111,10 @@ $(document).ready(function() {
       <div id="fixedclear"></div>
     </div> <!--end container-content-->
   </div><!--end container-->
+
+
+	<!-- //////////begin templates//////////////////// -->
+	
 
   <script id="gbscript" type="text/javascript" src="http://books.google.com/books?jscmd=viewapi&bibkeys=OCLC:<?php echo $oclcnum ?>,ISBN:<?php echo $isbn_trim ?>&callback=ProcessGBSBookInfo"></script>
   </div> <!--end wrapper-->
@@ -172,7 +198,7 @@ $(document).ready(function() {
 		</div>
 	</script>
 	<script id="shelves-template" type="text/x-handlebars-template">
-    <span class="heading">Library Shelves</span>
+    <span class="heading">Library Stacks</span>
     <ul>
       {{#if ut_count}}
 			<li id="uniform" class="button stack-button"><span class="reload">All editions</span></li>
@@ -186,13 +212,13 @@ $(document).ready(function() {
 			<li class="subject-button"><span class="reload">{{this}}</span></li>
 			{{/lcsh}}
     </ul>
-    <span class="heading">Community Shelves</span>
+    <span class="heading">Community Stacks</span>
     <ul>
       <li id="alsoviewed" class="button stack-button"><span class="reload">People who viewed this also viewed these</span></li>
       <li id="recentlyviewed" class="button stack-button"><span class="reload">You recently viewed these</span></li>
     </ul>
     {{#if wp_categories}}
-    <span class="heading">Wikipedia Shelves</span>
+    <span class="heading">Wikipedia Stacks</span>
       <ul>
         {{#wp_categories}}
         <li class="wp_category-button"><span class="reload">{{this}}</span></li>
