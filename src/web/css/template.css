@@ -109,25 +109,6 @@ p{
 	font-size:1.1em;
   	display:block;
   	color:#035;
-  	/*/font-variant: small-caps; text-transform: none; font-weight: 100; margin-bottom: 0;/*/
-
-}
-
-.header {
-	position:relative;
-	padding: 0 0px;
-	cursor:default;
-	font-size:100%;
-	border-bottom:0px solid #fff;
-   -webkit-user-select: text;
-   -moz-user-select:text;
-	user-select:auto;
-}
-.header:after {
-	position:absolute;
-	display: block;
-	content:"";
-	border-bottom:1px solid #f00;
 }
 
 .alert {
@@ -401,6 +382,7 @@ hr {
 .main {
 	position:relative;
 	z-index: 0;
+
 }
 
 #fixedstack {
