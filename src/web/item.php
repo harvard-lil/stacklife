@@ -101,12 +101,7 @@ $(document).ready(function() {
           <div id="tagGraph"></div>
         </div><!--end overlay-buttons-->
           
-        <form id="book-tags-form" method="post">
-          <input type="text" id="bookTags" name="bookTags" class="required" onfocus="if (this.value=='tag it') this.value = ''" type="text" value="tag it"/>
-            <input type="submit" name="submit_tags"  id="submit_tags" value="Go!"/>
-        </form>
-        <div class="book-tag-success"><p><span style="display:none;"></span></p></div>
-      </div> <!-- end contextData -->
+       
         
       <div id="fixedclear"></div>
     </div> <!--end container-content-->

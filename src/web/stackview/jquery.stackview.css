@@ -535,12 +535,11 @@
    NAVIGATION
 ***************/
 .stack-navigation {
-float: left;
+position:absolute;
 left: 5px;
   top: 5px;
   width: 41px;
   text-align: center;
-  border:1px solid red;
 }
 .stack-navigation .upstream, .stack-navigation .downstream {
   height: 43px;
