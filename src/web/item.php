@@ -89,12 +89,12 @@ $(document).ready(function() {
 			<div id="fixedstack"></div>
       	</div><!-- end main-->
 		
-		<div class="span4-negative">
+		<div class="span4-negative offset6">
 			<?php require_once('includes/searchbox.php');?>
 			<div id="item-panel" class="itemData-container"></div>   
 		</div> 
                 
-    
+    	<div id="fixedclear"></div>
         
       	<div class="text-description"> 
         	<div id="toc"></div>
@@ -182,7 +182,7 @@ $(document).ready(function() {
 		</div>
 	</script>
 	<script id="shelves-template" type="text/x-handlebars-template">
-    <span class="heading">Library Shelves</span>
+    <span class="heading">Library Stacks</span>
     <ul>
       {{#if ut_count}}
 			<li id="uniform" class="button stack-button"><span class="reload">All editions</span></li>
@@ -196,13 +196,13 @@ $(document).ready(function() {
 			<li class="subject-button"><span class="reload">{{this}}</span></li>
 			{{/lcsh}}
     </ul>
-    <span class="heading">Community Shelves</span>
+    <span class="heading">Community Stacks</span>
     <ul>
       <li id="alsoviewed" class="button stack-button"><span class="reload">People who viewed this also viewed these</span></li>
       <li id="recentlyviewed" class="button stack-button"><span class="reload">You recently viewed these</span></li>
     </ul>
     {{#if wp_categories}}
-    <span class="heading">Wikipedia Shelves</span>
+    <span class="heading">Wikipedia Stacks</span>
       <ul>
         {{#wp_categories}}
         <li class="wp_category-button"><span class="reload">{{this}}</span></li>

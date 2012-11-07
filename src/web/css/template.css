@@ -108,7 +108,6 @@ p{
 .heading {
 	font-size:1.1em;
   	display:block;
-  	margin:6px 0;
   	color:#035;
   	/*/font-variant: small-caps; text-transform: none; font-weight: 100; margin-bottom: 0;/*/
 
@@ -198,6 +197,7 @@ p{
 .search-container {
 	padding:0 0 -29px 0; /*managing the sticky footer*/
     overflow:auto;
+    Background:red;
 }
 
 .container-content {
@@ -248,18 +248,18 @@ ol {
 
 
 .search-results {
-	float:left;
+	/*/float:left;
 	padding: 0 5px;
 	margin:10px 0 10px 20px;
 	background:#fff;
-	width:68%;
+	width:68%;/*/
 	min-height:500px;
-	border:1px solid #f2e4d7;
+	/*/border:1px solid #f2e4d7;
    -moz-border-radius: 3px;
    -webkit-border-radius: 3px;
    -o-border-radius: 3px;
    -ms-border-radius: 3px;
-   	border-radius: 3px;
+   	border-radius: 3px;/*/
 }
 
 .upstream, .prev-page {
@@ -302,11 +302,13 @@ ol {
 	background-position: 0 -216px;
 }
 
+/*/
 .facet-box-container {
 	float:right;
 	margin:10px 0 0 10px;
 	width:22%;
 }
+/*/
 
 .facet-box {
 	float:left;
@@ -332,13 +334,19 @@ hr {
 }
 
 #navigation {
-	float:left;
+	float:right;
+	clear:both;
     position:relative;
-	margin:10px 0 0 0;
+	margin:10px 40px 0 0;
 	width:35px;
    -webkit-user-select: none;
    -moz-user-select:none;
 	user-select:none;
+	transform:rotate(-90deg);
+   -ms-transform:rotate(-90deg); /* IE 9 */
+   -moz-transform:rotate(-90deg); /* Firefox */
+   -webkit-transform:rotate(-90deg); /* Safari and Chrome */
+   -o-transform:rotate(-90deg); /* Opera */
 }
 
 .itemData-container {
@@ -368,7 +376,7 @@ hr {
 
 #contextData {
 	float:left;
-	margin-left:-10px;
+	/*/margin-left:-10px;/*/
 }
 
 .text-description {
@@ -395,12 +403,10 @@ hr {
 	z-index: 0;
 }
 
-#fixedstack.fixed {
-	/* altered to stop books from jumping when scrolling them to fixed positioning*/
+#fixedstack {
 	position:fixed;
 	width:100%;
 	top:0px;
-	
 }
 
 #overlaynav a {
@@ -1040,7 +1046,6 @@ table {
 	padding:20px 2px;
 	color:#333;  /*/colors the column headers/*/
 	font-size:.875em;
-	float:left;
 	width:100%;
 }
 
@@ -1207,6 +1212,7 @@ select {
 
 .search {
 	margin:17px 0 0 0;
+	float:right;
 }
 
 
