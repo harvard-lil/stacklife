@@ -541,7 +541,8 @@ left: 5px;
   width: 41px;
   text-align: center;
 }
-.stack-navigation .upstream, .stack-navigation .downstream {
+.stack-navigation .upstream, .stack-navigation .downstream { 
+  position:fixed;
   height: 43px;
   text-indent: -999em;
   overflow: hidden;
@@ -554,6 +555,7 @@ left: 5px;
 }
 .stack-navigation .upstream {
   background: url("images/nav.png") 0 -87px no-repeat;
+  top:15px;
 }
 .stack-navigation .upstream:hover, .stack-navigation .upstream:focus {
   background-position: 0 -44px;
@@ -563,6 +565,7 @@ left: 5px;
 }
 .stack-navigation .downstream {
   background: url("images/nav.png") 0 -130px no-repeat;
+  top:100px;
 }
 .stack-navigation .downstream:hover, .stack-navigation .downstream:focus {
   background-position: 0 -173px;
@@ -571,11 +574,13 @@ left: 5px;
   background-position: 0 -216px;
 }
 .stack-navigation .num-found {
+  position:fixed;
   font-size: 15px;
   line-height: 16px;
   margin: 10px 0;
   color: #09f;
   text-shadow: 0 1px 0 #ddd;
+  top:52px;
 }
 .stack-navigation.empty .num-found {
   visibility: hidden;
