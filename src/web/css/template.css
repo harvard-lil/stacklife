@@ -307,10 +307,7 @@ hr {
 }
 
 .tagline {
-	display:block;
-	float:left;
-	width:100%;
-	color:#09f;
+	color:#777;
 }
 
 #navigation {
@@ -1317,7 +1314,15 @@ input {
 
 /*/////////////////////////////////////////////////////////*/
 
+.middle-position {
+	position:relative;
+	top:200px;
+}
 
+.middle-position-search {
+	position:relative;
+	top:187px;
+}
 
 .advanced-dropdown {
 	margin-top:-5px;
