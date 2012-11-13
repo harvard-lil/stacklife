@@ -131,18 +131,13 @@ $(document).ready(function() {
       <li class="button-google-disabled"><a class="button-google-disabled" href="#viewerCanvas"><img src="<?php echo $www_root ?>/images/gbs_preview_disabled.png" /></a></li>
       <li class="button-google"><a id="gviewer" class="button-google" href="#viewerCanvas" style="display:none;"><img src="<?php echo $www_root ?>/images/gbs_preview.png" border="0" /></a></li>
       {{#if wp_url}}
+      <li><a id="amzn" href="http://www.amazon.com/dp/{{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/amazon.png" alt="Amazon"/></a></li>                 	
       <li><a href="{{wp_url}}" target="_blank" ><img src="<?php echo $www_root ?>/images/wikipedia.png" /></a></li>
       {{/if}}
+      
     </ul>
 		<div id="availability-panel"></div>
 		
-		<div class="buy" style="display:none;">	 
-      <a id="amzn" href="http://www.amazon.com/dp/{{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/amazon.png" alt="Amazon"/></a><span class="author-divider">|</span>                 	
-      <a id="abes" href="http://www.abebooks.com/products/isbn/{{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/abeBooks.png" alt="AbeBooks"/> </a><span class="author-divider">|</span>
-      <a id="bandn" href="http://search.barnesandnoble.com/booksearch/ISBNInquiry.asp?EAN={{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/barnesAndNoble.png" alt="Barnes&amp;Noble"/></a><span class="author-divider">|</span>
-      <a id="hrvbs" href="http://site.booksite.com/1624/showdetail/?isbn={{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/harvardBookStore.png" alt="Harvard Book Store"/></a>
-    </div>  <!--end buy-->
-    
     <h3 class="imprint">{{#if pub_location}}{{pub_location}}{{/if}}{{#if publisher}}, {{publisher}}{{/if}}{{#if pub_date}}, {{pub_date}}{{/if}}</h3>
     
     <h3 class="clickable advanced-data slide-more">Advanced Bibliographic Data<span class="arrow"></span></h3>
@@ -162,7 +157,7 @@ $(document).ready(function() {
     </div>
     <div id="all-rank" class="slide-more">	            
     <div id="shelfRankCalc" class="button-shelfRank">
-      <span class="unpack">ShelfRank</span>
+      <span class="unpack">StackRank</span>
       <span class="shelfRank">{{shelfrank}}</span>
     </div><!--end shelfRankCalc-->
   </div><!--end all-rank-->
@@ -178,7 +173,7 @@ $(document).ready(function() {
   </script> 
   <script id="availability-template" type="text/x-handlebars-template">
     <span class="button-availability {{#if any_available}}available-button{{else}}not-available-button{{/if}} slide-more"><span class="icon"></span>Availability<span class="arrow"></span></span>
-		<div id="availability" class="slide-content" style="display:none;">
+		<div id="availability" class="slide-content availibility-slide-content" style="display:none;">
 		  <ul>
 		  {{#items}}
 		    <li class="{{#if available}}available{{else}}not-available{{/if}}">

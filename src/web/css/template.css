@@ -98,7 +98,6 @@ h3, h3 a {
 	font-size: .85em;
 	font-weight:normal;
 	color:#555;
-	margin-top:10px;
 }
 
 p{
@@ -331,7 +330,7 @@ hr {
 }
 
 .itemData-container {
-	margin-top: 15px;
+	margin: 15px 0px 30px;
 	padding:5px 5px 5px;
 	background-image:none;
 	float:right;
@@ -379,6 +378,11 @@ hr {
    box-shadow: 1px 1px 4px #eee;
 }
   
+
+#shelves-panel {
+	margin-top:25px;
+}
+
 .main {
 	position:relative;
 	z-index: 0;
@@ -540,9 +544,14 @@ ul.access li:hover {
 	float:left;
 }
 
-.apology {
-	font-size:1.5em;
+span.apology {
+	font-size:24px;
 	color:#555;
+}
+
+.apology .advanced-search, .apology .advanced-search:hover {
+	font-size:24px;
+	color:#09f;
 }
 
 .pointer {
@@ -706,7 +715,7 @@ h2.signature {
    	color: #444;
    	font-weight:normal;
    	cursor:pointer;   
-   	margin:0px 0px 0  0px;
+   	margin-bottom:10px;
    	text-decoration:none;
    	line-height:1em;
 }
@@ -776,10 +785,12 @@ h2.signature {
 }
 
 .advanced-search, .advanced-search:hover {
+	position:relative;
 	padding:0px 3px;
 	margin-top:-2px;
 	height:1.3em;
 	font-size:13px;
+	z-index:100;
 }
 
 .tag-button {
@@ -821,12 +832,11 @@ h2.signature {
    text-align:center;
    border-width:1px;
    font-family: "Helvetica Neue", Arial, sans-serif;
-   font-weight:bold;
 }
 
 .arrow, .search-arrow-up, .search-arrow-down, .arrow-down {
 	display: inline-block; 
-	width: 12px; 
+	width: 11px; 
 	height: 10px; 
 	margin: 0 0 0 2px; 
 	position: relative; 
@@ -900,10 +910,15 @@ form {
 .not-available {
 	color:#999;
 }
- .callno {
+.callno {
  	color:#444;
 }
  
+.availibility-slide-content {
+	margin-top:10px;	
+}
+
+
 #availability {
  	color:#666;
 	font-size:.75em;
@@ -1147,7 +1162,10 @@ select {
    -webkit-border-radius: 2px;
   	font-weight:normal;
   	outline:0;
-  	margin-bottom:25px;
+ }
+ 
+ .advanced-inputs p {
+ 	margin-bottom:10px;
  }
  
  #weight_select {
@@ -1157,7 +1175,7 @@ select {
  
  #addremove {
  	color:#d4d4d4;
- 	margin-left:375px;
+ 	margin-left:315px;
  }
  
  .addfield, .removefield {
@@ -1174,8 +1192,14 @@ select {
   background: none repeat scroll 0 0 #FAF5F0;
 }
  
+#advanced .heading {
+	color:#333;
+}
+#advanced input[type="submit"] {
+	margin-left:100px;
+}
  .advanced-inputs {
- 	margin-left:15px;
+ 	margin-left:105px;
  }
  
  .advanced-inputs p {
@@ -1217,7 +1241,13 @@ input[type="button"]:hover, input[type="submit"]:hover, input[type="button"]:foc
 	
 }
 
+input.pointer {
+	margin-top:-2px;
+}
 
+.facet_set .heading {
+	margin:5px 0 5px;
+}
 /*/
 input[type="button"]:hover, input[type="submit"]:hover {
 	background: #f90;
@@ -1229,9 +1259,8 @@ input[type="button"]:hover, input[type="submit"]:hover {
 }
 /*/
 input[type="submit"] {  
-
     font-size: 1em;
-    margin-left: -7px;
+    margin-right: -3px;
     vertical-align: top;
     min-width:45px;
  
