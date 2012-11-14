@@ -46,23 +46,24 @@ var www_root = '<?php echo $www_root ?>';
     	</div><!-- end Dynamic controls -->
     </div><!-- end facet-box-container -->
     		
+    	<div id="facet_bread_crumb_container" class="span6"></div>	
     		
-    		
-    <div class="span10">
-    	<?php require_once('includes/searchbox.php');?>
+    
+    	<div class="span4"><?php require_once('includes/searchbox.php');?></div>
+		<div class="span10">
 		<div class="search-container-content"> 
-			<div id="navigation">
+			
+        	
+    		<div class="search-results">
+    			
+        		<div id="result-hits-container" class="span7"></div>
+        		<div id="navigation" class="span3">
              	 <span id="arrows">
             		<div class="prev-page" alt="previous books button"></div>
             		<div class="subject-hits empty"></div>
             		<div class="next-page" alt="next books button"></div>
             	 </span>	
         	</div> <!-- end navigation -->  
-        	
-    		<div class="search-results">
-    			
-        		<div id="result-hits-container"></div>
-        		<div id="facet_bread_crumb_container"></div>
         		<div id="results"></div> <!-- end results div -->
 			</div><!-- end search-results div -->
         </div><!--end search-container-content--> 
@@ -87,7 +88,7 @@ var www_root = '<?php echo $www_root ?>';
     		        <th id="title_sort" class="sort_heading">Title</th>
     		        <th id="creator" class="sort_heading">Author</th>
     		        <th id="pub_date" class="sort_heading">Year</th>
-    		        <th id="shelfrank" class="sort_heading sortable score">ShelfRank<span class="{{#get_sort_direction sort_direction}}{{this}}{{/get_sort_direction}}"></span></th>
+    		        <th id="shelfrank" class="sort_heading sortable score">StackRank<span class="{{#get_sort_direction sort_direction}}{{this}}{{/get_sort_direction}}"></span></th>
     		        <th></th>
     		    </tr>
     		</thead>

@@ -3,7 +3,7 @@
 		<div class="search">
 			<form id="search" method="get" action="<?php echo $www_root?>/search.php">
             	<input type="hidden" style="display:none" name="search_type" value="keyword"/>
-            	<input type="text" name="q" placeholder="Search"/>
+            	<input type="text" name="q" autofocus="autofocus" placeholder="Search"/>
             	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
 			</form>
 			<a id="inline" href="#advanced" style="display:none">Advanced Search</a>

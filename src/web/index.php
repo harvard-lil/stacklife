@@ -34,7 +34,7 @@ EOF;
 		<div class="group span2 middle-position">
 			
 			 <?php require_once('includes/logo.php');?>
-			 <p class="tagline">This is an experiment in book browsing software.</p>
+			 <p class="tagline">An experiment in book browsing software for the Harvard Library</p>
 		</div><!--end logo include-->
 		
 		<div class="main span8">
@@ -45,7 +45,7 @@ EOF;
 		<div class="span4-negative middle-position-search">
 			<form id="search2" method="get" action="<?php echo $www_root?>/search.php">
             	<input type="hidden" style="display:none" name="search_type" value="keyword"/>
-            	<input type="text" name="q" placeholder="Search"/>
+            	<input type="text" autofocus="autofocus" name="q" placeholder="Search"/>
             	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
 			</form>
 		</div><!--end-span4-negative-->
