@@ -22,7 +22,7 @@ $(document).ready(function() {
   			uniform_id = data.docs[0].ut_id;
   			if (data.docs[0].lcsh != undefined) { 
 				$.each(data.docs[0].lcsh, function(i, item) {
-					item = item.replace(/\.\s*$/, '');
+					//item = item.replace(/\.\s*$/, '');
 					if(anchor_subject === '') {
   						anchor_subject = item;
   					}
@@ -168,11 +168,12 @@ $(document).ready(function() {
 		GBSArray = ['ISBN:' + isbn, 'OCLC:' + oclc];
 		$.getScript($("#gbscript").attr('src'));
 
+                /*
 		if (item_details.lcsh != undefined) {
 			$.each(item_details.lcsh, function(i, item) {
 				item_details.lcsh[i] = item.replace(/\.\s*$/, '');
 			});
-		}
+		}*/
 
 		// Redraw our tags
 		drawTagNeighborhood();
