@@ -3,6 +3,9 @@
   require_once ('../../../etc/sl_ini.php');
 
   $q = $_GET['query'];
+
+
+
   $q = urlencode($q);
   $offset = $_GET['start'];
   $limit = $_GET['limit']; 
@@ -58,9 +61,9 @@
   
     $creator = $item['creator'];
     $title = $item['title'];
-    $height_cm = $item['height'];
+    $height_cm = $item['height_numeric'];
     if(!$height_cm || $height_cm > 33 || $height_cm < 20) $height_cm = 27;
-    $pages = $item['pages'];
+    $pages = $item['pages_numeric'];
     if(!$pages) $pages = 200;
     $year = $item['pub_date_numeric'];
     $year = substr($year, 0, 4);
