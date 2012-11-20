@@ -307,18 +307,17 @@ hr {
 }
 
 .tagline {
-	display:block;
-	float:left;
-	width:100%;
-	color:#09f;
+	color:#777;
 }
 
+.red {
+	border:1px solid red;
+}
 #navigation {
-	float:right;
-	clear:both;
-    position:relative;
-	margin:10px 40px 0 0;
-	width:35px;
+    float:right;
+	width:105px;
+	height:0px;
+	margin: -12px 50px 0 0;
    -webkit-user-select: none;
    -moz-user-select:none;
 	user-select:none;
@@ -330,7 +329,7 @@ hr {
 }
 
 .itemData-container {
-	margin: 15px 0px 30px;
+	margin: 24px 0px 30px;
 	padding:5px 5px 5px;
 	background-image:none;
 	float:right;
@@ -380,11 +379,12 @@ hr {
   
 
 #shelves-panel {
-	margin-top:25px;
+	margin-top:27px;
 }
 
 .main {
 	position:relative;
+	margin-left:20px;
 	z-index: 0;
 
 }
@@ -476,7 +476,7 @@ hr {
 	user-select:none;
 }
 #bookTags {
-	width:68%;
+	width:58%;
 }
 .book-tag-success {
 	color: #ff9600;
@@ -721,7 +721,8 @@ h2.signature {
 }
 
 .subject-button, .stack-button, .wp_category-button {
-	line-height:1.6em;
+	line-height:18px;
+	margin-bottom:35px;
 }
 
 .button a, .button a:visited, .button-disabled a, .button-google, .button-google-disabled, .small-button a, .subject-button a, .subject-button a:visited  {
@@ -802,7 +803,7 @@ h2.signature {
 }
 
 .subject-button, .wp_category-button, #callview, #uniform, #searchview, .subject-shelves .button, .subject-shelves .button-disabled, .tag-button, .stack-button {
-	margin:0 0 0px 10px;
+	margin:5px 0 0 0px;
 }
 
 #arecentlyviewed, #authortitles {
@@ -1040,16 +1041,15 @@ h6{
 
 
 table {
-	padding:20px 2px;
 	color:#333;  /*/colors the column headers/*/
 	font-size:.875em;
 	width:100%;
+	clear:both;
 }
 
 .hits {
-	clear:both;
-	float:left;
 	font-size:1em;
+	margin-top:25px;
 }
 
 td {
@@ -1078,7 +1078,7 @@ td a:hover {
 
 #facet_bread_crumb_container {
 	min-height:1.5em;
-	margin:5px 10px;
+	margin:19px -22px 0px 19px;
 }
 
 #facet_bread_crumb li {
@@ -1217,7 +1217,7 @@ select {
 /*////////FULL ON SHOUTOUT TO ETHAN MARCOTTE'S WORK////////*/
 
 .search {
-	margin:17px 0 0 0;
+	margin:13px 0 0 0;
 	float:right;
 }
 
@@ -1317,7 +1317,15 @@ input {
 
 /*/////////////////////////////////////////////////////////*/
 
+.middle-position {
+	position:relative;
+	top:200px;
+}
 
+.middle-position-search {
+	position:relative;
+	top:187px;
+}
 
 .advanced-dropdown {
 	margin-top:-5px;

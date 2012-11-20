@@ -9,6 +9,7 @@
 <title>ShelfLife</title>
 
 <?php
+include_once('includes/includes.php');
 global $TYPEKIT_CODE;
 echo <<<EOF
   <link rel="author" href="$www_root/humans.txt" />
@@ -27,42 +28,29 @@ EOF;
 </head>
 
 <body>
-<div id="wrapper">
 
-  <?php require_once('includes/logo.php');?>
-  <?php require_once('includes/searchbox.php');?>
-
-    <div class="container group">
-		<div class="container-content">
-
-		<div class="main">
-      <div id="landing-stack"></div>
-    </div><!--end main-->
-
-
-		<div class="overlay">
+    <div class="container group row">
+		
+		<div class="group span2 middle-position">
 			
-			<div class="welcome">
+			 <?php require_once('includes/logo.php');?>
+			 <p class="tagline">An experiment in book browsing software for the Harvard Library</p>
+		</div><!--end logo include-->
+		
+		<div class="main span8">
+      		<div id="landing-stack"></div>
+    	</div><!--end main-->
+
 			
-				<h1 class="cyan">Welcome!</h1> 
-			
-				<form id="search2" method="get" action="<?php echo $www_root?>/search.php">
-            		<input type="hidden" style="display:none" name="search_type" value="keyword"/>
-            		<input type="text" name="q" placeholder="Search"/>
-            		<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
-				</form>
-                
-			</div>
-		</div><!--end overlay-->
+		<div class="span4-negative middle-position-search">
+			<form id="search2" method="get" action="<?php echo $www_root?>/search.php">
+            	<input type="hidden" style="display:none" name="search_type" value="keyword"/>
+            	<input type="text" autofocus="autofocus" name="q" placeholder="Search"/>
+            	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
+			</form>
+		</div><!--end-span4-negative-->
 
-
-
-
-	</div><!--end container-content-->
 </div><!--end container-->
-
-
-</div><!--end wrapper-->
 
 </body>
 </html>
