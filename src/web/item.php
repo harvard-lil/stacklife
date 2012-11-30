@@ -150,7 +150,7 @@ $(document).ready(function() {
       </ul>
     </div>
     
-    <h3 class="clickable slide-more">Table of Contents<span class="arrow"></span></h3>
+    <h3 class="clickable slide-more">Notes<span class="arrow"></span></h3>
     <div class="slide-content" style="display:none;">
       <div id="toc"></div>
     </div>
