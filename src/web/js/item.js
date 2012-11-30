@@ -195,8 +195,8 @@ $(document).ready(function() {
     });
     
     $("#toc").html('');
-		if(item_details.toc) {
-      var toc = item_details.toc[0];
+		if(item_details.note) {
+      var toc = item_details.note[0];
       toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
       if(toc) {
         $("#toc").html('<p>' + toc + '</p>');
