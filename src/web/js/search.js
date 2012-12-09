@@ -54,12 +54,12 @@ var util = (function () {
 	// Clean up field names
 	my.massage_field_name = function(field_name) {
 		var field_assoc = new Object;
-		field_assoc['format'] = 'Material Format';
+		field_assoc['format'] = 'Format';
 		field_assoc['language'] = 'Language';
 		field_assoc['lcsh'] = 'Subject';
-		field_assoc['holding_libs'] = 'Holding Library';
+		field_assoc['holding_libs'] = 'Library';
 		field_assoc['creator'] = 'Creator';
-		field_assoc['pub_date'] = 'Publication Date';
+		field_assoc['pub_date'] = 'Year';
 		return field_assoc[field_name];
 	}
 	

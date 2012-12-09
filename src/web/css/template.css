@@ -603,6 +603,19 @@ label {
 	color:#999;
 }
 
+.about-button {
+	background:#eee;
+	text-align:center;
+	padding:4px 0;
+	margin-top:10px;
+	display:block;
+	
+}
+a.about {
+color:#444;
+display:block;
+
+}
 .small {
 	font-size:85%;
 }

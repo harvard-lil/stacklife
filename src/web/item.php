@@ -59,8 +59,7 @@ $(document).ready(function() {
 <!-- /////////////////// BODY ////////////////////////// -->
 <body>
   	<div class="container group row">
-		
-		
+				
 		<div style="display:none;">
 			<div id="viewerCanvas" style="width: 610px; height: 725px"></div>
 		</div> <!--end hidden viewerCanvas-->
@@ -188,15 +187,15 @@ $(document).ready(function() {
 		</div>
 	</script>
 	<script id="shelves-template" type="text/x-handlebars-template">
-    <span class="heading">Library Stacks</span>
+    <span class="heading">Subject Stacks</span>
     <ul>
       {{#if ut_count}}
 			<li id="uniform" class="button stack-button"><span class="reload">All editions</span></li>
 			{{/if}}
 			{{#if loc_call_num_sort_order}}
-			<li id="callview" class="button stack-button"><span class="reload">Infinite bookshelf</span></li>
+			<li id="callview" class="button stack-button"><span class="reload">Home</span></li>
 			{{else}}
-			<li id="callview" class="button-disabled">No call number stack</li>
+			<li id="callview" class="button-disabled">No Call Number Stack</li>
 			{{/if}}
 			{{#lcsh}}
 			<li class="subject-button"><span class="reload">{{this}}</span></li>

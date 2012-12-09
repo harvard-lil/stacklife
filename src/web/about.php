@@ -31,28 +31,26 @@ EOF;
 
     <div class="container group row">
 		
-		<div class="group span2 middle-position">
+		<div class="group span2">
 			
 			 <?php require_once('includes/logo.php');?>
 			 <p class="tagline">An experimental browsing interface to the Harvard Library</p>
 			<div class="about-button">
-				<a href="about.php" class="about">About</a>
+				<a href="index.php" class="about">Home</a>
 			</div>
 		</div><!--end logo include-->
 		
-		<div class="main span8">
-      		<div id="landing-stack"></div>
+		<div class="span8">
+			<br/><br/><br/><br/>
+      		<p class="tagline">An experimental browsing interface to the Harvard Library</p>
+			
     	</div><!--end main-->
 
 			
-		<div class="span4-negative middle-position-search">
-			<form id="search2" method="get" action="<?php echo $www_root?>/search.php">
-            	<input type="hidden" style="display:none" name="search_type" value="keyword"/>
-            	<input type="text" autofocus="autofocus" name="q" placeholder="Search"/>
-            	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
-			</form>
-		</div><!--end-span4-negative-->
-
+		<div class="span4-negative">
+			<?php require_once('includes/searchbox.php');?>
+			<div id="item-panel" class="itemData-container"></div>   
+		</div> 
 </div><!--end container-->
 
 </body>

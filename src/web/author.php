@@ -39,38 +39,46 @@ $(document).ready(function() {
 	}
 }); //End document ready
 </script>	
-
 </head>
+
+<!-- /////////////////// BODY ////////////////////////// -->
     <body>
-    <div id="wrapper">
-      <?php require_once('includes/logo.php');?>
-      <?php require_once('includes/searchbox.php');?>
-      <div class="container group"> 
-      	<div class="container-content">
-				  <div class="main">
-            <div id="fixedstack"></div>
-          </div><!--end main-->  
+    	<div class="container group row">
+      
+      		<div style="display:none;">
+				<div id="viewerCanvas" style="width: 610px; height: 725px"></div>
+			</div> <!--end hidden viewerCanvas-->
+
+      		<div id="contextData" class="group span2">
+		
+				<?php require_once('includes/logo.php');?>
+                	<div class="subjects left">
+               			<span class="heading">Subject Stacks</span>
+             			<ul id="subject_neighborhood"></ul>
+              		</div> <!-- end subjects -->
+              		<!--<div class="neighborhoods right">
+              			<span class="heading">Related Authors</span>
+            			<ul id="author_neighborhood"></ul>
+            		</div>  end neighborhoods -->  
+            	</div> <!--end contextData-->  
+      
+				<div class="main span8">
+					<div id="fixedstack"></div>
+      			</div><!-- end main-->
              
-	        <div class="itemData-container">
-	        <div id="itemData">    
-	       		<h1><?php echo $display_author ?></h1> 
-				    <br />
-             	<ul>
-             		<li id="authortitles" class="stack-button button-selected"><span class="reload">Titles by this author</span></li><br />
-             		<li id="arecentlyviewed" class="stack-button"><span class="reload">You recently viewed these</span></li> 
-             	</ul>
-             </div>
-             </div>
-             <div id="contextData">
-                <div class="subjects left">
-               		<span class="heading">Subject Shelves</span>
-             		<ul id="subject_neighborhood"></ul>
-              	</div> <!-- end subjects -->
-              	<div class="neighborhoods right">
-              		<span class="heading">Related Author Shelves</span>
-            		<ul id="author_neighborhood"></ul>
-            	</div> <!-- end neighborhoods -->  
-            </div> <!--end contextData-->  
+             
+            	<div class="span4-negative offset6">
+					<?php require_once('includes/searchbox.php');?>
+					<div id="itemData">    
+	       				<h1><?php echo $display_author ?></h1> 
+				    		<br />
+             			<ul>
+             				<li id="authortitles" class="stack-button button-selected"><span class="reload">Titles by this author</span></li><br />
+             				<li id="arecentlyviewed" class="stack-button"><span class="reload">You recently viewed these</span></li> 
+             			</ul>
+             		</div>
+				</div> 
+		
         	</div> <!--end container-content-->
     	</div> <!--end container-->
    </body>
