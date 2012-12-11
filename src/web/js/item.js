@@ -45,7 +45,7 @@ $(document).ready(function() {
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'ut_id', query: uniform_id, ribbon: $('#uniform').text()});
 	}
 	else if (loc_call_num_sort_order) {
-		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, ribbon: 'Call number shelf: what you\'d see in the library'});
+		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, ribbon: 'Infinite Stack: the library arranged by call number'});
 	}
 	else if(anchor_subject !== '') {
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'lcsh', query: anchor_subject, ribbon: anchor_subject});
@@ -130,7 +130,7 @@ $(document).ready(function() {
 			item_details.creators = creator_markup_list.join('<span class="divider"> | </span>');
 		}
 		
-	  if(item_details.rsrc_key && item_details.rsrc_key.length > 0) {
+ if(item_details.rsrc_key && item_details.rsrc_key.length > 0) {
 			$.each(item_details.rsrc_key, function(i, item){
 				if(item == 'wikipedia_org')
 				  item_details.wp_url = item_details.rsrc_value[i];
@@ -248,7 +248,7 @@ $(document).ready(function() {
 			$('#fixedstack').stackView({url: www_root + '/translators/recently.php?' + recentlyviewed, search_type: 'recently', ribbon: 'You recently viewed these'});
 		}
 		else if(compare === 'callview') {
-			$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, ribbon: 'Call number shelf: what you\'d see in the library'});
+			$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, ribbon: 'Infinite Stack: the library arranged by call number'});
 		}
 		else if(compare === 'alsoviewed') {
 			$('#fixedstack').stackView({url: www_root + '/translators/also.php', query: uid, search_type: 'also', ribbon: 'People who viewed this also viewed these'});
@@ -260,6 +260,7 @@ $(document).ready(function() {
 
 	$('.subject-button').live('click',function() {
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'lcsh', query: $(this).text(), ribbon: $(this).text()});
+		
 	});
 	
 	$('.wp_category-button').live('click',function() {

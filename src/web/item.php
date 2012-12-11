@@ -129,11 +129,12 @@ $(document).ready(function() {
       {{/if}}
       <li class="button-google-disabled"><a class="button-google-disabled" href="#viewerCanvas"><img src="<?php echo $www_root ?>/images/gbs_preview_disabled.png" /></a></li>
       <li class="button-google"><a id="gviewer" class="button-google" href="#viewerCanvas" style="display:none;"><img src="<?php echo $www_root ?>/images/gbs_preview.png" border="0" /></a></li>
-      {{#if wp_url}}
-      <li><a id="amzn" href="http://www.amazon.com/dp/{{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/amazon.png" alt="Amazon"/></a></li>                 	
-      <li><a href="{{wp_url}}" target="_blank" ><img src="<?php echo $www_root ?>/images/wikipedia.png" /></a></li>
+      <li><a id="amzn" href="http://www.amazon.com/dp/{{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/amazon.png" alt="Amazon"/></a></li>   
+      {{#if wp_url}}          	
+       <li><a href="{{wp_url}}" target="_blank" ><img src="<?php echo $www_root ?>/images/wikipedia.png" /></a></li>
       {{/if}}
-      
+  
+     
     </ul>
 		<div id="availability-panel"></div>
 		
@@ -193,7 +194,7 @@ $(document).ready(function() {
 			<li id="uniform" class="button stack-button"><span class="reload">All editions</span></li>
 			{{/if}}
 			{{#if loc_call_num_sort_order}}
-			<li id="callview" class="button stack-button"><span class="reload">Home</span></li>
+			<li id="callview" class="button stack-button"><span class="reload">Infinite Stack</span></li>
 			{{else}}
 			<li id="callview" class="button-disabled">No Call Number Stack</li>
 			{{/if}}

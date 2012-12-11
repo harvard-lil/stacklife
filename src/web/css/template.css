@@ -756,6 +756,8 @@ h2.signature {
 	text-decoration:none;
 }
 
+
+
 .small-button{
    	padding: 1px 2px 0px;
 }
@@ -1303,10 +1305,6 @@ textarea:focus, input:focus{
 }
 
 input {
-	  -moz-border-radius: 2px;
-   -webkit-border-radius: 2px;
-   -o-border-radius: 2px;
-   -ms-border-radius: 2px;
    margin:0px 0;
 }
 
@@ -1337,7 +1335,7 @@ input {
 
 .middle-position-search {
 	position:relative;
-	top:187px;
+	top:192px;
 }
 
 .advanced-dropdown {
