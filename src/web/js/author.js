@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'creator_exact', query: author, ribbon: author});
+	$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'creator', query: author, ribbon: author});
 	
 	// stackview link workaround
 	$('body').on('stackview.pageload', function(e) {
@@ -68,7 +68,7 @@ $(document).ready(function() {
        $('#fixedstack').stackView({url: www_root + '/translators/recently.php?' + recentlyviewed, search_type: 'recently', ribbon: 'You recently viewed these'}); 					
     }
     else if(compare == 'authortitles') {	
-       $('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'creator_exact', query: author, ribbon: author});
+       $('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'creator', query: author, ribbon: author});
     }
  	 });
 });

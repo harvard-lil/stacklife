@@ -64,7 +64,7 @@
               	<select name="search_type">
                   	<option value="title_exact">Title begins with</option>
                       <option value="title_keyword">Title contains keyword(s)</option>
-                      <option value="creator_exact">Author (last, first)</option>
+                      <option value="creator">Author (last, first)</option>
                       <option value="creator_keyword">Author contains keyword(s)</option>
                       <option value="desc_subject_lcsh_exact">Subject begins with</option>
                       <option value="desc_subject_keyword">Subject contains keyword(s)</option>
@@ -76,7 +76,7 @@
               	<select class="filter_type">
                       <option value="title_exact">Title begins with</option>
                       <option value="title_keyword">Title contains keyword(s)</option>
-                      <option value="creator_exact">Author (last, first)</option>
+                      <option value="creator">Author (last, first)</option>
                       <option value="creator_keyword">Author contains keyword(s)</option>
                       <option value="desc_subject_lcsh_exact">Subject begins with</option>
                       <option value="desc_subject_keyword">Subject contains keyword(s)</option>
