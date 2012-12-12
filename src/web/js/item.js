@@ -195,13 +195,14 @@ $(document).ready(function() {
     });
     
     $("#toc").html('');
-		if(item_details.note) {
-      var toc = item_details.note[0];
-      toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
-      if(toc) {
-        $("#toc").html('<p>' + toc + '</p>');
-      }
-		}
+    if('505a' in item_details.source_record) {
+    	      var sr = item_details.source_record;
+          var toc = sr['505a'];
+          toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
+          if(toc) {
+            $("#toc").html('<p>' + toc + '</p>');
+          }
+    }
 		
 		// If we have our first isbn, get affiliate info. if not, hide the DOM element
 		if (isbn) {
