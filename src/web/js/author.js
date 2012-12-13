@@ -1,5 +1,12 @@
 $(document).ready(function() {
+	
 	$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'creator', query: author, ribbon: author});
+	
+	$('.stackview').css('height', $(window).height());
+  
+  $(window).resize(function() {
+		$('.stackview').css('height', $(window).height());
+	});
 	
 	// stackview link workaround
 	$('body').on('stackview.pageload', function(e) {
