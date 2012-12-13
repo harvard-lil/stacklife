@@ -200,8 +200,11 @@ $(document).ready(function() {
           var toc = sr['505a'];
           toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
           if(toc) {
-            $("#toc").html('<p>' + toc + '</p>');
+            $("#toc").html('<p>' + toc + '</p>')
+            $(".toc-title").show();
           }
+    } else {
+        $(".toc-title").hide();
     }
 		
 		// If we have our first isbn, get affiliate info. if not, hide the DOM element

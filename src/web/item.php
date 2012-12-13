@@ -150,7 +150,7 @@ $(document).ready(function() {
       </ul>
     </div>
     
-    <h3 class="clickable slide-more">Table of Contents<span class="arrow"></span></h3>
+    <h3 class="clickable slide-more toc-title">Table of Contents<span class="arrow"></span></h3>
     <div class="slide-content" style="display:none;">
       <div id="toc"></div>
     </div>
@@ -202,10 +202,10 @@ $(document).ready(function() {
 			<li class="subject-button"><span class="reload">{{this}}</span></li>
 			{{/lcsh}}
     </ul>
-    <span class="heading">Community Stacks</span>
+    <span class="heading">Your Stack</span>
     <ul>
-      <li id="alsoviewed" class="button stack-button"><span class="reload">People who viewed this also viewed these</span></li>
-      <li id="recentlyviewed" class="button stack-button"><span class="reload">You recently viewed these</span></li>
+      {{! <li id="alsoviewed" class="button stack-button"><span class="reload">People who viewed this also viewed these</span></li> }}
+      <li id="recentlyviewed" class="button stack-button"><span class="reload">Recently Viewed</span></li>
     </ul>
     {{#if wp_categories}}
     <span class="heading">Wikipedia Stacks</span>
