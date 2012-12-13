@@ -84,11 +84,12 @@ function fetch_tag_cloud()
 
 function fetch_author_neighborhood()
 {
+  global $LIBRARYCLOUD_URL;
 	$related_authors_global = array();
 	$author = addslashes($_GET['author']);
 	$search_type = "creator";
 	$q = urlencode($author);
-	$url = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q";	
+	$url = "$LIBRARYCLOUD_URL?filter=$search_type:$q";	
 	$contents = fetch_page($url);
 	$json = json_decode($contents);
 	// Fetch sort numbers for each book authored by current author
@@ -100,7 +101,7 @@ function fetch_author_neighborhood()
 			// Fetch authors for each book by this author as well as books whose sort numbers lie adjacent to the sort number for each book by this author
 			$search_type = "loc_call_num_sort_order";
 			$q = $sort_num;
-			$url_sort_num = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q";	
+			$url_sort_num = "$LIBRARYCLOUD_URL?filter=$search_type:$q";	
 			$contents_sort_num = fetch_page($url_sort_num);
 			$json_sort_num = json_decode($contents_sort_num);	
 			$related_authors = array();		
@@ -115,7 +116,7 @@ function fetch_author_neighborhood()
 			$sort_num_upstream = $sort_num - 1;
 			$search_type = "loc_call_num_sort_order";
 			$q = $sort_num_upstream;
-			$url_sort_num = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q";	
+			$url_sort_num = "$LIBRARYCLOUD_URL?filter=$search_type:$q";	
 			$contents_sort_num = fetch_page($url_sort_num);
 			$json_sort_num = json_decode($contents_sort_num);	
 			$related_authors = array();		
@@ -130,7 +131,7 @@ function fetch_author_neighborhood()
 			$sort_num_downstream = $sort_num + 1;
 			$search_type = "loc_call_num_sort_order";
 			$q = $sort_num_downstream;
-			$url_sort_num = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q";	
+			$url_sort_num = "$LIBRARYCLOUD_URL?filter=$search_type:$q";	
 			$contents_sort_num = fetch_page($url_sort_num);
 			$json_sort_num = json_decode($contents_sort_num);	
 			$related_authors = array();		
@@ -151,10 +152,11 @@ function fetch_author_neighborhood()
 
 function fetch_author_subjects()
 {
+  global $LIBRARYCLOUD_URL;
 	$author = addslashes($_GET['author']);
 	$search_type = "creator";
 	$q = urlencode($author);
-	$url = "http://hlsl7.law.harvard.edu/platform/v0.03/api/item/?filter=$search_type:$q&facet=lcsh";	
+	$url = "$LIBRARYCLOUD_URL?filter=$search_type:$q&facet=lcsh";
 	$contents = fetch_page($url);
 	$json = json_decode($contents);
 	$count = 0;
