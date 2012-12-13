@@ -188,15 +188,17 @@ $(document).ready(function() {
 		</div>
 	</script>
 	<script id="shelves-template" type="text/x-handlebars-template">
+	  <ul>
+	  	{{#if loc_call_num_sort_order}}
+			<li id="callview" class="button stack-button"><span class="reload">Infinite Stack</span></li>
+			{{else}}
+			<li id="callview" class="button-disabled">No Call Number Stack</li>
+			{{/if}}
+		</ul>
     <span class="heading">Subject Stacks</span>
     <ul>
       {{#if ut_count}}
 			<li id="uniform" class="button stack-button"><span class="reload">All editions</span></li>
-			{{/if}}
-			{{#if loc_call_num_sort_order}}
-			<li id="callview" class="button stack-button"><span class="reload">Infinite Stack</span></li>
-			{{else}}
-			<li id="callview" class="button-disabled">No Call Number Stack</li>
 			{{/if}}
 			{{#lcsh}}
 			<li class="subject-button"><span class="reload">{{this}}</span></li>
