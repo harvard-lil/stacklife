@@ -86,26 +86,41 @@ var config = (function () {
 	
     uri_params = util.get_uri_params();
 
-    if (uri_params['search_type'] && uri_params['search_type'][0]) {
+    my.start = 0;
+    my.limit = 20;
+    my.sort_field = 'shelfrank';
+    my.sort_direction = 'desc'
+	
+	// For incoming searches, we break down the query into filter pairs
+	my.search_filters = new Array();
+	
+	
+	if (uri_params['search_type'] && uri_params['search_type'][0]) {
 	    my.search_type = uri_params['search_type'][0];
     } else {
         my.search_type = 'keyword';
     }
 
-    if (uri_params['q'] && uri_params['q'][0]) {
-	    my.query = uri_params['q'][0];
-    } else {
-        my.query = '';
-    }
-    
-    my.start = 0;
-    my.limit = 20;
-    my.sort_field = 'shelfrank';
-    my.sort_direction = 'desc'
+    my.query = '';
 
+    if (uri_params['q'] && uri_params['q'][0]) {
+        
+        my.query = uri_params['q'][0];
+        
+        var terms = uri_params['q'][0].split(" ");
+        
+        if (terms.length > 0){
+            $.each(terms, function(i, item) {
+    			my.search_filters.push(item);
+    		});
+        }
+        
+	    //my.query = uri_params['q'][0];
+    }
+	
 	// The container for our filters (when someone clicks a facet, that becomes
 	// a fliter
-	my.filters = new Array();
+	my.filters = new Array();	
     
     // Push any incoming filters onto our filters list (these would 
     // probably come from an advanced search
@@ -133,7 +148,7 @@ var config = (function () {
 	my.get_query_string = function() {
 		var composite_query = my.search_type + ':' + my.query;
 		
-		var std_params = ['search_type=' + my.search_type, 'query=' + my.query,
+		var std_params = ['search_type=*', 'query=*',
 		                  'start=' + my.start, 'limit=' + my.limit, 
 		                  'sort=' + my.sort_field + ' ' + my.sort_direction];
 				
@@ -143,6 +158,10 @@ var config = (function () {
 		
 		$.each(my.filters, function(i, item) {
 			std_params.push('filter='+ item);
+		});
+		
+		$.each(my.search_filters, function(i, item) {
+			std_params.push('filter=' + my.search_type + ':'+ item);
 		});
 
 		return std_params.join('&');
@@ -427,7 +446,7 @@ $('.sortable').live('click', function() {
   	
   	// If a user adds another field/query search pair
 	$('.addfield').live('click', function() {
-		$('.searchBox:last').parent().after('<p><select class="filter_type"><option value="title_exact">Title begins with</option><option value="title_keyword">Title contains keyword(s)</option><option value="creator">Author (last, first)</option><option value="creator_keyword">Author contains keyword(s)</option><option value="desc_subject_lcsh_exact">Subject begins with</option><option value="desc_subject_lcsh_keyword">Subject contains keyword(s)</option><option value="keyword" selected="selected">Keyword(s) anywhere</option></select><input type="hidden" value="" name="filter" /> <input type="text" class="searchBox filter_query" /></p>');
+		$('.searchBox:last').parent().after('<p><select name="filter"><option value="keyword">Keyword anywhere</option><option value="title">Title exact</option><option value="title_keyword">Title contains keyword(s)</option><option value="creator">Author exact (last, first)</option><option value="creator_keyword">Author contains keyword(s)</option><option value="lcsh">Subject exact</option><option value="lcsh_keyword">Subject contains keyword(s)</option></select><input type="text" class="searchBox filter_type" name="q"/></p>');
 		
 		if($('#advanced .searchBox').size() > 4)
 			$(this).removeClass('addfield');
@@ -449,18 +468,6 @@ $('.sortable').live('click', function() {
 	$('#advanced .facet_set p').live('click', function() {
 		$('#advanced .facet_set p').not(this).next('ul').slideUp();
 		$(this).next().slideToggle();
-	});
-	
-	// The field part of our field/query search pair
-	$('#advanced .filter_type').live('change', function() {
-		var that = $(this).next();
-		$(this).next().val($(this).val() + ':' + that.next().val() );
-	});
-	
-	// The query part of our field/query search pair
-	$('#advanced .filter_query').live('change', function() {
-		var that = $(this).prev();
-		$(this).prev().val(that.prev().val() + ':' + $(this).val() );
 	});
 
 //DOM event controls, end

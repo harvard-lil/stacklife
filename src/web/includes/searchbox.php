@@ -6,8 +6,8 @@
             	<input type="text" name="q" autofocus="autofocus" placeholder="Search"/>
             	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
 			</form>
-			<a id="inline" href="#advanced" style="display:none">Advanced Search</a>
-			<a href="<?php echo $www_root?>/search.php?search_type=advanced&q" class="button advanced-search">Advanced Search</a>
+			<!-- <a id="inline" href="#advanced" style="display:none">Advanced Search</a>
+			<a href="<?php echo $www_root?>/search.php?search_type=advanced&q" class="button advanced-search">Advanced Search</a> -->
     	</div><!--end search-->
 	</div><!--end header-content-->
 </div><!--end header-->
