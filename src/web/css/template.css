@@ -345,6 +345,8 @@ hr {
     background:-webkit-linear-gradient(135deg,  transparent 20px, #fff 20px);  
     background:-moz-linear-gradient(135deg,  transparent 20px, #fff 20px);
     background:-o-linear-gradient(135deg,  transparent 20px, #fff 20px);
+    position:relative;
+    z-index:4;
 }
 
 #itemData a {
@@ -379,7 +381,7 @@ hr {
   
 
 #shelves-panel {
-	margin-top:27px;
+	margin-top:-8px;
 }
 
 .main {
@@ -1327,6 +1329,11 @@ input {
 
 
 /*/////////////////////////////////////////////////////////*/
+
+.center {
+	margin:0 auto;
+	display:block;
+}
 
 .middle-position {
 	position:relative;

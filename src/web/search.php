@@ -88,7 +88,7 @@ var www_root = '<?php echo $www_root ?>';
     		        <th id="title_sort" class="sort_heading">Title</th>
     		        <th id="creator" class="sort_heading">Author</th>
     		        <th id="pub_date" class="sort_heading">Year</th>
-    		        <th id="shelfrank" class="sort_heading sortable score">StackRank<span class="{{#get_sort_direction sort_direction}}{{this}}{{/get_sort_direction}}"></span></th>
+    		        <th id="shelfrank" class="sort_heading sortable score">StackScore<span class="{{#get_sort_direction sort_direction}}{{this}}{{/get_sort_direction}}"></span></th>
     		        <th></th>
     		    </tr>
     		</thead>
@@ -112,7 +112,7 @@ var www_root = '<?php echo $www_root ?>';
 	
     <script id="slider-container-template" type="text/x-handlebars-template">
 		<div class="facet_heading">
-		    Refine by StackRank
+		    Refine by StackScore
 		    <fieldset>
 		        <select name="valueA" id="valueA" style="display:none">
 		            <option value="1" selected="selected">1</option>

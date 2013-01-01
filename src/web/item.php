@@ -157,7 +157,7 @@ $(document).ready(function() {
     </div>
     <div id="all-rank" class="slide-more">	            
     <div id="shelfRankCalc" class="button-shelfRank">
-      <span class="unpack">StackRank</span>
+      <span class="unpack">StackScore</span>
       <span class="shelfRank">{{shelfrank}}</span>
     </div><!--end shelfRankCalc-->
   </div><!--end all-rank-->
@@ -195,6 +195,7 @@ $(document).ready(function() {
 			<li id="callview" class="button-disabled">No Call Number Stack</li>
 			{{/if}}
 		</ul>
+		 <br/>
     <span class="heading">Subject Stacks</span>
     <ul>
       {{#if ut_count}}
@@ -204,7 +205,8 @@ $(document).ready(function() {
 			<li class="subject-button"><span class="reload">{{this}}</span></li>
 			{{/lcsh}}
     </ul>
-    <span class="heading">Your Stack</span>
+    <br/>
+    <span class="heading">Community Stacks</span>
     <ul>
       {{! <li id="alsoviewed" class="button stack-button"><span class="reload">People who viewed this also viewed these</span></li> }}
       <li id="recentlyviewed" class="button stack-button"><span class="reload">Recently Viewed</span></li>
