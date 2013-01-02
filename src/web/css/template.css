@@ -37,9 +37,7 @@ ol, ul {
 -------------------------------------------------------------- */
 
 
-.stackview .ribbon {
-	max-width:350px;
-}
+
 html, body {
 	height: 100%;/*managing the sticky footer*/
 }
@@ -244,13 +242,13 @@ ol {
 
 .upstream, .prev-page {
     -moz-user-select: none;
-    background-image: url("../images/nav.png");
+    background-image: url("../images/nav2.png");
     background-position: 0 -87px;
     background-repeat: no-repeat;
-    height: 43px;
+    height: 65px;
     margin-bottom: 10px;
     position: relative;
-    width: 41px;
+    width: 65px;
 }
 
 .upstream:hover, .prev-page:hover {
@@ -263,9 +261,9 @@ ol {
 
 .downstream, .next-page {
 	position:relative;
-	width:41px;
-	height:43px;
-	background-image:url('../images/nav.png');
+	width:65px;
+	height:65px;
+	background-image:url('../images/nav2.png');
 	background-repeat:no-repeat;
 	background-position: 0 -130px;
    -webkit-user-select: none;
@@ -329,7 +327,7 @@ hr {
 }
 
 .itemData-container {
-	margin: 24px 0px 30px;
+	margin: 24px 0px 0px;
 	padding:5px 5px 5px;
 	background-image:none;
 	float:right;
@@ -389,12 +387,6 @@ hr {
 	margin-left:20px;
 	z-index: 0;
 
-}
-
-#fixedstack {
-	position:fixed;
-	width:50%;
-	top:0px;
 }
 
 #overlaynav a {
@@ -713,7 +705,7 @@ h2.signature {
 }
 
 .reload:hover {
-	background-position:0 -13px;
+	background-position:0 5px;;
 	color:#005288;
 }
 
@@ -752,6 +744,12 @@ h2.signature {
 
 .subject-button, .stack-button, #callview {
 	height:auto;
+	background:#f9f9f9; 
+	padding:5px 5px 5px 17px;
+}
+
+.subject-button {
+
 }
 
 .subject-button:visited {
@@ -997,11 +995,6 @@ facet_pairs label {
 	user-select:none;
 }
 
-.num_found {
-	float:left;
-	font-size:1em;
-	margin:8px 18px 0;
-}
 
 #results p.result-count {
 	padding-left:15px;
@@ -1284,7 +1277,6 @@ input[type="submit"] {
 }
 
 input[type="text"] {
-	width:200px;
 	 font-size: 1em;
 	 padding:0 5px;
 	 
