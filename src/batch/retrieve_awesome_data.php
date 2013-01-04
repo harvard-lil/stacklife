@@ -64,8 +64,8 @@
             if (property_exists($lc_response->docs[0], 'format') && !empty($lc_response->docs[0]->format)) {
                 $static_doc['format'] = $lc_response->docs[0]->format;
             }
-        
-            $static_doc['link'] = "http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|" . $doc->hollis_id;
+
+            $static_doc['link'] = "http://localhost/shelflife/item/" . $lc_response->docs[0]->title_link_friendly . '/' . $lc_response->docs[0]->id;
 
             $static_docs[] = $static_doc;
         }

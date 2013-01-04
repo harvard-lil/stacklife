@@ -1,6 +1,6 @@
-#ShelfLife
+#StackLife
 
-Shelflife is a community-based wayfinding tool for navigating the vast resources of the combined Harvard Library System. It enables researchers, teachers, scholars, and students to find what they need and help others learn from them and their paths.
+StackLife is a community-based wayfinding tool for navigating the vast resources of the combined Harvard Library System. It enables researchers, teachers, scholars, and students to find what they need and help others learn from them and their paths.
 
 ## Installation
 
@@ -10,19 +10,19 @@ ShelLife is the frontend to LibraryCloud's backend. Install LibraryCloud.
 
 ### PHP and the web server
 
-ShelfLife is written in PHP. PHP 5.3 or later is recommended.
+StackLife is written in PHP. PHP 5.3 or later is recommended.
 
-Serving up ShelfLife in [Apache](http://httpd.apache.org/) is probably the easiest way to get started. ShelfLife relies on rewrite rules in .htaccess. Be sure you're allowing for .htaccess in your httpd configuration and that you have mod_php and mod_rewrite installed.
+Serving up StackLife in [Apache](http://httpd.apache.org/) is probably the easiest way to get started. StackLife relies on rewrite rules in .htaccess. Be sure you're allowing for .htaccess in your httpd configuration and that you have mod_php and mod_rewrite installed.
 
 ### Installation
 
-Use the git clone command to get the latest version of ShelfLife:
+Use the git clone command to get the latest version of StackLife:
 
-    git clone git://github.com/harvard-lil/shelflife.git
+    git clone git://github.com/harvard-lil/stacklife.git
 
 ### Supporting MySQL database
 
-ShelfLife requires a supporting database called 'sl' that has two tables.
+StackLife requires a supporting database called 'sl' that has two tables.
 
     CREATE TABLE sl_test (id mediumint(11) NOT NULL AUTO_INCREMENT, item_id varchar(255) NOT NULL, tag varchar(255) NOT NULL, PRIMARY KEY (id));
     CREATE TABLE sl_also_viewed (id mediumint(11) NOT NULL AUTO_INCREMENT, book_one varchar(256) NOT NULL, book_two varchar(256) NOT NULL, PRIMARY KEY (id));
@@ -31,7 +31,7 @@ The connection details for this database should be put into the configuration fi
 
 ### Typekit
 
-ShelfLife uses fonts from TypeKit.  The TypeKit embed code should be put into the configuration file.
+StackLife uses fonts from TypeKit.  The TypeKit embed code should be put into the configuration file.
 
 The font FF Tisa Web Pro should be assigned to the following selectors.
 
@@ -41,12 +41,27 @@ The font Futura PT should be assigned to the following selectors.
 
     #all-rank, #recentlyviewed, #search_results_header, #welcome, #wrap, .addfield, .facet_heading, .facet_set, .hdr, .heading, .hits, .reload, .rem_filter, .removefield, .tk-futura-pt
 
-### ShelfLife Configuration
+### StackLife Configuration
 
 Configuration takes place in etc/sl_ini.php. Copy the example and edit the values:
 
-    cd shelflife/etc
+    cd stacklife/etc
     cp sl_ini.example.php sl_ini.php
+
+### Generating the landing page, static stack data
+
+The landing page stack is populated by data from the [Awesome Box](http://www.librarylab.law.harvard.edu/awesome/) API. We use a script to grab the 200 most recently awesomed items and massage them into a [StackView](http://librarylab.law.harvard.edu/blog/stack-view/) friendly static JSON object.
+
+To generate the static JSON file:
+
+    cd src/batch
+    php -f retrieve_awesome_data.php
+
+If things bang off without issues you should now have src/web/js/awesome.js
+
+It's nice to see that list stay fresh. Cron it to run at 3:03 am:
+
+    3 3 * * * php -f /var/www/html/stacklife/src/batch/retrieve_awesome_data.php
 
 ## License
 
