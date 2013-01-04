@@ -7,6 +7,8 @@
  * a StackView stack on the homepage.
  ****************************/
 
+    require_once ('../../etc/sl_ini.php');
+
     $curl = curl_init();
     curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
@@ -65,7 +67,7 @@
                 $static_doc['format'] = $lc_response->docs[0]->format;
             }
 
-            $static_doc['link'] = "http://localhost/shelflife/item/" . $lc_response->docs[0]->title_link_friendly . '/' . $lc_response->docs[0]->id;
+            $static_doc['link'] = "$www_root/item/" . $lc_response->docs[0]->title_link_friendly . '/' . $lc_response->docs[0]->id;
 
             $static_docs[] = $static_doc;
         }
