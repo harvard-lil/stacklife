@@ -60,6 +60,10 @@
             if (property_exists($lc_response->docs[0], 'pub_date_numeric') && !empty($lc_response->docs[0]->pub_date_numeric)) {
                 $static_doc['pub_date'] = $lc_response->docs[0]->pub_date_numeric;
             }
+            
+            if (property_exists($lc_response->docs[0], 'format') && !empty($lc_response->docs[0]->format)) {
+                $static_doc['format'] = $lc_response->docs[0]->format;
+            }
         
             $static_doc['link'] = "http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|" . $doc->hollis_id;
 
