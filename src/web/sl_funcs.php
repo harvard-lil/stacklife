@@ -89,7 +89,7 @@ function fetch_author_neighborhood()
 	$author = addslashes($_GET['author']);
 	$search_type = "creator";
 	$q = urlencode($author);
-	$url = "$LIBRARYCLOUD_URL?filter=$search_type:$q";	
+	$url = "$LIBRARYCLOUD_URL?key=$LIBRARYCLOUD_KEY&filter=$search_type:$q";	
 	$contents = fetch_page($url);
 	$json = json_decode($contents);
 	// Fetch sort numbers for each book authored by current author
@@ -156,7 +156,7 @@ function fetch_author_subjects()
 	$author = addslashes($_GET['author']);
 	$search_type = "creator";
 	$q = urlencode($author);
-	$url = "$LIBRARYCLOUD_URL?filter=$search_type:$q&facet=lcsh";
+	$url = "$LIBRARYCLOUD_URL?key=$LIBRARYCLOUD_KEY&filter=$search_type:$q&facet=lcsh";
 	$contents = fetch_page($url);
 	$json = json_decode($contents);
 	$count = 0;
