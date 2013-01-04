@@ -34,25 +34,23 @@ EOF;
 		<div class="group span2">
 			
 			 <?php require_once('includes/logo.php');?>
-			 <p class="tagline">An experimental browsing interface to the Harvard Library</p>
 			<div class="about-button">
 				<a href="index.php" class="about">Home</a>
 			</div>
 		</div><!--end logo include-->
 		
-		<div class="span8">
+		<div class="span10">
 			<br/><br/><br/><br/>
-      		<p class="tagline">An experimental browsing interface to the Harvard Library</p>
+      		
       		<div class="center">
 				<iframe src="http://player.vimeo.com/video/55894472?title=0&amp;byline=0&amp;portrait=0&amp;badge=0" width="500" height="334" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> 
+    			<img src="images/how-to.png"/>
     		</div><!--end center-->
     	</div><!--end main-->
-
-			
-		<div class="span4-negative">
-			<?php require_once('includes/searchbox.php');?>
-			<div id="item-panel" class="itemData-container"></div>   
-		</div> 
+		<div class="row span12">
+		<img src="images/how-to.png"/>
+		</div>	
+	
 </div><!--end container-->
 
 </body>

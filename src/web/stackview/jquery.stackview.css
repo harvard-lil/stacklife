@@ -121,35 +121,36 @@
 }
 
 .stackview .ribbon {
-  position: absolute;
+/*/  position: absolute;
   z-index: 3;
   left: 55px;
   right: 10px;
-  top: 12px;
+  top: 0px;
   padding: 5px 10px 5px 12px;
-  min-height: 20px;
+  min-height: 28px;
+ 	border-radius:100px;
   font-size: 16px;
   line-height: 18px;
-  background: #dd0;
-  background: rgba(252, 221, 94, 0.85);
+  background: #f9f9f9;
   color: #035;
   border: 1px solid #fe4;
-  border-radius: 2px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none;/*/
+  border-bottom:1px solid #ccc;
 }
+
+/*/
 .stackview .ribbon:after {
   content: "";
   position: absolute;
   bottom: -11px;
   left: 0;
-  background: url("images/ribbonTab.png") no-repeat 0 0;
   width: 10px;
   height: 10px;
 }
-
+/*/
 /******************
    HEATMAP
 
@@ -536,14 +537,14 @@
 ***************/
 .stack-navigation {
 position:absolute;
-left: 5px;
-  top: 5px;
-  width: 41px;
+	left: -10px;
+
+  width: 53px;
   text-align: center;
 }
 .stack-navigation .upstream, .stack-navigation .downstream { 
   position:fixed;
-  height: 43px;
+  height: 53px;
   text-indent: -999em;
   overflow: hidden;
   -webkit-touch-callout: none;
@@ -554,32 +555,32 @@ left: 5px;
   user-select: none;
 }
 .stack-navigation .upstream {
-  background: url("images/nav.png") 0 -87px no-repeat;
-  top:15px;
+  background: url("images/nav2.png") 0 -114px no-repeat;
+  top:84px;
 }
 .stack-navigation .upstream:hover, .stack-navigation .upstream:focus {
-  background-position: 0 -44px;
+  background-position: 0 -58px;
 }
 .stack-navigation .upstream:active {
-  background-position: 0 -1px;
+  background-position: 0 -2px;
 }
 .stack-navigation .downstream {
-  background: url("images/nav.png") 0 -130px no-repeat;
-  top:100px;
+  background: url("images/nav2.png") 0 -169px no-repeat;
+  top:172px;
 }
 .stack-navigation .downstream:hover, .stack-navigation .downstream:focus {
-  background-position: 0 -173px;
+  background-position: 0 -225px;
 }
 .stack-navigation .downstream:active {
-  background-position: 0 -216px;
+  background-position: 0 -280px;
 }
 .stack-navigation .num-found {
   position:fixed;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 16px;
-  margin: 10px 0;
   color: #09f;
-  top:52px;
+  top:138px;
+  margin-left:18px;
 }
 .stack-navigation.empty .num-found {
   visibility: hidden;
@@ -1035,4 +1036,13 @@ left: 5px;
   padding: 4px 5px 4px 14px;
   min-height: 20px;
   font-size: 16px;
+}
+
+.active-item {
+	margin-left:10px;
+}
+
+#fixedstack {
+	position:fixed;
+	top:0px;
 }
