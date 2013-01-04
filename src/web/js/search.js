@@ -252,11 +252,17 @@ var view = (function () {
 	// Draw our LibraryCloud results (the table containg the title, creator...)
 	my.draw_results = function () {
 	    
+	    var showing_upper_bound = config.start + config.limit;
+	    
+	    if (library_cloud.lc_results.num_found <= showing_upper_bound) {
+	        showing_upper_bound = library_cloud.lc_results.num_found;
+	    }
+	    
 	    // Draw search results count and paging with Handlebars template
         var source = $("#result-hits-container-template").html();
         var template = Handlebars.compile(source);
         var context = {'start': config.start, 
-            'showing': config.start + config.limit,
+            'showing': showing_upper_bound,
             'num_found': library_cloud.lc_results.num_found,
             'query': config.query};
         $('#result-hits-container').html(template(context));
@@ -509,6 +515,12 @@ Handlebars.registerHelper('first', function(context, block) {
     } else {
         return block(context[0]);
     }
+});
+
+
+//  make a large number pretty by adding commas
+Handlebars.registerHelper('commify-number', function(number) {
+    return String(number).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
 
 //  return the a scaled value for the number (this helps us map a color)
