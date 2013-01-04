@@ -14,7 +14,7 @@
 
   global $LIBRARYCLOUD_URL;
 
-  $url = "$LIBRARYCLOUD_URL?filter=$search_type:$q&limit=$limit&start=$offset&sort=$sort";
+  $url = "$LIBRARYCLOUD_URL?key=$LIBRARYCLOUD_KEY&filter=$search_type:$q&limit=$limit&start=$offset&sort=$sort";
 
   // Get facets and filters
   // TODO: This is ugly. Clean this stuff up.

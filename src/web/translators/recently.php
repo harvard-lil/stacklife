@@ -12,7 +12,7 @@
 	
 	foreach($user_books as $id) {
   
-    $url = "$LIBRARYCLOUD_URL?filter=id:$id&limit=$limit&start=$start";
+    $url = "$LIBRARYCLOUD_URL?key=$LIBRARYCLOUD_KEY&filter=id:$id&limit=$limit&start=$start";
       
     $contents = fetch_page($url);
       
