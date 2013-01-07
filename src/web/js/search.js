@@ -84,6 +84,14 @@ var config = (function () {
     // LibraryCloud location:
     my.lc_url = www_root + '/translators/cloud.php';
 	
+	// We need to strip stop words out of our searches
+	// TODO: this feels like a bit of a kludge. improve.
+	my.stop_words = ["a", "an", "and", "are", "as", "at", "be", "but", "by",
+        "for", "if", "in", "into", "is", "it",
+        "no", "not", "of", "on", "or", "s", "such",
+        "t", "that", "the", "their", "then", "there", "these",
+        "they", "this", "to", "was", "will", "with"];
+	
     uri_params = util.get_uri_params();
 
     my.start = 0;
@@ -109,9 +117,11 @@ var config = (function () {
         
         var terms = uri_params['q'][0].split(" ");
         
-        if (terms.length > 0){
+        if (terms.length > 0){            
             $.each(terms, function(i, item) {
-    			my.search_filters.push(item);
+                if ($.inArray(item, my.stop_words) === -1) {
+        			my.search_filters.push(item);
+    			}
     		});
         }
         
