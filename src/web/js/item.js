@@ -196,13 +196,13 @@ $(document).ready(function() {
     
     $("#toc").html('');
     if('505a' in item_details.source_record) {
-    	      var sr = item_details.source_record;
-          var toc = sr['505a'];
-          toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
-          if(toc) {
+        var sr = item_details.source_record;
+        var toc = String(sr['505a']);
+        toc = toc.replace(/--/g, '<br />').replace(/- -/g, '<br />').replace(/-/g, '<br />');
+        if(toc) {
             $("#toc").html('<p>' + toc + '</p>')
             $(".toc-title").show();
-          }
+        }
     } else {
         $(".toc-title").hide();
     }
