@@ -65,11 +65,15 @@ $(document).ready(function() {
     });
        			
 	$('.subject-button').live('click', function() {
+	  $('.selected-button').removeClass('selected-button');
+	  $(this).addClass('selected-button');
 		var subject = $(this).text();
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'lcsh', query: subject, ribbon: subject});
 	});
     			
   $('.stack-button').live('click', function() {
+    $('.selected-button').removeClass('selected-button');
+	  $(this).addClass('selected-button');
     var compare = $.trim($(this).attr('id'));
     if(compare == 'arecentlyviewed') {
        $('#fixedstack').stackView({url: www_root + '/translators/recently.php?' + recentlyviewed, search_type: 'recently', ribbon: 'You recently viewed these'}); 					
