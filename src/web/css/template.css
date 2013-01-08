@@ -597,6 +597,20 @@ label {
 	color:#999;
 }
 
+.call-out {
+	display:block;
+	padding:10px 20px;
+	font-size:20px;AZ
+}
+
+.about-text {
+	padding-left:40px;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .about-button {
 	background:#eee;
 	text-align:center;
@@ -744,7 +758,7 @@ h2.signature {
 
 .subject-button, .stack-button, #callview {
 	height:auto;
-	background:#f9f9f9; 
+	background:#f1f1f1; 
 	padding:5px 5px 5px 17px;
 }
 

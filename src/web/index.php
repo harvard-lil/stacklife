@@ -34,10 +34,11 @@ EOF;
 		<div class="group span2 middle-position">
 			
 			 <?php require_once('includes/logo.php');?>
-			 <p class="tagline">An experimental browsing interface to the Harvard Library</p>
 			<div class="about-button">
 				<a href="about.php" class="about">About</a>
 			</div>
+			 <p class="tagline">An experimental browsing interface to the Harvard Library</p>
+			
 		</div><!--end logo include-->
 		
 		<div class="main span8">

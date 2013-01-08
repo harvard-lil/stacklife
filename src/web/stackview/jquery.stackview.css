@@ -555,14 +555,14 @@ position:absolute;
   user-select: none;
 }
 .stack-navigation .upstream {
-  background: url("images/nav2.png") 0 -114px no-repeat;
+  background: url("images/nav2.png") 0 -113px no-repeat;
   top:84px;
 }
 .stack-navigation .upstream:hover, .stack-navigation .upstream:focus {
-  background-position: 0 -58px;
+  background-position: 0 -57px;
 }
 .stack-navigation .upstream:active {
-  background-position: 0 -2px;
+  background-position: 0 -1px;
 }
 .stack-navigation .downstream {
   background: url("images/nav2.png") 0 -169px no-repeat;
