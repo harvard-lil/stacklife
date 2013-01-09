@@ -73,7 +73,7 @@ $(document).ready(function() {
 	       				<h1><?php echo $display_author ?></h1> 
 				    		<br />
              			<ul>
-             				<li id="authortitles" class="stack-button button-selected"><span class="reload">Titles by this author</span></li><br />
+             				<li id="authortitles" class="stack-button selected-button"><span class="reload">Titles by this author</span></li><br />
              				<li id="arecentlyviewed" class="stack-button"><span class="reload">You recently viewed these</span></li> 
              			</ul>
              		</div>

@@ -43,12 +43,15 @@ $(document).ready(function() {
 
 	if(uniform_count > 0) {
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'ut_id', query: uniform_id, ribbon: $('#uniform').text()});
+		$('#uniform').addClass('selected-button');
 	}
 	else if (loc_call_num_sort_order) {
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'loc_call_num_sort_order', id: loc_call_num_sort_order, ribbon: 'Infinite Stack: the library arranged by call number'});
+		$('#callview').addClass('selected-button');
 	}
 	else if(anchor_subject !== '') {
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'lcsh', query: anchor_subject, ribbon: anchor_subject});
+		$('.subject-button:first').addClass('selected-button');
 	}
 	else if(anchor_subject === '') {
 		$('#fixedstack').text('Sorry, no Library of Congress call number or subject neighborhood found.');
@@ -247,6 +250,8 @@ $(document).ready(function() {
 	});
 
 	$('.stack-button').live('click', function() {
+	  $('.selected-button').removeClass('selected-button');
+	  $(this).addClass('selected-button');
 		var compare = $.trim($(this).attr('id'));
 		if(compare === 'recentlyviewed') {
 			$('#fixedstack').stackView({url: www_root + '/translators/recently.php?' + recentlyviewed, search_type: 'recently', ribbon: 'You recently viewed these'});
@@ -263,15 +268,20 @@ $(document).ready(function() {
 	});
 
 	$('.subject-button').live('click',function() {
+		$('.selected-button').removeClass('selected-button');
+	  $(this).addClass('selected-button');
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'lcsh', query: $(this).text(), ribbon: $(this).text()});
-		
 	});
 	
 	$('.wp_category-button').live('click',function() {
+	  $('.selected-button').removeClass('selected-button');
+	  $(this).addClass('selected-button');
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'wp_categories', query: $(this).text(), ribbon: $(this).text()});
 	});
 
 	$('.tag-button').live('click', function() {
+	  $('.selected-button').removeClass('selected-button');
+	  $(this).addClass('selected-button');
 		$('#fixedstack').stackView({url: www_root + '/translators/tag.php', query: $('span', this).text(), search_type: 'tag', ribbon: $('span', this).text()});
 	});
 
