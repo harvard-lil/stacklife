@@ -21,10 +21,15 @@ echo <<<EOF
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
   <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
   <script type="text/javascript" src="$www_root/js/landing_page.js"></script>
+<script type="text/javascript" src="$www_root/js/jquery.fitvids.js"></script>
   $TYPEKIT_CODE
 EOF;
 ?>
-
+<script>
+  $(document).ready(function(){
+    $(".video").fitVids();
+  });
+</script>
 </head>
 
 <body>
@@ -34,11 +39,16 @@ EOF;
 		<div class="group span2 middle-position">
 			
 			 <?php require_once('includes/logo.php');?>
+			<br/><br/><br/><br/><br/><p class="tagline"></p>
+			 <span class="heading">How does it work?</span>
 			<div class="about-button">
-				<a href="about.php" class="about">About</a>
+				<a href="about.php">About</a>
 			</div>
-			 <p class="tagline">An experimental browsing interface to the Harvard Library</p>
-			
+				<br/>
+				 <span class="heading">Who built it?</span>
+				<div class="about-button">
+				<a href="about.php">About</a>
+			</div>
 		</div><!--end logo include-->
 		
 		<div class="main span8">

@@ -26,15 +26,16 @@
   z-index: 2;
   -webkit-overflow-scrolling: touch;
 }
+
 .stack-items:before {
-  background: url("images/bookEnd-prev.png");
+ /*/ background: url("images/bookEnd-prev.png"); /*/ 
   content: "";
   display: block;
   width: 205px;
-  height: 64px;
+
   position: relative;
   z-index: 9999;
-  margin-bottom: -10px;
+  margin-top:4px;
 }
 .stack-items:after {
   content: "";
@@ -45,14 +46,14 @@
   margin-top: -11px;
 }
 
+
 .stackview-placeholder {
   width: 250px;
-  background: url("images/placeholder.gif") no-repeat center center #ccccdd;
-  border: 1px solid #bbb;
-  border-radius: 3px;
-  height: 40px;
+  background: url("images/3.gif") no-repeat center center #fff;
+  height: 35px;
   position: relative;
   z-index: 9997;
+  margin-bottom:5px;	
 }
 
 .stack-item {
@@ -121,24 +122,8 @@
 }
 
 .stackview .ribbon {
-/*/  position: absolute;
-  z-index: 3;
-  left: 55px;
-  right: 10px;
-  top: 0px;
-  padding: 5px 10px 5px 12px;
-  min-height: 28px;
- 	border-radius:100px;
-  font-size: 16px;
-  line-height: 18px;
-  background: #f9f9f9;
-  color: #035;
-  border: 1px solid #fe4;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;/*/
-  border-bottom:1px solid #ccc;
+position: absolute;
+  visibility:hidden;
 }
 
 /*/
@@ -566,7 +551,7 @@ position:absolute;
 }
 .stack-navigation .downstream {
   background: url("images/nav2.png") 0 -169px no-repeat;
-  top:172px;
+  top:177px;
 }
 .stack-navigation .downstream:hover, .stack-navigation .downstream:focus {
   background-position: 0 -225px;
@@ -579,8 +564,8 @@ position:absolute;
   font-size: 13px;
   line-height: 16px;
   color: #09f;
-  top:138px;
-  margin-left:18px;
+  top:141px;
+  margin-left:21px;
 }
 .stack-navigation.empty .num-found {
   visibility: hidden;
@@ -644,7 +629,7 @@ position:absolute;
   border-radius: 3px 0 0 3px/20px 0 0 20px;
   border-width: 3px 1px 2px 0px;
   border-style: solid dotted solid solid;
-  border-color: #aaa #e0d7b9 #ccc #ccc;
+  border-color: #bbb #e0d7b9 #ccc #ccc;
 }
 
 .stack-cover {
