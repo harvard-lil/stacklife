@@ -283,7 +283,7 @@ ol {
 
 .next-page, .prev-page {
 	position:relative;
-	width:43px;
+	width:41px;
 	height:40px;
 	background-image:url('../images/nav3.png');
 	background-repeat:no-repeat;
@@ -309,15 +309,15 @@ ol {
 
 .prev-page {
 	float:left;
-	background-position: -83px -5px;
+	background-position: -84px -5px;
 }
 
 .prev-page:hover {
-	background-position: -42px -5px;
+	background-position: -43px -5px;
 }
 
 .prev-page:active {
-	background-position: -1px -5px;
+	background-position: -2px -5px;
 }
 /*/
 .facet-box-container {
@@ -365,7 +365,7 @@ hr {
 	padding:5px 5px 5px;
 	background-image:none;
 	position:relative;
-	border:1px solid #035;
+	border:1px solid #09f;
 	background:#eee;
 }
 
@@ -1334,7 +1334,6 @@ input[type="button"]:hover, input[type="submit"]:hover, input[type="button"]:foc
 	color:#09f;
 	outline:none;
 	border:0;
-	
 }
 
 input.pointer {
@@ -1366,7 +1365,7 @@ input[type="submit"] {
 input[type="text"] {
 	 font-size: 1em;
 	 padding:0 5px;
-	 border:1px solid #035;
+	 border:1px solid #09f;
 }
 
 input, textarea {

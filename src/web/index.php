@@ -35,11 +35,10 @@ EOF;
 <body>
 
     <div class="container group row">
-		
 		<div class="group span2 middle-position">
 			
 			 <?php require_once('includes/logo.php');?>
-			<br/><br/><br/><br/><br/><p class="tagline"></p>
+			<br/>
 			 <span class="heading">How does it work?</span>
 			<div class="about-button">
 				<a href="about.php">About</a>
