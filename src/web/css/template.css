@@ -650,11 +650,11 @@ label {
 .call-out {
 	display:block;
 	padding:10px 20px;
-	font-size:20px;AZ
+	font-size:20px;
 }
 
-.about-text {
-	padding-left:40px;
+.text-padding {
+	padding:15px;
 	-webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -674,7 +674,6 @@ label {
 	background:#f1f1f1; 
 	padding:5px 5px 5px 5px;
 	border:1px solid #ddd;
-
 }
 
 a.about {
