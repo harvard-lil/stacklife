@@ -78,6 +78,7 @@ h2, h2 a, .creator, .creator a {
 	white-space:normal;
 	word-wrap: break-word;
 	color:#555;
+	line-height:27px;
 }
 
 
@@ -359,8 +360,23 @@ hr {
 	user-select:none;
 }
 
-.itemData-container {
+.authorData-container {
 	margin: 24px 0px 0px;
+	padding:5px 5px 5px;
+	background-image:none;
+	position:relative;
+	border:1px solid #035;
+	background:#eee;
+}
+
+.authorData-inner {
+	background:#fff;
+	border:1px solid #ddd;
+	padding: 10px 15px;
+}
+
+.itemData-container {
+	margin: 24px 0px 20px;
 	padding:5px 5px 5px;
 	background-image:none;
 	float:right;
@@ -815,7 +831,7 @@ h2.signature {
 	text-decoration:none;
 }
 
-#shelves-panel .selected-button {
+#shelves-panel .selected-button, .selected-button {
 	background:#09f;
 	color:#fff;
 	border:1px solid #007acc;
@@ -888,6 +904,11 @@ h2.signature {
 
 #arecentlyviewed, #authortitles {
 	display:inline-block;
+
+}
+
+#recentlyviewed {
+	margin-bottom:10px;
 }
 
 #tagGraph { 
@@ -897,9 +918,9 @@ h2.signature {
 
 .toggle {
 	text-decoration:none;
-	font-size: .7em;
+	font-size: 18px;
 	color: #555;
-	padding: 1px 3px 1px;
+	padding: 10px 3px 1px;
 }
 				/*BUTTONS: DROP-DOWN STYLING*/
 /* ------------------------------------------------------- */

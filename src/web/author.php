@@ -55,6 +55,11 @@ $(document).ready(function() {
                 	<div class="subjects left">
                			<span class="heading">Subject Stacks</span>
              			<ul id="subject_neighborhood"></ul>
+             			<br/>
+             			 <span class="heading">Community Stacks</span>
+    						<ul>
+      							<li id="recentlyviewed" class="button stack-button"><span class="reload">Recently Viewed</span></li>
+    						</ul>
               		</div> <!-- end subjects -->
               		<!--<div class="neighborhoods right">
               			<span class="heading">Related Authors</span>
@@ -65,19 +70,22 @@ $(document).ready(function() {
 				<div class="main span8">
 					<div id="fixedstack"></div>
       			</div><!-- end main-->
-             
-             
+                       
             	<div class="span4-negative offset6">
 					<?php require_once('includes/searchbox.php');?>
 					<div id="itemData">    
-	       				<h1><?php echo $display_author ?></h1> 
-				    		<br />
-             			<ul>
-             				<li id="authortitles" class="stack-button selected-button"><span class="reload">Titles by this author</span></li><br />
-             				<li id="arecentlyviewed" class="stack-button"><span class="reload">You recently viewed these</span></li> 
-             			</ul>
-             		</div>
-				</div> 
+						<div class="authorData-container">
+							<div class="authorData-inner">
+	       						<h1><?php echo $display_author ?></h1> 
+				    			<br />
+				    			<span class="heading">Author Stacks</span>
+             					<ul>
+             						<li id="authortitles" class="stack-button selected-button"><span class="reload">Titles by this author</span></li><br />
+             					</ul>
+             				</div><!--end authorData-inner-->
+             			</div><!--end authorData-container-->
+             		</div><!--end itemData-->
+				</div> <!--end span4-negative offset6-->
 		
         	</div> <!--end container-content-->
     	</div> <!--end container-->
