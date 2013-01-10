@@ -218,6 +218,7 @@ $(document).ready(function() {
 				data: "isbn=" + isbn + "&function=check_amazon",
 				success: function(response){
 					if(response != 'false') {
+					  $('#amzn').attr('href', 'http://www.amazon.com/dp/' + response);
 						$('.buy').show();
 					} else {
 						$('.buy').hide();
