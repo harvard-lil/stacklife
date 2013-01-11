@@ -53,10 +53,14 @@ EOF;
             	<input type="text" autofocus="autofocus" name="q" placeholder="Search"/>
             	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
 			</form>
-			<p class="text">Welcome to StackLife, a Harvard library browsing tool.  </p> 
-			<p class="text">This is a prototype.  Tell us what you think about it.  Tell us about the bugs you find!   you'll find lots of bugs.  Let us know when you find them!  Email us @ stackbugs@law.harvard.edu!</p>
+			<a id="inline" href="#advanced" style="display:none">Advanced Search</a>
+			<a href="<?php echo $www_root?>/search.php?search_type=advanced&q" class="button advanced-search2">Advanced Search</a>  
+			<br/>
+			<p class="text">Welcome to a StackLife, a new way to browse the Harvard Library collection.</p> 
+			<p class="text">This is a prototype. We’re eager to hear from you about what works, what doesn’t, and what you’d like to see. Email us at <span class="cyan">lil@law.harvard.edu</span>!</p>
+			<br/>
 			<div class="about-button">
-				<a href="about.php" class="heading">Learn More</a>
+				<a href="about.php" class="heading">How To &amp; More</a>
 			</div>
 				
 		</div><!--end-span4-negative-->

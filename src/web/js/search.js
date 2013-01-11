@@ -68,7 +68,7 @@ var util = (function () {
 	my.populate_form = function() {
 		$('#search input:nth-child(2)').val(config.query);
 		$('form > select').val(config.search_type);
-		document.title = config.query + ' | ShelfLife Search';
+		document.title = config.query + ' | StackLife Search';
 	}
 
     return my; 

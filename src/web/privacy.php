@@ -37,23 +37,23 @@ EOF;
 <body>
 
     <div class="container group">
-    	<div class="row">
+    	<div class="row group">
 			<div class="span2 middle-position">
 			 	<?php require_once('includes/logo.php');?>
-				<div class="about-button">
-					<a href="index.php" class="about">Home</a>
-				</div>
-			</div><!--end logo include-->
-
-			<div class="span10 offset2 text-padding">
-				<p><span class="call-out">&nbsp;</p>
 			</div>
-		</div><!--end row-->
+			<div class="span4 offset1 about-button">
+				<a href="index.php" class="about home">Home</a>
+			</div>
+	
+			<div class="span4 offset1">
+				<?php require_once('includes/searchbox.php');?>  
+			</div> 
+		</div>
 		
 		<div class="row group">
 			<div class="span5 offset2 text-padding">		
 			
-				<span class="question">Policies of the Harvard Library Innovation Lab</span><br />
+				<span class="question">Our Policy Privacy</span><br />
             	<p>The Harvard Library Innovation Laboratory at Harvard Law School is an academic institution engaged in experimental research related to the improvement of library services and technologies. Our online software projects may collect information of various kinds from visitors, but the Lab is committed to respecting and protecting personal privacy.</p>
 
 				<p>We collect limited, anonymous information from site visitors in order to measure site activity and improve the usefulness of our site. The usage information we collect may include IP address, browser type, operating system, screen size and resolution, date and time of visit, search engine and search terms, and IP address of referring page. We collect this information on an aggregate basis only. We do not link any of the above information to any personal identifiers. </p>

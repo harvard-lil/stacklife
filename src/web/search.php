@@ -49,7 +49,7 @@ var www_root = '<?php echo $www_root ?>';
     	<div id="facet_bread_crumb_container" class="span6"></div>	
     		
     
-    	<div class="span4"><?php require_once('includes/searchbox.php');?></div>
+    	<div class="span4 searchbox"><?php require_once('includes/searchbox.php');?></div>
 		<div class="span10">
 		<div class="search-container-content"> 
 			
