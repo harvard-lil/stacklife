@@ -75,7 +75,7 @@ $(document).ready(function() {
     $('.selected-button').removeClass('selected-button');
 	  $(this).addClass('selected-button');
     var compare = $.trim($(this).attr('id'));
-    if(compare == 'arecentlyviewed') {
+    if(compare == 'recentlyviewed') {
        $('#fixedstack').stackView({url: www_root + '/translators/recently.php?' + recentlyviewed, search_type: 'recently', ribbon: 'You recently viewed these'}); 					
     }
     else if(compare == 'authortitles') {	
