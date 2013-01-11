@@ -1,13 +1,12 @@
 $(document).ready(function() {
-	if ( !History.enabled ) {
-         // History.js is disabled for this browser.
-         // This is because we can optionally choose to support HTML4 browsers or not.
-        return false;
-    }
-	History.Adapter.bind(window,'statechange',function(){
-		var State = History.getState(); 
-		draw_item_panel(State.data.data);
-	});
+	if (History.enabled) {
+    History.Adapter.bind(window,'statechange',function(){
+		  var State = History.getState();
+		  if(State.data.data) {
+		    draw_item_panel(State.data.data);
+		  }
+	  });
+  }
 	
 	// Fetch data about the item
 	$.ajax({
@@ -29,7 +28,12 @@ $(document).ready(function() {
 				});
 			}
 			var this_details = data.docs[0];
-			History.replaceState({data:this_details,rand:Math.random()}, this_details.title, "../" + this_details.title_link_friendly + "/" + this_details.id);
+			if ( History.enabled ) {
+			  History.replaceState({data:this_details}, this_details.title, "../" + this_details.title_link_friendly + "/" + this_details.id);
+			}
+			else {
+			  draw_item_panel(this_details);
+			}
     }
 	});
 
@@ -247,9 +251,13 @@ $(document).ready(function() {
   		success: function(data){
 			  var this_details = data.docs[0];
 			  data.docs[0].this_button = this_button;
-			  History.pushState({data:this_details,rand:Math.random()}, this_details.title, "../" + this_details.title_link_friendly + "/" + this_details.id);
+			  if(History.enabled) {
+			    History.pushState({data:this_details}, this_details.title, "../" + this_details.title_link_friendly + "/" + this_details.id);
+			  }
+			  else {
         	draw_item_panel(data.docs[0]);
         }
+      }
 	  });
 		$('.active-item').removeClass('active-item');
 		$(this).parent().addClass('active-item');
