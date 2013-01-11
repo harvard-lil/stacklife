@@ -15,7 +15,7 @@ $display_author=stripslashes($author);
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php
 include_once('includes/includes.php');
-echo "<title>$display_author | ShelfLife</title>";
+echo "<title>$display_author | StackLife</title>";
 echo "<script type='text/javascript' src='$www_root/js/author.js'></script>";
 ?>
 

@@ -490,7 +490,7 @@ $('.sortable').live('click', function() {
 
     // When the page is first loaded, let's set things up here
     if(util.is_advanced()) {
-    	document.title = 'Advanced Search | ShelfLife Search';
+    	document.title = 'Advanced Search | StackLife Search';
     	$('.search-container').hide();
     	$("a#inline").fancybox({
         	'overlayShow': true,
