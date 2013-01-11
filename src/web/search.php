@@ -17,6 +17,7 @@
 
   <script type="text/javascript" src="$www_root/js/selectToUISlider.jQuery.js"></script> 
   <script charset="utf-8" type="text/javascript" src="$www_root/js/search.js"></script>
+  <script type="text/javascript" src="$www_root/js/jquery.fancybox-1.3.4.pack.js"></script>
 
   <title></title>
 EOF;

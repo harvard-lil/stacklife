@@ -8,7 +8,7 @@
 			</form>
 			<a id="inline" href="#advanced" style="display:none">Advanced Search</a>
 
-			<a href="<?php echo $www_root?>/search.php?search_type=advanced&q" class="button advanced-search">Advanced Search</a>
+			<a href="<?php echo $www_root?>/search.php?advanced=true" class="button advanced-search">Advanced Search</a>
 			
     	</div><!--end search-->
 	</div><!--end header-content-->
@@ -39,19 +39,3 @@
 	</div>
 </div>
 <!-- Advanced search fancybox, end -->
-
-<!-- Scripts common to all pages -->
-<script type="text/javascript" src="<?php echo $www_root?>/js/jquery.fancybox-1.3.4.pack.js"></script>
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-  $("a#inline").fancybox({
-    'overlayShow': true,
-    'autoDimensions' : false,
-    'width' : 500,
-    'height' : 200
-  });
-});
-
-</script>

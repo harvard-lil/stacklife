@@ -54,7 +54,7 @@ EOF;
             	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
 			</form>
 			<a id="inline" href="#advanced" style="display:none">Advanced Search</a>
-			<a href="<?php echo $www_root?>/search.php?search_type=advanced&q" class="button advanced-search2">Advanced Search</a>  
+			<a href="<?php echo $www_root?>/search.php?advanced=true" class="button advanced-search2">Advanced Search</a>  
 			<br/>
 			<p class="text">Welcome to a StackLife, a new way to browse the Harvard Library collection.</p> 
 			<p class="text">This is a prototype. We’re eager to hear from you about what works, what doesn’t, and what you’d like to see. Email us at <span class="cyan">lil@law.harvard.edu</span>!</p>

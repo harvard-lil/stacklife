@@ -44,7 +44,7 @@ var util = (function () {
     my.is_advanced = function() {
     	var uri_params = util.get_uri_params();
 
-    	if(config.search_type === 'advanced') {
+    	if(uri_params['advanced']) {
     		return true;
     	} else {
     		return false;
@@ -489,27 +489,26 @@ $('.sortable').live('click', function() {
 //DOM event controls, end
 
     // When the page is first loaded, let's set things up here
-    if(util.is_advanced()) {
+	library_cloud.get_results();
+	view.draw_persistent_controls();
+	view.draw_facets();
+	view.draw_results();
+	view.draw_filters();
+	view.draw_paging_controls();
+	util.populate_form();
+	
+	if(util.is_advanced()) {
     	document.title = 'Advanced Search | StackLife Search';
     	$('.search-container').hide();
     	$("a#inline").fancybox({
         	'overlayShow': true,
         	'autoDimensions' : false,
-        	'width' : 500,
+        	'scrolling'   : 'no',
+        	'width' : 600,
         	'height' : 200
         });
     	$("a#inline").trigger('click');
     }
-    else {
-    	library_cloud.get_results();
-    	view.draw_persistent_controls();
-    	view.draw_facets();
-    	view.draw_results();
-    	view.draw_filters();
-    	view.draw_paging_controls();
-    	util.populate_form();
-    }
-
 });
 
 
