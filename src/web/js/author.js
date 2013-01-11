@@ -57,6 +57,10 @@ $(document).ready(function() {
 			$('.subject-toggle-more').hide();
 			if(count > showCount)
 			  $('#subject_neighborhood').append('<span id="subject-toggle" class="clickable toggle">more<span class="arrow"></span></span>');
+                        
+   			if (count === 0) {
+        			$('.subjects .heading:first').hide();
+                        }
 	});
     
   $('.toggle').live('click', function() {
