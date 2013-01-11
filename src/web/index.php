@@ -21,23 +21,25 @@ echo <<<EOF
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
   <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
   <script type="text/javascript" src="$www_root/js/landing_page.js"></script>
+<script type="text/javascript" src="$www_root/js/jquery.fitvids.js"></script>
   $TYPEKIT_CODE
 EOF;
 ?>
-
+<script>
+  $(document).ready(function(){
+    $(".video").fitVids();
+  });
+</script>
 </head>
 
 <body>
 
     <div class="container group row">
-		
 		<div class="group span2 middle-position">
 			
 			 <?php require_once('includes/logo.php');?>
-			 <p class="tagline">An experimental browsing interface to the Harvard Library</p>
-			<div class="about-button">
-				<a href="about.php" class="about">About</a>
-			</div>
+
+		
 		</div><!--end logo include-->
 		
 		<div class="main span8">
@@ -51,6 +53,16 @@ EOF;
             	<input type="text" autofocus="autofocus" name="q" placeholder="Search"/>
             	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
 			</form>
+			<a id="inline" href="#advanced" style="display:none">Advanced Search</a>
+			<a href="<?php echo $www_root?>/search.php?search_type=advanced&q" class="button advanced-search2">Advanced Search</a>  
+			<br/>
+			<p class="text">Welcome to a StackLife, a new way to browse the Harvard Library collection.</p> 
+			<p class="text">This is a prototype. We’re eager to hear from you about what works, what doesn’t, and what you’d like to see. Email us at <span class="cyan">lil@law.harvard.edu</span>!</p>
+			<br/>
+			<div class="about-button">
+				<a href="about.php" class="heading">How To &amp; More</a>
+			</div>
+				
 		</div><!--end-span4-negative-->
 
 </div><!--end container-->

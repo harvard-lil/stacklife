@@ -125,7 +125,7 @@ $(document).ready(function() {
     <ul class="access">
       <li><a href="http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|{{id_inst}}" target="_blank">HOLLIS</a></li>
       {{#if url}}
-      <li><a href="{{url}}">ONLINE</a></li>
+      <li><a href="{{url}}">Online Access</a></li>
       {{/if}}
       <li class="button-google-disabled"><a class="button-google-disabled" href="#viewerCanvas"><img src="<?php echo $www_root ?>/images/gbs_preview_disabled.png" /></a></li>
       <li class="button-google"><a id="gviewer" class="button-google" href="#viewerCanvas" style="display:none;"><img src="<?php echo $www_root ?>/images/gbs_preview.png" border="0" /></a></li>

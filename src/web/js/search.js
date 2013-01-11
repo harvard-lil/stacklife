@@ -68,7 +68,7 @@ var util = (function () {
 	my.populate_form = function() {
 		$('#search input:nth-child(2)').val(config.query);
 		$('form > select').val(config.search_type);
-		document.title = config.query + ' | ShelfLife Search';
+		document.title = config.query + ' | StackLife Search';
 	}
 
     return my; 
@@ -490,7 +490,7 @@ $('.sortable').live('click', function() {
 
     // When the page is first loaded, let's set things up here
     if(util.is_advanced()) {
-    	document.title = 'Advanced Search | ShelfLife Search';
+    	document.title = 'Advanced Search | StackLife Search';
     	$('.search-container').hide();
     	$("a#inline").fancybox({
         	'overlayShow': true,

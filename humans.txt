@@ -1,8 +1,8 @@
- ### ##          ##   ### ###    #   ###      
-#  #  #           #   # #  #         # #      
-###   ####   ##   #  ###   #    ##  ###   ##  
-  ##  #  #  ####  #   #    #     #   #   #### 
-#  #  #  #  #     #   #    #  #  #   #   #    
-###  ######  ### ### ###  ##### ### ###   ###
+ ______     ______   ______     ______     __  __     __         __     ______   ______    
+/\  ___\   /\__  _\ /\  __ \   /\  ___\   /\ \/ /    /\ \       /\ \   /\  ___\ /\  ___\   
+\ \___  \  \/_/\ \/ \ \  __ \  \ \ \____  \ \  _"-.  \ \ \____  \ \ \  \ \  __\ \ \  __\   
+ \/\_____\    \ \_\  \ \_\ \_\  \ \_____\  \ \_\ \_\  \ \_____\  \ \_\  \ \_\    \ \_____\ 
+  \/_____/     \/_/   \/_/\/_/   \/_____/   \/_/\/_/   \/_____/   \/_/   \/_/     \/_____/ 
 
-ShelfLife was created by the thinkers, designers, and engineers at the Harvard Library Innovation Laboratory. Find us at http://librarylab.law.harvard.edu/
+
+StackLife was created by the thinkers, designers, and engineers at the Harvard Library Innovation Laboratory. Find us at http://librarylab.law.harvard.edu/

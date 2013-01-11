@@ -49,7 +49,7 @@ var www_root = '<?php echo $www_root ?>';
     	<div id="facet_bread_crumb_container" class="span6"></div>	
     		
     
-    	<div class="span4"><?php require_once('includes/searchbox.php');?></div>
+    	<div class="span4 searchbox"><?php require_once('includes/searchbox.php');?></div>
 		<div class="span10">
 		<div class="search-container-content"> 
 			
@@ -58,11 +58,11 @@ var www_root = '<?php echo $www_root ?>';
     			
         		<div id="result-hits-container" class="span7"></div>
         		<div id="navigation" class="span3">
-             	 <span id="arrows">
+             	 <div id="arrows" class="search-paging">
             		<div class="prev-page" alt="previous books button"></div>
             		<div class="subject-hits empty"></div>
             		<div class="next-page" alt="next books button"></div>
-            	 </span>	
+            	 </div>	
         	</div> <!-- end navigation -->  
         		<div id="results"></div> <!-- end results div -->
 			</div><!-- end search-results div -->

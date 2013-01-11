@@ -103,7 +103,7 @@ $(document).ready(function() {
 		uid = item_details.id;
 		
 		// update our window title
-		document.title = title + ' | ShelfLife';
+		document.title = title + ' | StackLife';
 
 		// store this as an "also viewed"
 		$.each(alsoviewed, function(i, item){
