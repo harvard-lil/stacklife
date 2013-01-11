@@ -38,16 +38,8 @@ EOF;
 		<div class="group span2 middle-position">
 			
 			 <?php require_once('includes/logo.php');?>
-			<br/>
-			 <span class="heading">How does it work?</span>
-			<div class="about-button">
-				<a href="about.php">About</a>
-			</div>
-				<br/>
-				 <span class="heading">Who built it?</span>
-				<div class="about-button">
-				<a href="about.php">About</a>
-			</div>
+
+		
 		</div><!--end logo include-->
 		
 		<div class="main span8">
@@ -61,6 +53,12 @@ EOF;
             	<input type="text" autofocus="autofocus" name="q" placeholder="Search"/>
             	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
 			</form>
+			<p class="text">Welcome to StackLife, a Harvard library browsing tool.  </p> 
+			<p class="text">This is a prototype.  Tell us what you think about it.  Tell us about the bugs you find!   you'll find lots of bugs.  Let us know when you find them!  Email us @ stackbugs@law.harvard.edu!</p>
+			<div class="about-button">
+				<a href="about.php" class="heading">Learn More</a>
+			</div>
+				
 		</div><!--end-span4-negative-->
 
 </div><!--end container-->

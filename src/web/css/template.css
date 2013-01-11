@@ -372,7 +372,7 @@ hr {
 .authorData-inner {
 	background:#fff;
 	border:1px solid #ddd;
-	padding: 10px 15px;
+	padding: 10px 15px 18px;
 }
 
 .itemData-container {
@@ -477,9 +477,9 @@ hr {
 
 .cover-image{
 	float:left;
-	border:1px solid #ddd;
 	margin:0 15px 15px 0;
-	background-image:url('../images/fakeBook.png');
+	border:1px solid #ccc;
+	background-image:url('../images/fakeBook5.png');
 	background-repeat: none;
 	height:160px;
 	width:110px;
@@ -487,6 +487,11 @@ hr {
 	padding:0;
 }
 
+.stamp {
+	position:relative;
+	float:right;
+	z-index:-1;
+}
 .indent1 {
 	margin-left:30px;
 }
@@ -514,13 +519,15 @@ hr {
 
 .unpack {
 	font-weight:normal;
-	   -webkit-user-select: none;
+   -webkit-user-select: none;
    -moz-user-select:none;
 	user-select:none;
 }
+
 #bookTags {
 	width:56%;
 }
+
 .book-tag-success {
 	color: #ff9600;
 }
@@ -547,6 +554,7 @@ hr {
 
 ul.access {
   float:left;
+  margin-left:-10px;
 }
 
 ul.access li {
@@ -653,16 +661,35 @@ label {
 	font-size:20px;
 }
 
-.text-padding {
+.text-padding, .text {
 	padding:15px;
 	-webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
+    font-size:18px;
+    line-height:22px;
 }
 
- .about-button a {
-   	font-size: 15px; 
+.text {
+	padding:15px 0px;
+}
+
+.text-padding p {
+	 padding-top:5px;
+	 padding-bottom:10px;
+}
+
+span.question {
+	font-size:24px;
+}
+
+.indent {
+	padding-left:15px;
+}
+
+.about-button a {
+   	font-size: 20px; 
    	text-decoration: none;
    	text-align: left;
    	color: #035;
