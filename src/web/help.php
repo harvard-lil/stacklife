@@ -46,17 +46,14 @@ EOF;
 			</div><!--end logo include-->
 
 			<div class="span10 offset2 text-padding">
-			<img src="images/how-to2.jpg/>
-				<p> <span class="call-out">This is a callout</span>
-				
-				ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
+				<p><span class="call-out">This is a callout</span>ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
 			</div>
 		</div><!--end row-->
 		
 		<div class="row group">
 			<div class="span5 offset2 text-padding">		
 			
-			<span class="question">What is Shelflife?</span><br />
+											<span class="question">What is Shelflife?</span><br />
             <p>The Harvard Library Innovation Laboratory at Harvard Law School is an academic institution engaged in experimental research related to the improvement of library services and technologies. Our online software projects may collect information of various kinds from visitors, but the Lab is committed to respecting and protecting personal privacy.</p>
 
 			<p>We collect limited, anonymous information from site visitors in order to measure site activity and improve the usefulness of our site. The usage information we collect may include IP address, browser type, operating system, screen size and resolution, date and time of visit, search engine and search terms, and IP address of referring page. We collect this information on an aggregate basis only. We do not link any of the above information to any personal identifiers. </p>

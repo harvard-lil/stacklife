@@ -1427,7 +1427,7 @@ a.thumbnail:hover {
   }
 }
 /*/
-@media (min-width: 1200px) {
+@media (min-width: 1360px) {
   .row {
     margin-left: 0px;
     *zoom: 1;

@@ -31,7 +31,7 @@ $(document).ready(function() {
 		});
 		$('.author-toggle-more').hide();
 		if(count > showCount)
-			$('#author_neighborhood').append('<span id="author-toggle" class="toggle clickable">more</span>');
+			$('#author_neighborhood').append('<span id="author-toggle" class="toggle clickable">more<span class="arrow"></span></span>');
 	});
 
   $.getJSON('../sl_funcs.php', $.param({ 'author' : author, 'function' : 'fetch_author_subjects'}), 
@@ -53,7 +53,7 @@ $(document).ready(function() {
 			});
 			$('.subject-toggle-more').hide();
 			if(count > showCount)
-			  $('#subject_neighborhood').append('<span id="subject-toggle" class="clickable toggle">more</span>');
+			  $('#subject_neighborhood').append('<span id="subject-toggle" class="clickable toggle">more<span class="arrow"></span></span>');
 	});
     
   $('.toggle').live('click', function() {
