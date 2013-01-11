@@ -1,8 +1,8 @@
 <?php
 
 // The web root. The path that can be used when linking (to js, css, ...)
-// This should probably be something like http://localhost/shelflife
-$www_root = "http://example.com/shelflife";
+// This should probably be something like http://localhost/stacklife
+$www_root = "http://example.com/stacklife";
 
 // Build version
 $version = "alpha 2.3";
@@ -16,7 +16,7 @@ $pw = "yourdbpassword";
 $AVAILABILITY_URL = "youravailurl";
 
 // LibraryCloud
-// Probably someting like http://example.com/platform/v0.03/api/item/
+// Probably something like http://example.com/platform/v0.03/api/item/
 $LIBRARYCLOUD_URL = 'http://example.com/platform/v0.03/api/item/';
 
 // Probably someting like http://example.com/platform/v0.03/api/item/
