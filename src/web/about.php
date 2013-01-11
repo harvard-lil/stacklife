@@ -51,6 +51,7 @@ EOF;
 		</div>
 		<div class="row group">
 			<div class="span10 offset2">
+			<br/>
 				<img src="images/how-to2.jpg"/>
 				<br/>	
 			</div>		
