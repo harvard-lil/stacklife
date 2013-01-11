@@ -59,7 +59,7 @@ EOF;
 		<div class="row group">
 			<div class="span5 offset2 text-padding">		
 				<div class="call-out">
-					<p class="black">StackLife lets you browse all of the items in Harvard’s 73 libraries and Book Depository, as if they were on a single shelf.</p>
+					<p class="black">StackLife lets you browse all of the items in Harvard’s 73 libraries and Book Depository as if they were on a single shelf.</p>
 				
 					<p class="black">It’s built on a few core ideas:</p>
 				
@@ -79,7 +79,7 @@ EOF;
 				<iframe src="http://player.vimeo.com/video/55894472?title=0&amp;byline=0&amp;portrait=0" width="500" height="334" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> 
 				<div class="call-out">
 					<p class="indent"><span class="dark">3. Every book has some community relevance</span></br> 
-					StackLife heat-map books to reflect how often they’ve been checked out, put on reserve, called back early from a loan, etc. Also, it’s not just books. StackLife lets you browse among all of Hollis’ catalog, including DVDs and CDs. </p>
+					StackLife heat-maps books to reflect how often they’ve been checked out, put on reserve, called back early from a loan, etc. Also, it’s not just books. StackLife lets you browse among all of Hollis’ catalog, including DVDs and CDs. </p>
 					<div class="about-button">
 						<a href="https://github.com/harvard-lil/shelflife" class="heading">Download on GitHub</a>
 					</div>
