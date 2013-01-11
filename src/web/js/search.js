@@ -495,8 +495,8 @@ $('.sortable').live('click', function() {
     	$("a#inline").fancybox({
         	'overlayShow': true,
         	'autoDimensions' : false,
-        	'width' : 700,
-        	'height' : 400
+        	'width' : 500,
+        	'height' : 200
         });
     	$("a#inline").trigger('click');
     }

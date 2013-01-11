@@ -49,8 +49,8 @@ $(document).ready(function() {
   $("a#inline").fancybox({
     'overlayShow': true,
     'autoDimensions' : false,
-    'width' : 600,
-    'height' : 400
+    'width' : 500,
+    'height' : 200
   });
 });
 
