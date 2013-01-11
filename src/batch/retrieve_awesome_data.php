@@ -7,7 +7,9 @@
  * a StackView stack on the homepage.
  ****************************/
 
-    require_once ('../../etc/sl_ini.php');
+
+    $sl_home = dirname(dirname(dirname(__FILE__)));
+    require_once ($sl_home . '/etc/sl_ini.php');
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
@@ -82,8 +84,7 @@
 
     // Let's make sure we have at least 10 items and then we'll write them out to a static JSON file
     if ($complete_object['num_found'] > 10) {
-        $file_path = dirname(dirname(__FILE__)) . '/web/js/awesome.json';
-        print $file_path;
+        $file_path = $sl_home . '/src/web/js/awesome.json';
         // Write the contents back to the file
         file_put_contents($file_path, $serialized_object);
     }
