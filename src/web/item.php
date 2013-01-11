@@ -16,6 +16,10 @@ echo <<<EOF
 	<script type="text/javascript" src="$www_root/js/item.js"></script>
 	<script type="text/javascript" src="$www_root/js/jquery.history.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<!--[if IE]>
+		<link rel="stylesheet" href="$www_root/stackview/ie.stackview.css" type="text/css" />
+		<link rel="stylesheet" href="$www_root/css/ie.template.css" type="text/css" />
+  	<![endif]-->
 EOF;
 ?>
 

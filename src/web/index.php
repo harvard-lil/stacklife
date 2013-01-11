@@ -17,7 +17,10 @@ echo <<<EOF
   <link rel="stylesheet" href="$www_root/css/shelflife.theme.css" type="text/css" />
   <link rel="stylesheet" href="$www_root/css/template.css" type="text/css" />
   <link rel="stylesheet" href="$www_root/stackview/jquery.stackview.css" type="text/css" />
-  
+  <!--[if IE]>
+	<link rel="stylesheet" href="$www_root/stackview/ie.stackview.css" type="text/css" />
+	<link rel="stylesheet" href="$www_root/css/ie.template.css" type="text/css" />
+  <![endif]-->
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
   <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
   <script type="text/javascript" src="$www_root/js/landing_page.js"></script>
@@ -25,6 +28,7 @@ echo <<<EOF
   $TYPEKIT_CODE
 EOF;
 ?>
+
 <script>
   $(document).ready(function(){
     $(".video").fitVids();
