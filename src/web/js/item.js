@@ -92,7 +92,7 @@ $(document).ready(function() {
 
 	// When an item in the stack is clicked, we update the book panel here
 	function draw_item_panel(item_details) {
-
+	
 		// set our global var
 		loc_call_num_sort_order = item_details.loc_call_num_sort_order;
 		title = item_details.title;
@@ -218,6 +218,7 @@ $(document).ready(function() {
 				data: "isbn=" + isbn + "&function=check_amazon",
 				success: function(response){
 					if(response != 'false') {
+					  $('#amzn').attr('href', 'http://www.amazon.com/dp/' + response);
 						$('.buy').show();
 					} else {
 						$('.buy').hide();
@@ -227,12 +228,17 @@ $(document).ready(function() {
 		} else {
 			$('.buy').hide();
 		}
+		
+		if(item_details.this_button) {
+      $(".reload:contains('" + item_details.this_button + "')").parent().addClass('selected-button');
+    }
 
 	} //end draw item panel
 
 	// When a new anchor book is selected
 	$('.stack-item a').live('click', function(e){
 	  var this_details = $(this).parent().data('stackviewItem');
+	  var this_button = $('.selected-button').text();
 		$.ajax({
   		url: www_root + '/translators/item.php',
   		dataType: 'json',
@@ -240,6 +246,7 @@ $(document).ready(function() {
   		async: false,
   		success: function(data){
 			  var this_details = data.docs[0];
+			  data.docs[0].this_button = this_button;
 			  History.pushState({data:this_details,rand:Math.random()}, this_details.title, "../" + this_details.title_link_friendly + "/" + this_details.id);
         	draw_item_panel(data.docs[0]);
         }
