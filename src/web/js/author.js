@@ -22,7 +22,7 @@ $(document).ready(function() {
        		jList.append(
        			$("<li class='subject-button'><a href='../author/" + item + "'><span class='reload'>" + item + "</span></a></li>")
        		);
-  		});
+       });
   		var count = 0;
   		$('#author_neighborhood li').each(function() {
 			if(count > showCount)
@@ -40,9 +40,12 @@ $(document).ready(function() {
       var subject_part;
 
       $.each(subjects, function(i, item) {      					
+           if (item["callno"] !== "none") {
+
        	jList.append(
        		$('<li class="subject-button" id="' + item + '"><span class="reload">' + item + '</span></li>')
        			);
+}
   		});
   		var count = 0;
   		$('#subject_neighborhood li').each(function() {
