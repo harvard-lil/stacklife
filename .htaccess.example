@@ -1,7 +1,7 @@
 RewriteEngine On
 
 # We do fancy stuff with the requested book title and author name here
-RewriteRule ^item+/[^/]+/([^/]+)$ src/web/item.php?id=$1 [L,NC,QSA] 
+RewriteRule ^item+/[^/]+/([^/]+)$ src/web/item.php?id=$1 [L,NC,QSA]
 RewriteRule ^author+/([^/]+)$ src\/web\/author.php?author=$1 [L,NC,QSA]
 
 # If the user didn't request a page, just asked for the root, serve up index
@@ -13,6 +13,9 @@ RewriteRule ^images/(.*)$ src\/web\/images\/$1 [L,NC,QSA]
 RewriteRule ^js/(.*)$ src\/web\/js\/$1 [L,NC,QSA]
 RewriteRule ^stackview/(.*)$ src\/web\/stackview\/$1 [L,NC,QSA]
 RewriteRule ^translators/(.*)$ src\/web\/translators\/$1 [L,NC,QSA]
+RewriteRule ^about(.*)\/?$ src\/web\/about.php [L,NC,QSA]
+RewriteRule ^search(.*)\/?$ src\/web\/search.php [L,NC,QSA]
+RewriteRule ^privacy(.*)\/?$ src\/web\/privacy.php [L,NC,QSA]
 
 # If the user requested a specific page, serve it up here
 RewriteRule ^([^/]+)\/?$ src\/web\/$1 [L,NC,QSA]

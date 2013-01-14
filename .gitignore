@@ -1,4 +1,5 @@
 sl_ini.php
+.htaccess
 etc/sl_ini.php
 etc/build/build.xml
 src/web/js/awesome.json
