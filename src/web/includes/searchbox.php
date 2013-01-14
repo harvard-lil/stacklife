@@ -31,10 +31,10 @@
                       <option value="keyword" selected="selected">Keyword(s) anywhere</option>
                   </select>
                   <input type="text" class="searchBox" name="q"/>
+                  		  <input type="submit" name="submit_search" value="Go!"/>
               </p>
               <!--<p id="addremove"><span class="addfield">add</span> / <span class="removefield">remove</span></p>-->
           </div>
-		  <input type="submit" name="submit_search" value="Go!" class="right"/>
         </form>
 	</div>
 </div>

@@ -504,8 +504,8 @@ $('.sortable').live('click', function() {
         	'overlayShow': true,
         	'autoDimensions' : false,
         	'scrolling'   : 'no',
-        	'width' : 600,
-        	'height' : 200
+        	'width' : 550,
+        	'height' : 150
         });
     	$("a#inline").trigger('click');
     }
