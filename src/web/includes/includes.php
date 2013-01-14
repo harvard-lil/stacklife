@@ -1,4 +1,3 @@
-
 <?php
 global $TYPEKIT_KEY;
 global $GOOGLE_ANALYTICS;

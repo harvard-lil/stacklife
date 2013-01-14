@@ -30,7 +30,7 @@ EOF;
 			 	<?php require_once('includes/logo.php');?>
 			</div>
 			<div class="span4 offset1 about-button">
-				<a href="index.php" class="about home">Home</a>
+				<a href="<?php echo $www_root ?>/" class="about home">Home</a>
 			</div>
 	
 			<div class="span4 offset1">
@@ -74,7 +74,7 @@ EOF;
 					</div>
 					<br/>
 					<div class="about-button">
-						<a href="privacy.php" class="heading">Read our Privacy Policy</a>
+						<a href="<?php echo $www_root ?>/privacy" class="heading">Read our Privacy Policy</a>
 					</div>
 				</div><!--end call-out-->
 			</div>

@@ -21,7 +21,7 @@ include_once('includes/includes.php');
 			 	<?php require_once('includes/logo.php');?>
 			</div>
 			<div class="span4 offset1 about-button">
-				<a href="index.php" class="about home">Home</a>
+				<a href="<?php echo $www_root ?>/" class="about home">Home</a>
 			</div>
 	
 			<div class="span4 offset1">

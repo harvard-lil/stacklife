@@ -33,19 +33,19 @@ EOF;
 
 			
 		<div class="span4-negative middle-position-search">
-			<form id="search2" method="get" action="<?php echo $www_root?>/search.php">
+			<form id="search2" method="get" action="<?php echo $www_root?>/search">
             	<input type="hidden" style="display:none" name="search_type" value="keyword"/>
             	<input type="text" autofocus="autofocus" name="q" placeholder="Search"/>
             	<input type="submit" name="submit_search" id="itemsearch" value="Go!"/>
 			</form>
 			<a id="inline" href="#advanced" style="display:none">Advanced Search</a>
-			<a href="<?php echo $www_root?>/search.php?advanced=true" class="button advanced-search2">Advanced Search</a>  
+			<a href="<?php echo $www_root?>/search?advanced=true" class="button advanced-search2">Advanced Search</a>  
 			<br/>
 			<p class="text">Welcome to a StackLife, a new way to browse the Harvard Library collection.</p> 
 			<p class="text">This is a prototype. We’re eager to hear from you about what works, what doesn’t, and what you’d like to see. Email us at <span class="cyan">lil@law.harvard.edu</span>!</p>
 			<br/>
 			<div class="about-button">
-				<a href="about.php" class="heading">How To &amp; More</a>
+				<a href="<?php echo $www_root ?>/about" class="heading">How To &amp; More</a>
 			</div>
 				
 		</div><!--end-span4-negative-->
