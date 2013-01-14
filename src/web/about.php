@@ -70,7 +70,7 @@ EOF;
 					<p class="indent"><span class="dark">3. Every book has some community relevance</span></br> 
 					StackLife heat-maps books to reflect how often they’ve been checked out, put on reserve, called back early from a loan, etc. Also, it’s not just books. StackLife lets you browse among all of Hollis’ catalog, including DVDs and CDs. </p>
 					<div class="about-button">
-						<a href="https://github.com/harvard-lil/shelflife" class="heading">Download on GitHub</a>
+						<a href="https://github.com/harvard-lil/stacklife" class="heading">Download on GitHub</a>
 					</div>
 					<br/>
 					<div class="about-button">
