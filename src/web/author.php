@@ -17,7 +17,6 @@ $display_author=stripslashes($author);
 include_once('includes/includes.php');
 echo "<title>$display_author | StackLife</title>";
 echo "<script type='text/javascript' src='$www_root/js/author.js'></script>";
-echo $TYPEKIT_CODE
 ?>
 <script type="text/javascript">	
 
