@@ -41,12 +41,19 @@ The font Futura PT should be assigned to the following selectors.
 
     #all-rank, #recentlyviewed, #search_results_header, #welcome, #wrap, .addfield, .facet_heading, .facet_set, .hdr, .heading, .hits, .reload, .rem_filter, .removefield, .tk-futura-pt
 
-### StackLife Configuration
+### StackLife configuration
 
 Configuration takes place in etc/sl_ini.php. Copy the example and edit the values:
 
     cd stacklife/etc
     cp sl_ini.example.php sl_ini.php
+
+### .htaccess configuration
+
+We use a .htaccess file to make URLs pretty. Copy the example:
+
+    cd stacklife
+    cp .htaccess.example .htaccess
 
 ### Generating the landing page, static stack data
 
