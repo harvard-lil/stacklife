@@ -17,27 +17,8 @@ $display_author=stripslashes($author);
 include_once('includes/includes.php');
 echo "<title>$display_author | StackLife</title>";
 echo "<script type='text/javascript' src='$www_root/js/author.js'></script>";
-echo <<<EOF
-  <link rel="author" href="$www_root/humans.txt" />
-  <link rel="icon" href="$www_root/images/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="$www_root/css/shelflife.theme.css" type="text/css" />
-  <link rel="stylesheet" href="$www_root/css/template.css" type="text/css" />
-  <link rel="stylesheet" href="$www_root/stackview/jquery.stackview.css" type="text/css" />
-  <!--[if IE]>
-	<link rel="stylesheet" href="$www_root/stackview/ie.stackview.css" type="text/css" />
-	<link rel="stylesheet" href="$www_root/css/ie.template.css" type="text/css" />
-  <![endif]-->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-  <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
-  <script type="text/javascript" src="$www_root/js/landing_page.js"></script>
-<script type="text/javascript" src="$www_root/js/jquery.fitvids.js"></script>
-  $TYPEKIT_CODE
-EOF;
+echo $TYPEKIT_CODE
 ?>
-<!--[if IE]>
-		<link rel="stylesheet" href="$www_root/stackview/ie.stackview.css" type="text/css" />
-		<link rel="stylesheet" href="$www_root/css/ie.template.css" type="text/css" />
-  	<![endif]-->
 <script type="text/javascript">	
 
 var author = '<?php echo $author;?>';

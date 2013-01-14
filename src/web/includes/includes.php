@@ -23,7 +23,8 @@ echo <<<EOF
   <link rel="stylesheet" href="$www_root/css/template.css" type="text/css" />
 
   <!--[if IE]>
-	<link rel="stylesheet" href="$www_root/css/ie.template.css" type="text/css" />
+        <link rel="stylesheet" href="$www_root/stackview/ie.stackview.css" type="text/css" />
+        <link rel="stylesheet" href="$www_root/css/ie.template.css" type="text/css" />
   <![endif]-->
   
   <link rel="stylesheet" href="$www_root/stackview/jquery.stackview.css" type="text/css" />
