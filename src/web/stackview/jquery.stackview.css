@@ -1033,3 +1033,83 @@ position:absolute;
 	position:fixed;
 	top:0px;
 }
+
+
+.upstream, .downstream {
+	position:relative;
+	width:65px;
+	height:65px;
+	background-image:url('../images/nav2.png');
+	background-repeat:no-repeat;
+	background-position: 0 -130px;
+   -webkit-user-select: none;
+   -moz-user-select:none;
+	user-select:none;
+}
+
+.upstream {
+	margin-bottom:10px;
+    background-position: 0 -87px;
+}
+
+.upstream:hover {
+	background-position: 0 -44px;
+}
+
+.upstream:active {
+	background-position: 0 -1px;
+}
+
+.downstream {
+	margin-top:10px;
+	background-position: 0 -130px;
+}
+
+.downstream:hover {
+	background-position: 0 -173px;
+}
+
+.downstream:active {
+	background-position: 0 -216px;
+}
+
+
+
+.next-page, .prev-page {
+	position:relative;
+	width:41px;
+	height:40px;
+	background-image:url('../images/nav3.png');
+	background-repeat:no-repeat;
+   -webkit-user-select: none;
+   -moz-user-select:none;
+	user-select:none;
+	margin-top:20px;
+	margin-right:-10px;
+}
+
+.next-page {
+	float:right;
+	background-position: -124px -5px;
+}
+
+.next-page:hover {
+	background-position: -165px -5px;
+}
+
+.next-page:active {
+	background-position: -206px -5px;
+}
+
+.prev-page {
+	float:left;
+	background-position: -84px -5px;
+}
+
+.prev-page:hover {
+	background-position: -43px -5px;
+}
+
+.prev-page:active {
+	background-position: -2px -5px;
+}
