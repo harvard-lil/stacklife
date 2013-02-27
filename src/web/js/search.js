@@ -241,7 +241,8 @@ var library_cloud = (function () {
     // The AJAX call to get the results from LibraryCloud
 	my.get_results = function() {
 		$.ajax({
-			  url: config.lc_url + '?' + config.get_query_string(),
+		      // We're filtering on the Harvard collection here. This is a kludge and should be parameterized.
+			  url: config.lc_url + '?filter=collection:hollis_catalog&' + config.get_query_string(),
 			  async: false,
                           dataType: "JSON",
 			  cache: false,
