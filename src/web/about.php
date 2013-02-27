@@ -10,20 +10,8 @@
 
 <?php
 include_once('includes/includes.php');
-global $TYPEKIT_CODE;
 echo <<<EOF
-  <link rel="author" href="$www_root/humans.txt" />
-  <link rel="icon" href="$www_root/images/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="$www_root/css/shelflife.theme.css" type="text/css" />
-  <link rel="stylesheet" href="$www_root/css/template.css" type="text/css" />
-  <link rel="stylesheet" href="$www_root/stackview/jquery.stackview.css" type="text/css" />
-  
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-  <script type="text/javascript" src="$www_root/stackview/jquery.stackview.min.js"></script>
-  <script type="text/javascript" src="$www_root/js/landing_page.js"></script>
   <script type="text/javascript" src="$www_root/js/jquery.fitvids.js"></script>
-  
-  $TYPEKIT_CODE
 EOF;
 
 ?>
@@ -42,7 +30,7 @@ EOF;
 			 	<?php require_once('includes/logo.php');?>
 			</div>
 			<div class="span4 offset1 about-button">
-				<a href="index.php" class="about home">Home</a>
+				<a href="<?php echo $www_root ?>/" class="about home">Home</a>
 			</div>
 	
 			<div class="span4 offset1">
@@ -82,11 +70,11 @@ EOF;
 					<p class="indent"><span class="dark">3. Every book has some community relevance</span></br> 
 					StackLife heat-maps books to reflect how often they’ve been checked out, put on reserve, called back early from a loan, etc. Also, it’s not just books. StackLife lets you browse among all of Hollis’ catalog, including DVDs and CDs. </p>
 					<div class="about-button">
-						<a href="https://github.com/harvard-lil/shelflife" class="heading">Download on GitHub</a>
+						<a href="https://github.com/harvard-lil/stacklife" class="heading">Download on GitHub</a>
 					</div>
 					<br/>
 					<div class="about-button">
-						<a href="privacy.php" class="heading">Read our Privacy Policy</a>
+						<a href="<?php echo $www_root ?>/privacy" class="heading">Read our Privacy Policy</a>
 					</div>
 				</div><!--end call-out-->
 			</div>

@@ -31,5 +31,6 @@ $AMAZON_ASSOC_TAG = 'youramazonassoctag';
 
 // One or more Google Analytics accounts
 $GOOGLE_ANALYTICS = array("UA-XXXXXX-X");
+$GOOGLE_ANALYTICS_DOMAIN = "example.com";
 
 ?>

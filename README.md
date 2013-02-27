@@ -24,7 +24,7 @@ Use the git clone command to get the latest version of StackLife:
 
 StackLife requires a supporting database called 'sl' that has two tables.
 
-    CREATE TABLE sl_test (id mediumint(11) NOT NULL AUTO_INCREMENT, item_id varchar(255) NOT NULL, tag varchar(255) NOT NULL, PRIMARY KEY (id));
+    CREATE TABLE sl_tags (id mediumint(11) NOT NULL AUTO_INCREMENT, item_id varchar(255) NOT NULL, tag varchar(255) NOT NULL, PRIMARY KEY (id));
     CREATE TABLE sl_also_viewed (id mediumint(11) NOT NULL AUTO_INCREMENT, book_one varchar(256) NOT NULL, book_two varchar(256) NOT NULL, PRIMARY KEY (id));
     
 The connection details for this database should be put into the configuration file.
@@ -41,12 +41,19 @@ The font Futura PT should be assigned to the following selectors.
 
     #all-rank, #recentlyviewed, #search_results_header, #welcome, #wrap, .addfield, .facet_heading, .facet_set, .hdr, .heading, .hits, .reload, .rem_filter, .removefield, .tk-futura-pt
 
-### StackLife Configuration
+### StackLife configuration
 
 Configuration takes place in etc/sl_ini.php. Copy the example and edit the values:
 
     cd stacklife/etc
     cp sl_ini.example.php sl_ini.php
+
+### .htaccess configuration
+
+We use a .htaccess file to make URLs pretty. Copy the example:
+
+    cd stacklife
+    cp .htaccess.example .htaccess
 
 ### Generating the landing page, static stack data
 

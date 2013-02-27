@@ -1,7 +1,8 @@
-
 <?php
 global $TYPEKIT_KEY;
 global $GOOGLE_ANALYTICS;
+global $GOOGLE_ANALYTICS_DOMAIN;
+$tracker = $GOOGLE_ANALYTICS[0];
 
 echo <<<EOF
   <link rel="author" href="$www_root/humans.txt" />
@@ -21,25 +22,21 @@ echo <<<EOF
     <link rel="stylesheet" href="$www_root/css/bootstrap.css" type="text/css" />	
 
   <link rel="stylesheet" href="$www_root/css/template.css" type="text/css" />
-
-  <!--[if IE]>
-	<link rel="stylesheet" href="$www_root/css/ie.template.css" type="text/css" />
-  <![endif]-->
-  
   <link rel="stylesheet" href="$www_root/stackview/jquery.stackview.css" type="text/css" />
 
-  <script type="text/javascript">
+  <!--[if IE]>
+        <link rel="stylesheet" href="$www_root/stackview/ie.stackview.css" type="text/css" />
+        <link rel="stylesheet" href="$www_root/css/ie.template.css" type="text/css" />
+  <![endif]-->
+  
+
+<script type="text/javascript">
+
   var _gaq = _gaq || [];
-EOF;
+  _gaq.push(['_setAccount', '$tracker']);
+  _gaq.push(['_setDomainName', '$GOOGLE_ANALYTICS_DOMAIN']);
+  _gaq.push(['_trackPageview']);
 
-$count = '';
-foreach($GOOGLE_ANALYTICS as $tracker) {
-  echo "_gaq.push(['$count_setAccount', '$tracker']);";
-  echo "_gaq.push(['$count_trackPageview']);";
-  $count = "$count.a";
-}
-
-echo <<<EOF
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';

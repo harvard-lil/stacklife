@@ -44,7 +44,7 @@ var util = (function () {
     my.is_advanced = function() {
     	var uri_params = util.get_uri_params();
 
-    	if(config.search_type === 'advanced') {
+    	if(uri_params['advanced']) {
     		return true;
     	} else {
     		return false;
@@ -241,7 +241,8 @@ var library_cloud = (function () {
     // The AJAX call to get the results from LibraryCloud
 	my.get_results = function() {
 		$.ajax({
-			  url: config.lc_url + '?' + config.get_query_string(),
+		      // We're filtering on the Harvard collection here. This is a kludge and should be parameterized.
+			  url: config.lc_url + '?filter=collection:hollis_catalog&' + config.get_query_string(),
 			  async: false,
                           dataType: "JSON",
 			  cache: false,
@@ -489,27 +490,26 @@ $('.sortable').live('click', function() {
 //DOM event controls, end
 
     // When the page is first loaded, let's set things up here
-    if(util.is_advanced()) {
+	library_cloud.get_results();
+	view.draw_persistent_controls();
+	view.draw_facets();
+	view.draw_results();
+	view.draw_filters();
+	view.draw_paging_controls();
+	util.populate_form();
+	
+	if(util.is_advanced()) {
     	document.title = 'Advanced Search | StackLife Search';
     	$('.search-container').hide();
     	$("a#inline").fancybox({
         	'overlayShow': true,
         	'autoDimensions' : false,
-        	'width' : 500,
-        	'height' : 200
+        	'scrolling'   : 'no',
+        	'width' : 550,
+        	'height' : 150
         });
     	$("a#inline").trigger('click');
     }
-    else {
-    	library_cloud.get_results();
-    	view.draw_persistent_controls();
-    	view.draw_facets();
-    	view.draw_results();
-    	view.draw_filters();
-    	view.draw_paging_controls();
-    	util.populate_form();
-    }
-
 });
 
 

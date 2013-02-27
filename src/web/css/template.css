@@ -1277,10 +1277,10 @@ select {
 	color:#333;
 }
 #advanced input[type="submit"] {
-	margin-left:100px;
+/*	margin-left:100px; */
 }
  .advanced-inputs {
- 	margin-left:105px;
+ 	margin: 30px 0 0 60px;
  }
  
  .advanced-inputs p {
