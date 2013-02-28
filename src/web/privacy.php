@@ -42,6 +42,10 @@ include_once('includes/includes.php');
 				<p>For information specific to our StackLife online service, see below.</p>
 					<br />
 					
+				<span class="question">Circulation Data</span><br />
+
+				<p>StackLife performs computations on anonymized circulation data about Harvard Library materials. This data represents ten-year cumulative checkouts of items. StackLife uses this data to compute a "StackScore," which is then broken into ten percentiles which are displayed as ten different shades of blue in StackLife's visualization of stacked items.</p>
+					<br />
 				<span class="question">Disclosure to third parties</span><br />
 
 				<p>Available log records, and all stored data may be accessed by our system administrators. The system administrators may produce these records and data to the Administrative Dean, Dean of Students, or the Administrative Board, upon request or suspected violation of our terms of use. It is Harvard's policy to cooperate with law enforcement officials in the detection, investigation, and prosecution of unlawful activity. If we receive a warrant or subpoena for user information, we may disclose requested records to law enforcement authorities or outside parties seeking information through the legal process.</p>
