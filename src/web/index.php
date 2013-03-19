@@ -44,10 +44,15 @@ EOF;
 			<p class="text">Welcome to a StackLife, a new way to browse the Harvard Library collection.</p> 
 			<p class="text">This is a prototype. We’re eager to hear from you about what works, what doesn’t, and what you’d like to see. Email us at <span class="cyan">lil@law.harvard.edu</span>!</p>
 			<br/>
+		
+			
 			<div class="about-button">
-				<a href="<?php echo $www_root ?>/about" class="heading">How To &amp; More</a>
+				<a href="<?php echo $www_root ?>/explainer.php" class="heading">Explainer Page</a>
 			</div>
-				
+			<br/>
+			<div class="about-button">
+				<a href="<?php echo $www_root ?>/about" class="heading">The StackLife Experiment</a>
+			</div>
 		</div><!--end-span4-negative-->
 
 </div><!--end container-->

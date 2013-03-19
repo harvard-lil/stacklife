@@ -29,21 +29,15 @@ EOF;
 			<div class="span2 middle-position">
 			 	<?php require_once('includes/logo.php');?>
 			</div>
-			<div class="span4 offset1 about-button">
+			<!--<div class="span4 offset1 about-button">
 				<a href="<?php echo $www_root ?>/" class="about home">Home</a>
-			</div>
+			</div>-->
 	
-			<div class="span4 offset1">
+			<div class="span4 offset6">
 				<?php require_once('includes/searchbox.php');?>  
 			</div> 
 		</div>
-		<div class="row group">
-			<div class="span10 offset2">
-			<br/>
-				<img src="images/how-to2.jpg"/>
-				<br/>	
-			</div>		
-		</div><!--end row-->
+		
 		
 		<div class="row group">
 			<div class="span5 offset2 text-padding">		
@@ -69,12 +63,19 @@ EOF;
 				<div class="call-out">
 					<p class="indent"><span class="dark">3. Every book has some community relevance</span></br> 
 					StackLife heat-maps books to reflect how often they’ve been checked out, put on reserve, called back early from a loan, etc. Also, it’s not just books. StackLife lets you browse among all of Hollis’ catalog, including DVDs and CDs. </p>
+
+					<br/>
+					
 					<div class="about-button">
-						<a href="https://github.com/harvard-lil/stacklife" class="heading">Download on GitHub</a>
+						<a href="<?php echo $www_root ?>/explainer.php" class="heading">Try Out the Explainer Page</a>
 					</div>
 					<br/>
 					<div class="about-button">
 						<a href="<?php echo $www_root ?>/privacy" class="heading">Read our Privacy Policy</a>
+					</div>
+					<br/>
+					<div class="about-button">
+						<a href="https://github.com/harvard-lil/stacklife" class="heading">Download on GitHub</a>
 					</div>
 				</div><!--end call-out-->
 			</div>
