@@ -36,8 +36,6 @@ ol, ul {
    styling begins
 -------------------------------------------------------------- */
 
-
-
 html, body {
 	height: 100%;/*managing the sticky footer*/
 }

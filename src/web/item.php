@@ -58,6 +58,7 @@ $(document).ready(function() {
 	} ?>
 }); //End document ready
 </script>
+
 </head>
 
 <!-- /////////////////// BODY ////////////////////////// -->
