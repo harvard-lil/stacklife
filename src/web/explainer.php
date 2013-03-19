@@ -13,7 +13,7 @@
 include_once('includes/includes.php');
 echo <<<EOF
   <link rel="stylesheet" href="$www_root/css/jquery-ui-1.7.1.custom.css" type="text/css" />
-	<script type="text/javascript" src="$www_root/js/item.js"></script>
+	<script type="text/javascript" src="$www_root/js/explainer.js"></script>
 	<script type="text/javascript" src="$www_root/js/jquery.history.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	<!--[if IE]>
@@ -29,7 +29,7 @@ loc_call_num_sort_order = '';
 anchor_subject = '',
 uniform_id = '',
 uniform_count = '',
-uid = '<?php echo $uid ?>',
+uid = '09A551FE-4A50-36A3-2F45-D8D74CFCE6D7',
 title = '',
 stackheight = $(window).height();
 
@@ -59,6 +59,52 @@ $(document).ready(function() {
 }); //End document ready
 </script>
 
+
+<style>
+.post-it {
+	position:absolute;
+	width:160px;
+	padding:0 10px 10px;
+	background:#f00;
+	background:rgba(252, 240, 173, .9);
+	text-shadow: 0px 1px #fff;
+	z-index:9999;
+   -moz-box-shadow: 0 0 8px #888;
+   -webkit-box-shadow: 0 0 8px #888;
+	box-shadow: 0px 0px 8px #888;
+
+}
+.post-it p {
+	margin-top:10px;
+	font-style:sans-serif;
+	font-size:13px;
+	line-height:18px;
+}
+.note1 {
+	margin:20px 0 0 0px;
+}
+
+.note2 {
+	margin:100px 0 0 0px;
+}
+
+.note3 {
+	margin:350px 0 0 250px;
+}
+
+.note4 {
+	margin:-85px 0 0 130px;
+}
+
+.note5 {
+	margin:-65px 0 0 130px;
+}
+
+.note6 {
+	margin:50px 0 0 130px;
+}
+</style>
+
 </head>
 
 <!-- /////////////////// BODY ////////////////////////// -->
@@ -77,6 +123,7 @@ $(document).ready(function() {
         	<div id="overlay-buttons">
           		<div id="shelves-panel"></div>
           		<div id="tagGraph"></div>
+          		
     		</div><!--end overlay-buttons-->
     		
         	<form id="book-tags-form" method="post">
@@ -86,11 +133,20 @@ $(document).ready(function() {
         	</form>
         		
         	<div class="book-tag-success"><p><span style="display:none;"></span></p></div>
+        	
+    		
       	</div><!-- end contextData -->
 
 
       	<div class="main span8">
+      		<div class="post-it note3">
+      			<p>Depth of the color blue indicates amount of use by the Harvard community since 2002</p>
+      			
+      			<p>We call this StackScore</p>
+      		</div>
+      	<!-- -->
 			<div id="fixedstack"></div>
+			
       	</div><!-- end main-->
 		
 		<div class="span4-negative offset6">
@@ -109,6 +165,7 @@ $(document).ready(function() {
         
       <div id="fixedclear"></div>
     </div> <!--end container-content-->
+    
   </div><!--end container-->
 
 
@@ -127,6 +184,9 @@ $(document).ready(function() {
     {{{creators}}}
     </div>
     <img class="cover-image" src="http://covers.openlibrary.org/b/isbn/{{isbn}}-M.jpg" />
+    	<div class="post-it note4">
+      		<p>Go to the item&apos;s entry in HOLLIS, or find it in Google Books or Amazon</p>
+      	</div>
     <ul class="access">
       <li><a href="http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|{{id_inst}}" target="_blank">HOLLIS</a></li>
       {{#if url}}
@@ -141,8 +201,11 @@ $(document).ready(function() {
   
      
     </ul>
+
 		<div id="availability-panel"></div>
-		
+	    <div class="post-it note5">
+      		<p>Check availability across Harvard libraries</p>
+      	</div>	    	
     <h3 class="imprint">{{#if pub_location}}{{pub_location}}{{/if}}{{#if publisher}}, {{publisher}}{{/if}}{{#if pub_date}}, {{pub_date}}{{/if}}</h3>
     
     <h3 class="clickable advanced-data slide-more">Advanced Bibliographic Data<span class="arrow"></span></h3>
@@ -155,18 +218,24 @@ $(document).ready(function() {
       </ul>
     </div>
     
+
+    	    <div class="post-it note6">
+      		<p>StackScore represents community usage, 1 - 100</p>
+      	</div>
     <h3 class="clickable slide-more toc-title">Table of Contents<span class="arrow"></span></h3>
     <div class="slide-content" style="display:none;">
       <div id="toc"></div>
     </div>
     </div>
-    <div id="all-rank" class="slide-more">	            
+    
+    <div id="all-rank">	            
     <div id="shelfRankCalc" class="button-shelfRank">
       <span class="unpack">StackScore</span>
       <span class="shelfRank">{{shelfrank}}</span>
     </div><!--end shelfRankCalc-->
   </div><!--end all-rank-->
-  <!--<div id="rank-math" class="slide-content" style="display:none;">
+  
+ <!-- <div id="rank-math" class="slide-content" style="display:none;">
     <ul>
       <li><p>Faculty checkouts: {{score_checkouts_fac}}</p></li>
       <li><p>Undergrad checkouts: {{score_checkouts_undergrad}}</p></li>
@@ -176,6 +245,7 @@ $(document).ready(function() {
   </div>end rank-math-->
 
   </script> 
+  
   <script id="availability-template" type="text/x-handlebars-template">
     <span class="button-availability {{#if any_available}}available-button{{else}}not-available-button{{/if}} slide-more"><span class="icon"></span>Availability<span class="arrow"></span></span>
 		<div id="availability" class="slide-content availibility-slide-content" style="display:none;">
@@ -202,6 +272,9 @@ $(document).ready(function() {
 		</ul>
 		 <br/>
     <span class="heading">Subject Stacks</span>
+    	<div class="post-it note1">
+      		<p>Stack items by LC subject area</p>
+    	</div>
     <ul>
       {{#if ut_count}}
 			<li id="uniform" class="button stack-button"><span class="reload">All editions</span></li>
@@ -212,6 +285,9 @@ $(document).ready(function() {
     </ul>
     <br/>
     <span class="heading">Community Stacks</span>
+    	<div class="post-it note2">
+      		<p>Stack items by user interaction, classification or tagging</p>
+    	</div>
     <ul>
       {{! <li id="alsoviewed" class="button stack-button"><span class="reload">People who viewed this also viewed these</span></li> }}
       <li id="recentlyviewed" class="button stack-button"><span class="reload">Recently Viewed</span></li>

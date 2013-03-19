@@ -531,7 +531,7 @@ position:absolute;
 }
 .stack-navigation .upstream, .stack-navigation .downstream { 
   position:fixed;
-  height: 53px;
+  height: 56px;
   text-indent: -999em;
   overflow: hidden;
   -webkit-touch-callout: none;
@@ -540,33 +540,34 @@ position:absolute;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  cursor:pointer;
 }
 .stack-navigation .upstream {
-  background: url("images/nav2.png") 0 -113px no-repeat;
+  background: url("images/nav2.png") 0 -112px no-repeat;
   top:84px;
 }
 .stack-navigation .upstream:hover, .stack-navigation .upstream:focus {
-  background-position: 0 -57px;
+  background-position: 0 -56px;
 }
 .stack-navigation .upstream:active {
-  background-position: 0 -1px;
+  background-position: 0 0px;
 }
 .stack-navigation .downstream {
-  background: url("images/nav2.png") 0 -169px no-repeat;
-  top:177px;
+  background: url("images/nav2.png") 0 -167px no-repeat;
+  top:178px;
 }
 .stack-navigation .downstream:hover, .stack-navigation .downstream:focus {
-  background-position: 0 -225px;
+  background-position: 0 -223px;
 }
 .stack-navigation .downstream:active {
-  background-position: 0 -280px;
+  background-position: 0 -167px;
 }
 .stack-navigation .num-found {
   position:fixed;
   font-size: 13px;
   line-height: 16px;
   color: #09f;
-  top:141px;
+  top:148px;
   margin-left:21px;
 }
 .stack-navigation.empty .num-found {

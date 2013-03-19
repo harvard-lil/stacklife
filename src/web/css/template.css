@@ -58,10 +58,10 @@ body {
 
 h1, h1 a {
 	letter-spacing:0px;
-	font-size:1.6em;
+	font-size:22px;
 	font-weight: normal;
 	display:block;
-	line-height:1.2em;
+	line-height:28px;
 	margin-bottom:8px;
 	white-space:normal;
 	word-wrap:break-word; /*magically (doesn't seem to work all the time) breaks lines to allow them to wrap nicer...*/
@@ -425,7 +425,7 @@ hr {
 #all-rank {
 	font-size:1em;
 	margin:5px 0 0px; 
-	cursor:pointer;
+	/*cursor:pointer;*/
 }
 
 #shelfRankCalc {

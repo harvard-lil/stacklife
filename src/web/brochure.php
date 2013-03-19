@@ -18,10 +18,22 @@ EOF;
 <style>
 #apron {
 	position:relative;
-	margin-top:-400px;
+	margin-top:-300px;
 	height:200px;
-	background:rgba(255,255,255,.8);
-	z-index:99;
+	width:450px;
+	padding:0 10px 50px;
+	
+	background:#FCF0AD;
+	background:rgba(252, 240, 173, .9);
+	text-shadow: 0px 1px #fff;
+	z-index:9999;
+	-moz-box-shadow: 0 0 8px #888;
+-webkit-box-shadow: 0 0 8px #888;
+box-shadow: 0px 0px 8px #888;
+}
+.span4-negative {
+	position:relative;
+	
 }
 </style>
 </head>
@@ -41,7 +53,13 @@ EOF;
 		
 		<div class="main span8">
       		<div id="landing-stack"></div>
-      		<div id="apron"></div>
+      		<div id="apron">
+      			<p class="text">StackLife heat-maps books to reflect how often they’ve been checked out, put on reserve, called back early from a loan, etc.</p>
+      			
+      			<p class="text">Also, it’s not just books. StackLife lets you browse among all of Hollis’ catalog, including DVDs and CDs.</p>
+      			
+      			<p class="text">Work get their dimensions and page count and height found in the catalog record.</p>
+      		</div>
     	</div><!--end main-->
 
 			
