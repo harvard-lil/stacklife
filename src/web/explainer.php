@@ -65,51 +65,106 @@ $(document).ready(function() {
 	position:absolute;
 	width:160px;
 	padding:0 10px 10px;
-	background:#f00;
-	background:rgba(252, 240, 173, .9);
-	text-shadow: 0px 1px #fff;
+	background:#FCF0AD;
+	background:rgba(252, 240, 173, .95);
+	background:#FCF0AD;
 	z-index:9999;
+	font-family:sans-serif;
+	color:#444;
+	font-size:17px;
+	line-height:21px;
    -moz-box-shadow: 0 0 8px #888;
    -webkit-box-shadow: 0 0 8px #888;
 	box-shadow: 0px 0px 8px #888;
+		color:#444;
+
 }
+
 .post-it p {
 	margin-top:10px;
-	font-family:sans-serif;
-
-	font-size:13px;
-	line-height:18px;
+	font-size:17px;
+	
 }
+
+.note1, .note2, .note3, .note4, .note4a, .note5, .note6, .note7 {
+	-webkit-transition: all 150ms ease-in-out;
+-moz-transition: all 150ms ease-in-out; 
+-o-transition: all 150ms ease-in-out; 
+-ms-transition: all 150ms ease-in-out; 
+	color:#444;
+}
+
 .note1 {
-	margin:40px 0 0 0px;
+	margin:40px 0 0 -15px;
+	width:120px;
+		-webkit-transform: rotate(2deg); 
+	-moz-transform: rotate(2deg); 
+	-o-transform: rotate(2deg);
+	-ms-transform: rotate(2deg); 
 }
 
 .note2 {
-	margin:100px 0 0 0px;
+	margin:100px 0 0 -15px;
+	width:120px;
+		-webkit-transform: rotate(1deg); 
+	-moz-transform: rotate(1deg); 
+	-o-transform: rotate(1deg);
+	-ms-transform: rotate(1deg); 
 }
 
 .note3 {
 	margin:275px 0 0 250px;
+	-webkit-transform: rotate(-1deg); 
+	-moz-transform: rotate(-1deg); 
+	-o-transform: rotate(-1deg);
+	-ms-transform: rotate(-1deg); 
 }
 
 .note4 {
 	margin:450px 0 0 250px;
+		-webkit-transform: rotate(-1deg); 
+	-moz-transform: rotate(-1deg); 
+	-o-transform: rotate(-1deg);
+	-ms-transform: rotate(-1deg); 
 }
 
 .note4a {
 	margin:127px 0 0 58px;
+	-webkit-transform: rotate(-1deg); 
+	-moz-transform: rotate(-1deg); 
+	-o-transform: rotate(-1deg);
+	-ms-transform: rotate(-1deg); 
 }
 
 .note5 {
 	margin:-85px 0 0 130px;
+	-webkit-transform: rotate(-1deg); 
+	-moz-transform: rotate(-1deg); 
+	-o-transform: rotate(-1deg);
+	-ms-transform: rotate(-1deg); 
 }
 
 .note6 {
 	margin:-65px 0 0 130px;
+		-webkit-transform: rotate(2deg); 
+	-moz-transform: rotate(2deg); 
+	-o-transform: rotate(2deg);
+	-ms-transform: rotate(2deg); 
 }
 
 .note7 {
-	margin:50px 0 0 130px;
+	margin:50px 0 0 80px;
+		-webkit-transform: rotate(1deg); 
+	-moz-transform: rotate(1deg); 
+	-o-transform: rotate(1deg);
+	-ms-transform: rotate(1deg); 
+}
+
+.note1:hover, .note2:hover, .note3:hover, .note4:hover, .note4a:hover, .note5:hover, .note6:hover, .note7:hover {
+	-webkit-transform: rotate(0deg); 
+	-moz-transform: rotate(0deg); 
+	-o-transform: rotate(0deg);
+	-ms-transform: rotate(0deg); 
 }
 </style>
 
@@ -288,7 +343,7 @@ $(document).ready(function() {
 		 <br/>
     <span class="heading">Subject Stacks</span>
     	<div class="post-it note1">
-      		<p>Click to stack items by LC subject area</p>
+      		<p>Click to stack items by subject area</p>
     	</div>
     <ul>
       {{#if ut_count}}
@@ -301,7 +356,7 @@ $(document).ready(function() {
     <br/>
     <span class="heading">Community Stacks</span>
     	<div class="post-it note2">
-      		<p>Stack items by user interaction, classification or tagging</p>
+      		<p>Add your own label (tags can include spaces)</p>
     	</div>
     <ul>
       {{! <li id="alsoviewed" class="button stack-button"><span class="reload">People who viewed this also viewed these</span></li> }}
