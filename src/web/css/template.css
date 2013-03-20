@@ -101,6 +101,9 @@ p{
 	font-size:.75em;
 }
 
+#itemData p {
+	font-style:sans-serif;
+}
 .heading {
 	font-size:1.1em;
   	display:block;

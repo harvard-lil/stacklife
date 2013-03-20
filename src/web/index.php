@@ -51,7 +51,7 @@ EOF;
 			</div>
 			<br/>
 			<div class="about-button">
-				<a href="<?php echo $www_root ?>/about" class="heading">The StackLife Experiment</a>
+				<a href="<?php echo $www_root ?>/about" class="heading">About</a>
 			</div>
 		</div><!--end-span4-negative-->
 

@@ -72,16 +72,16 @@ $(document).ready(function() {
    -moz-box-shadow: 0 0 8px #888;
    -webkit-box-shadow: 0 0 8px #888;
 	box-shadow: 0px 0px 8px #888;
-
 }
 .post-it p {
 	margin-top:10px;
-	font-style:sans-serif;
+	font-family:sans-serif;
+
 	font-size:13px;
 	line-height:18px;
 }
 .note1 {
-	margin:20px 0 0 0px;
+	margin:40px 0 0 0px;
 }
 
 .note2 {
@@ -89,18 +89,26 @@ $(document).ready(function() {
 }
 
 .note3 {
-	margin:350px 0 0 250px;
+	margin:275px 0 0 250px;
 }
 
 .note4 {
-	margin:-85px 0 0 130px;
+	margin:450px 0 0 250px;
+}
+
+.note4a {
+	margin:127px 0 0 58px;
 }
 
 .note5 {
-	margin:-65px 0 0 130px;
+	margin:-85px 0 0 130px;
 }
 
 .note6 {
+	margin:-65px 0 0 130px;
+}
+
+.note7 {
 	margin:50px 0 0 130px;
 }
 </style>
@@ -142,7 +150,14 @@ $(document).ready(function() {
       		<div class="post-it note3">
       			<p>Depth of the color blue indicates amount of use by the Harvard community since 2002</p>
       			
-      			<p>We call this StackScore</p>
+      			<p>We call this &quot;StackScore&quot;</p>
+      		</div>
+      		
+      		<div class="post-it note4">
+      			<p>Thickness of the book is based on page count, length indicates the actual length</p>
+      		</div>
+      		<div class="post-it note4a">
+      			<p>Navigate the stack by clicking arrows, scrolling or swiping</p>
       		</div>
       	<!-- -->
 			<div id="fixedstack"></div>
@@ -184,8 +199,8 @@ $(document).ready(function() {
     {{{creators}}}
     </div>
     <img class="cover-image" src="http://covers.openlibrary.org/b/isbn/{{isbn}}-M.jpg" />
-    	<div class="post-it note4">
-      		<p>Go to the item&apos;s entry in HOLLIS, or find it in Google Books or Amazon</p>
+    	<div class="post-it note5">
+      		<p>Go to the item&apos;s entry in Hollis, or find it in Google Books or Amazon</p>
       	</div>
     <ul class="access">
       <li><a href="http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|{{id_inst}}" target="_blank">HOLLIS</a></li>
@@ -203,7 +218,7 @@ $(document).ready(function() {
     </ul>
 
 		<div id="availability-panel"></div>
-	    <div class="post-it note5">
+	    <div class="post-it note6">
       		<p>Check availability across Harvard libraries</p>
       	</div>	    	
     <h3 class="imprint">{{#if pub_location}}{{pub_location}}{{/if}}{{#if publisher}}, {{publisher}}{{/if}}{{#if pub_date}}, {{pub_date}}{{/if}}</h3>
@@ -219,7 +234,7 @@ $(document).ready(function() {
     </div>
     
 
-    	    <div class="post-it note6">
+    	    <div class="post-it note7">
       		<p>StackScore represents community usage, 1 - 100</p>
       	</div>
     <h3 class="clickable slide-more toc-title">Table of Contents<span class="arrow"></span></h3>
@@ -273,7 +288,7 @@ $(document).ready(function() {
 		 <br/>
     <span class="heading">Subject Stacks</span>
     	<div class="post-it note1">
-      		<p>Stack items by LC subject area</p>
+      		<p>Click to stack items by LC subject area</p>
     	</div>
     <ul>
       {{#if ut_count}}
