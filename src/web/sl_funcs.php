@@ -190,7 +190,7 @@ function text_call_num()
   require 'includes/class.phpmailer.php';
   
   $mail = new PHPMailer(true);
-  $mail->SetFrom("shelflife@law.harvard.edu", 'ShelfLife');
+  $mail->SetFrom("lil@law.harvard.edu", 'StackLife');
   $mail->AddAddress($to);
   $mail->Body = $msg;
   
