@@ -58,7 +58,7 @@ $(document).ready(function() {
 		$('.subject-button:first').addClass('selected-button');
 	}
 	else if(anchor_subject === '') {
-		$('#fixedstack').text('Sorry, no Library of Congress call number or subject neighborhood found.');
+		$('#fixedstack').html("<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><b>Sorry</b>, no Library of Congress call number or <br/>subject neighborhood found.");
 	}
 	
 	$('.stackview').css('height', stackheight);

@@ -52,8 +52,8 @@ EOF;
 					StackLife lets you switch contexts just by clicking. The default stack shows the item in its primary subject classification. But since most works have been classified under more than one subject heading, you can click on any of those headings and see it grouped with those neighbors.</p>
 					
 					<div class="about-button">
-						<img class="stamp" src="images/liblabstampmed.png">
-						<a href="http://librarylab.law.harvard.edu/" class="heading">Made by The Harvard Library Innovation Lab</a>
+						<a href="http://librarylab.law.harvard.edu/" class="heading"><img class="stamp" src="images/liblabstampmed.png">
+						Made by The Harvard Library Innovation Lab</a>
 					</div>
 				</div><!--end call-out-->
 			</div>
@@ -67,7 +67,7 @@ EOF;
 					<br/>
 					
 					<div class="about-button">
-						<a href="<?php echo $www_root ?>/explainer.php" class="heading">Try Out the Explainer Page</a>
+						<a href="<?php echo $www_root ?>/explainer.php" class="heading">How it works</a>
 					</div>
 					<br/>
 					<div class="about-button">

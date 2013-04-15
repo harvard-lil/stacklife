@@ -95,7 +95,7 @@ var config = (function () {
     uri_params = util.get_uri_params();
 
     my.start = 0;
-    my.limit = 20;
+    my.limit = 15;
     my.sort_field = 'shelfrank';
     my.sort_direction = 'desc'
 	

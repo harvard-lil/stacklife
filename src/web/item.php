@@ -166,14 +166,14 @@ $(document).ready(function() {
       <span class="shelfRank">{{shelfrank}}</span>
     </div><!--end shelfRankCalc-->
   </div><!--end all-rank-->
-  <!--<div id="rank-math" class="slide-content" style="display:none;">
+  <div id="rank-math" class="slide-content" style="display:none;">
     <ul>
       <li><p>Faculty checkouts: {{score_checkouts_fac}}</p></li>
       <li><p>Undergrad checkouts: {{score_checkouts_undergrad}}</p></li>
       <li><p>Graduate checkouts: {{score_checkouts_grad}}</p></li>
       <li><p>Holding libraries: {{score_holding_libs}}</p></li>
     </ul>
-  </div>end rank-math-->
+  </div>
 
   </script> 
   <script id="availability-template" type="text/x-handlebars-template">

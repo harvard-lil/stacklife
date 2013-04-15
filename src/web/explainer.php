@@ -69,9 +69,9 @@ $(document).ready(function() {
 	background:rgba(252, 240, 173, .95);
 	background:#FCF0AD;
 	z-index:9999;
-	font-family:sans-serif;
+	font-family:courier;
 	color:#444;
-	font-size:17px;
+	font-size:14px;
 	line-height:21px;
    -moz-box-shadow: 0 0 8px #888;
    -webkit-box-shadow: 0 0 8px #888;
@@ -82,7 +82,9 @@ $(document).ready(function() {
 
 .post-it p {
 	margin-top:10px;
-	font-size:17px;
+	font-size:14px;
+	line-height:20px;
+	font-family:courier;
 	
 }
 

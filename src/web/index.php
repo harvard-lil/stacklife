@@ -23,7 +23,6 @@ EOF;
 		<div class="group span2 middle-position">
 			
 			 <?php require_once('includes/logo.php');?>
-
 		
 		</div><!--end logo include-->
 		
@@ -33,6 +32,9 @@ EOF;
 
 			
 		<div class="span4-negative middle-position-search">
+		<div class="dive-in">
+			<span class="text cyan"> &larr; Click a book to dive into the stacks</span></p>
+		</div>	
 			<form id="search2" method="get" action="<?php echo $www_root?>/search">
             	<input type="hidden" style="display:none" name="search_type" value="keyword"/>
             	<input type="text" autofocus="autofocus" name="q" placeholder="Search"/>
@@ -41,13 +43,14 @@ EOF;
 			<a id="inline" href="#advanced" style="display:none">Advanced Search</a>
 			<a href="<?php echo $www_root?>/search?advanced=true" class="button advanced-search2">Advanced Search</a>  
 			<br/>
+			
 			<p class="text">Welcome to a StackLife, a new way to browse the Harvard Library collection.</p> 
-			<p class="text">This is a prototype. We’re eager to hear from you about what works, what doesn’t, and what you’d like to see. Email us at <span class="cyan">lil@law.harvard.edu</span>!</p>
+			<p class="text"><span class="cyan">This is a prototype.</span> We’re eager to hear from you about what works, what doesn’t, and what you’d like to see. Email us at <span class="cyan">lil@law.harvard.edu</span>!</p>
 			<br/>
 		
 			
 			<div class="about-button">
-				<a href="<?php echo $www_root ?>/explainer.php" class="heading">Explainer Page</a>
+				<a href="<?php echo $www_root ?>/explainer.php" class="heading">How it works</a>
 			</div>
 			<br/>
 			<div class="about-button">

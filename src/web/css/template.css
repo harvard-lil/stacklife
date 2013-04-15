@@ -274,7 +274,7 @@ hr {
 .red {
 	border:1px solid red;
 }
-#navigation {
+#navigation, #navigation2 {
     float:right;
 	width:105px;
 	height:0px;
@@ -282,6 +282,10 @@ hr {
    -webkit-user-select: none;
    -moz-user-select:none;
 	user-select:none;
+}
+
+#navigation2 {
+	margin-bottom:40px;
 }
 
 .authorData-container {
@@ -414,8 +418,9 @@ hr {
 .stamp {
 	position:relative;
 	float:right;
-	margin:4px 8px 0 0;
+	margin:3px 8px 0 0;
 	z-index:1;
+	width:50px;
 }
 .indent1 {
 	margin-left:30px;
@@ -428,7 +433,7 @@ hr {
 #all-rank {
 	font-size:1em;
 	margin:5px 0 0px; 
-	/*cursor:pointer;*/
+	cursor:pointer;
 }
 
 #shelfRankCalc {
@@ -1416,7 +1421,11 @@ input.advanced-go {
 
 .middle-position-search {
 	position:relative;
-	top:192px;
+	top:140px;
+}
+
+.dive-in {
+	margin-bottom:67px;
 }
 
 .advanced-dropdown {

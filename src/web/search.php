@@ -108,6 +108,13 @@ var www_root = '<?php echo $www_root ?>';
     	    {{/stripes}}
     		</tbody>
     	</table>
+    	<div id="navigation2" class="span3">
+             	 <div id="arrows" class="search-paging">
+            		<div class="prev-page" alt="previous books button"></div>
+            		<div class="subject-hits empty"></div>
+            		<div class="next-page" alt="next books button"></div>
+            	 </div>	
+        	</div> <!-- end navigation -->  
     	{{/if}}
 	</script>
 	
