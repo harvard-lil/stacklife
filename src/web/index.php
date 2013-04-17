@@ -44,7 +44,7 @@ EOF;
 			<a href="<?php echo $www_root?>/search?advanced=true" class="button advanced-search2">Advanced Search</a>  
 			<br/>
 			
-			<p class="text">Welcome to a StackLife, a new way to browse the Harvard Library collection.</p> 
+			<p class="text">Welcome to StackLife, a new way to browse the Harvard Library collection.</p> 
 			<p class="text"><span class="cyan">This is a prototype.</span> We’re eager to hear from you about what works, what doesn’t, and what you’d like to see. Email us at <span class="cyan">lil@law.harvard.edu</span>!</p>
 			<br/>
 		
