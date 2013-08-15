@@ -64,27 +64,27 @@ $(document).ready(function() {
 <!-- /////////////////// BODY ////////////////////////// -->
 <body>
   	<div class="container group row">
-				
+
 		<div style="display:none;">
 			<div id="viewerCanvas" style="width: 610px; height: 725px"></div>
 		</div> <!--end hidden viewerCanvas-->
 
 
 		<div id="contextData" class="group span2">
-		
+
 			<?php require_once('includes/logo.php');?>
-		
+
         	<div id="overlay-buttons">
           		<div id="shelves-panel"></div>
           		<div id="tagGraph"></div>
     		</div><!--end overlay-buttons-->
-    		
+
         	<form id="book-tags-form" method="post">
       			<input type="text" id="bookTags" name="bookTags" class="required" onfocus="if (this.value=='tag it') this.value = ''" type="text" value="tag it"/>
-            	
+
             	<input type="submit" name="submit_tags"  id="submit_tags" value="Go!"/>
         	</form>
-        		
+
         	<div class="book-tag-success"><p><span style="display:none;"></span></p></div>
       	</div><!-- end contextData -->
 
@@ -92,32 +92,32 @@ $(document).ready(function() {
       	<div class="main span8">
 			<div id="fixedstack"></div>
       	</div><!-- end main-->
-		
+
 		<div class="span4-negative offset6">
 			<?php require_once('includes/searchbox.php');?>
-			<div id="item-panel" class="itemData-container"></div>   
-		</div> 
-                
+			<div id="item-panel" class="itemData-container"></div>
+		</div>
+
       <div id="contextData" class="group">
         <div id="overlay-buttons">
           <div id="shelves-panel"></div>
-  
+
           <div id="tagGraph"></div>
         </div><!--end overlay-buttons-->
-          
-       
-        
+
+
+
       <div id="fixedclear"></div>
     </div> <!--end container-content-->
   </div><!--end container-->
 
 
 	<!-- //////////begin templates//////////////////// -->
-	
+
 
   <script id="gbscript" type="text/javascript" src="http://books.google.com/books?jscmd=viewapi&bibkeys=OCLC:<?php echo $oclcnum ?>,ISBN:<?php echo $isbn_trim ?>&callback=ProcessGBSBookInfo"></script>
   </div> <!--end wrapper-->
-   
+
   <script id="item-template" type="text/x-handlebars-template">
   <div id="itemData">
     <h1 class="home-stack">
@@ -134,19 +134,31 @@ $(document).ready(function() {
       {{/if}}
       <li class="button-google-disabled"><a class="button-google-disabled" href="#viewerCanvas"><img src="<?php echo $www_root ?>/images/gbs_preview_disabled.png" /></a></li>
       <li class="button-google"><a id="gviewer" class="button-google" href="#viewerCanvas" style="display:none;"><img src="<?php echo $www_root ?>/images/gbs_preview.png" border="0" /></a></li>
-      <li><a id="amzn" href="http://www.amazon.com/dp/{{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/amazon.png" alt="Amazon"/></a></li>   
-      {{#if wp_url}}          	
+      <li><a id="amzn" href="http://www.amazon.com/dp/{{isbn}}" target="_blank"><img class="buy" src="<?php echo $www_root ?>/images/amazon.png" alt="Amazon"/></a></li>
+      {{#if wp_url}}
        <li><a href="{{wp_url}}" target="_blank" ><img src="<?php echo $www_root ?>/images/wikipedia.png" /></a></li>
       {{/if}}
-  
-     
+
+
     </ul>
+
+{{#if npr_url}}
+<ul style='clear:both;'>
+<div>
+<img src="<?php echo $www_root ?>/images/npr.png" alt="Smiley face" width=60>
+      <audio controls>
+      <source src="{{npr_url}}" type="audio/mp3">
+Your browser does not support the audio element.
+</audio>
+</div>
+</ul>
+{{/if}}
 		<div id="availability-panel"></div>
-		
+
     <h3 class="imprint">{{#if pub_location}}{{pub_location}}{{/if}}{{#if publisher}}, {{publisher}}{{/if}}{{#if pub_date}}, {{pub_date}}{{/if}}</h3>
-    
+
     <h3 class="clickable advanced-data slide-more">Advanced Bibliographic Data<span class="arrow"></span></h3>
-    
+
     <div class="advanced-data-box slide-content" style="display:none;">
       <ul>
         <li class="advanced-isbn"><p>ISBN: {{isbn}}</p></li>
@@ -154,13 +166,13 @@ $(document).ready(function() {
         <li class="advanced-language"><p>Language: {{language}}</p></li>
       </ul>
     </div>
-    
+
     <h3 class="clickable slide-more toc-title">Table of Contents<span class="arrow"></span></h3>
     <div class="slide-content" style="display:none;">
       <div id="toc"></div>
     </div>
     </div>
-    <div id="all-rank" class="slide-more">	            
+    <div id="all-rank" class="slide-more">
     <div id="shelfRankCalc" class="button-shelfRank">
       <span class="unpack">StackScore</span>
       <span class="shelfRank">{{shelfrank}}</span>
@@ -175,7 +187,7 @@ $(document).ready(function() {
     </ul>
   </div>
 
-  </script> 
+  </script>
   <script id="availability-template" type="text/x-handlebars-template">
     <span class="button-availability {{#if any_available}}available-button{{else}}not-available-button{{/if}} slide-more"><span class="icon"></span>Availability<span class="arrow"></span></span>
 		<div id="availability" class="slide-content availibility-slide-content" style="display:none;">
