@@ -7,7 +7,7 @@ $(document).ready(function() {
 		  }
 	  });
   }
-	
+
 	// Fetch data about the item
 	$.ajax({
   		url: www_root + '/translators/item.php',
@@ -19,7 +19,7 @@ $(document).ready(function() {
   				loc_call_num_sort_order = data.docs[0].loc_call_num_sort_order[0];
   			uniform_count = data.docs[0].ut_count;
   			uniform_id = data.docs[0].ut_id;
-  			if (data.docs[0].lcsh != undefined) { 
+  			if (data.docs[0].lcsh != undefined) {
 				$.each(data.docs[0].lcsh, function(i, item) {
 					//item = item.replace(/\.\s*$/, '');
 					if(anchor_subject === '') {
@@ -60,23 +60,23 @@ $(document).ready(function() {
 	else if(anchor_subject === '') {
 		$('#fixedstack').html("<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><b>Sorry</b>, no Library of Congress call number or <br/>subject neighborhood found.");
 	}
-	
+
 	$('.stackview').css('height', stackheight);
 
 	$('.slide-more').live('click', function() {
 		$(this).next('.slide-content').slideToggle();
 		$(this).find('.arrow').toggleClass('arrow-down');
 	});
-	
+
 	$('.sms').live('click', function() {
 
 		//find item locations
-	
+
 		var location = $(this).parent().find('.callno:first').text();
-	
+
 		//build form
-		var html = ""; 
-		if(location.length>0) {	
+		var html = "";
+		if(location.length>0) {
 			html = "<div id='wrap'><p>" + location + "<br />" + title + "</p><br /><form id='form'><input id='smstitle' type='hidden' value='" + title + "' /><input id='smslibrary' type='hidden' value='" + location + "' /><input id='smsnumber' type='text' size='12' maxlength='12' placeholder='your number' />";
 			html += "<select id='smscarrier'><option>Select a Carrier</option>";
 			html += "<option value=@txt.att.net>AT&T</option>";
@@ -96,12 +96,12 @@ $(document).ready(function() {
 
 	// When an item in the stack is clicked, we update the book panel here
 	function draw_item_panel(item_details) {
-	
+
 		// set our global var
 		loc_call_num_sort_order = item_details.loc_call_num_sort_order;
 		title = item_details.title;
 		uid = item_details.id;
-		
+
 		// update our window title
 		document.title = title + ' | StackLife';
 
@@ -136,11 +136,19 @@ $(document).ready(function() {
 
 			item_details.creators = creator_markup_list.join('<span class="divider"> | </span>');
 		}
-		
- if(item_details.rsrc_key && item_details.rsrc_key.length > 0) {
-			$.each(item_details.rsrc_key, function(i, item){
-				if(item == 'wikipedia_org')
-				  item_details.wp_url = item_details.rsrc_value[i];
+
+        if(item_details.source_record.rsrc_key && item_details.source_record.rsrc_key.length > 0){
+            var isArray = Array.isArray || function(obj) {
+                return Object.prototype.call(obj) == '[object Array]';
+            };
+            if (!isArray(item_details.source_record.rsrc_key)){
+                item_details.source_record.rsrc_key = [item_details.source_record.rsrc_key];
+            };
+			$.each(item_details.source_record.rsrc_key, function(i, item){
+                    if(item == 'wikipedia_org')
+                        item_details.wp_url = item_details.source_record.rsrc_value[i];
+                    if(item == 'npr_org_broadcast')
+                        item_details.npr_url = item_details.source_record.rsrc_value[i];
 			});
 		}
 
@@ -159,19 +167,19 @@ $(document).ready(function() {
 		if (item_details.id_isbn && item_details.id_isbn[0] && item_details.id_isbn[0].split(' ')[0]) {
 			isbn = item_details.id_isbn[0].split(' ')[0];
 		}
-		
+
 		item_details.isbn = isbn;
 
 		var oclc = '';
 		if (item_details.id_oclc) {
 			oclc = item_details.id_oclc;
 		}
-		
+
 		item_details.oclc = oclc;
-		
+
 		var gbsrc = 'http://books.google.com/books?jscmd=viewapi&bibkeys=OCLC:' + oclc + ',ISBN:' + isbn + '&callback=ProcessGBSBookInfo';
-		$("#gbscript").attr('src', gbsrc);		
-		
+		$("#gbscript").attr('src', gbsrc);
+
 		GBSArray = ['ISBN:' + isbn, 'OCLC:' + oclc];
 		$.getScript($("#gbscript").attr('src'));
 
@@ -188,11 +196,11 @@ $(document).ready(function() {
 		var source = $("#item-template").html();
 		var template = Handlebars.compile(source);
     $('#item-panel').html(template(item_details));
-    
+
     var source = $("#shelves-template").html();
 		var template = Handlebars.compile(source);
     $('#shelves-panel').html(template(item_details));
-    
+
     $.getJSON(www_root + '/translators/availability.php?id=' + item_details.id_inst, function(data) {
       if(data) {
         var source = $("#availability-template").html();
@@ -200,7 +208,7 @@ $(document).ready(function() {
         $('#availability-panel').html(template(data));
       }
     });
-    
+
     $("#toc").html('');
     if('505a' in item_details.source_record) {
         var sr = item_details.source_record;
@@ -213,7 +221,7 @@ $(document).ready(function() {
     } else {
         $(".toc-title").hide();
     }
-		
+
 		// If we have our first isbn, get affiliate info. if not, hide the DOM element
 		if (isbn) {
 			$.ajax({
@@ -232,7 +240,7 @@ $(document).ready(function() {
 		} else {
 			$('.buy').hide();
 		}
-		
+
 		if(item_details.this_button) {
       $(".reload:contains('" + item_details.this_button + "')").parent().addClass('selected-button');
     }
@@ -287,7 +295,7 @@ $(document).ready(function() {
 	  $(this).addClass('selected-button');
 		$('#fixedstack').stackView({url: www_root + '/translators/cloud.php', search_type: 'lcsh', query: $(this).text(), ribbon: $(this).text()});
 	});
-	
+
 	$('.wp_category-button').live('click',function() {
 	  $('.selected-button').removeClass('selected-button');
 	  $(this).addClass('selected-button');
@@ -365,8 +373,8 @@ function ProcessGBSBookInfo(booksInfo) {
 				$("a#gviewer").fancybox({
 					'onStart' : initialize
 				});
-			} 
-        } 
+			}
+        }
     }
 }
 
@@ -379,7 +387,7 @@ function initialize() {
   viewer.load(GBSArray, alertNotFound);
 }
 
-function launchDialog(html){ 
+function launchDialog(html){
 	var $dialog = $('<div class="remove"></div>')
 		.html(html)
 		.dialog({
@@ -388,7 +396,7 @@ function launchDialog(html){
 			modal: true,
 			resizable: false,
 			width: 450 ,
-			buttons: { 'Text me': function() { 
+			buttons: { 'Text me': function() {
 				var data = 'number=' + $('#smsnumber').val();
 				data += '&carrier=' + $('#smscarrier').val();
 				data += '&library=' + $('#smslibrary').val();
@@ -402,10 +410,10 @@ function launchDialog(html){
 					}
 				});
 				$(this).dialog('close');
-			}} 
+			}}
 		});
 	$dialog.dialog('open');
-	kill = 0;	
+	kill = 0;
 }
 
 // Here we pad any values less than 10 with a 0
