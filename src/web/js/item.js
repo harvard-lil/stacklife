@@ -141,9 +141,12 @@ $(document).ready(function() {
             var isArray = Array.isArray || function(obj) {
                 return Object.prototype.call(obj) == '[object Array]';
             };
+
             if (!isArray(item_details.source_record.rsrc_key)){
                 item_details.source_record.rsrc_key = [item_details.source_record.rsrc_key];
+                item_details.source_record.rsrc_value = [item_details.source_record.rsrc_value];
             };
+
 			$.each(item_details.source_record.rsrc_key, function(i, item){
                     if(item == 'wikipedia_org')
                         item_details.wp_url = item_details.source_record.rsrc_value[i];

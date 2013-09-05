@@ -147,7 +147,7 @@ $(document).ready(function() {
 <div>
 <img src="<?php echo $www_root ?>/images/npr.png" alt="Smiley face" width=60>
       <audio controls>
-      <source src="{{npr_url}}" type="audio/mp3">
+<source src="{{npr_url}}" type="audio/mpeg">
 Your browser does not support the audio element.
 </audio>
 </div>
