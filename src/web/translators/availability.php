@@ -65,16 +65,16 @@ foreach($avail->branch as $branch) {
 	$library = (string) $branch->repository->name;
 	foreach($branch->collection as $collection) {
 	  $depository = false;
-	  $call = (string) $collection->callnumber;
 	  $coll = (string) $collection->collectionname;
+	  $call = (string) $collection->holding->callnumber;
 	  if($coll == 'Harvard Depository')
 	    $depository = true;
-		foreach($collection->items->itemrecord as $itemrecord) {
+		foreach($collection->holding->items->itemrecord as $itemrecord) {
 		  if($itemrecord->call != '')
 		    $call = (string) $itemrecord->call;
 		  $status = (string) $itemrecord->stat;
-		  $isavail = (string) $itemrecord->isavail;
-		  if($isavail == 'Y') {
+		  //$isavail = (string) $itemrecord->isavail;
+		  if($status == 'Not checked out | Regular loan' || $status == 'Not checked out | 28-day loan'||  $status == 'Not checked out | 7-day loan' || $depository) {
 		    $any_available = 'true';
 		    $thisavail = true;
 		  }
