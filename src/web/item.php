@@ -128,7 +128,7 @@ $(document).ready(function() {
     </div>
     <img class="cover-image" src="http://covers.openlibrary.org/b/isbn/{{isbn}}-M.jpg" />
     <ul class="access">
-      <li><a href="http://holliscatalog.harvard.edu/?itemid=|library/m/aleph|{{id_inst}}" target="_blank">HOLLIS</a></li>
+      <li><a href="http://id.lib.harvard.edu/aleph/{{id_inst}}/catalog" target="_blank">HOLLIS</a></li>
       {{#if url}}
       <li><a href="{{url}}">Online Access</a></li>
       {{/if}}
@@ -195,9 +195,7 @@ Your browser does not support the audio element.
 		  {{#items}}
 		    <li class="{{#if available}}available{{else}}not-available{{/if}}">
 		      <span class="callno">{{library}} [{{call_num}}]</span>
-		      {{#if depository}}<a class="small-button" href="{{request}}">REQUEST</a>{{else}}
-		      {{#if available}}<span class="small-button sms">SMS</span>{{else}}
-		      {{#if request}}<a class="small-button" href="{{request}}">REQUEST</a>{{/if}}{{/if}}{{/if}}<br />
+		      {{#if available}}<span class="small-button sms">SMS</span>{{/if}}<br />
 		      {{status}}
 		    </li>
 		  {{/items}}
